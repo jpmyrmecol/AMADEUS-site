@@ -1,0 +1,65 @@
+/* Native radio controls keep OS selection usable without JavaScript. */
+.install-os-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1rem 1rem .7rem;
+}
+.install-os-tabs > .install-os-choice {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.install-os-tabs > label {
+  display: block;
+  padding: .8rem .4rem;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  color: #52666b;
+  border-bottom: 3px solid #dbe5e7;
+}
+.install-os-tabs > label:hover { background: #edf5f5; }
+.install-os-tabs > input:checked + label {
+  color: #075e64;
+  border-bottom-color: #075e64;
+  background: #eaf3f4;
+}
+.install-os-tabs > input:focus-visible + label {
+  outline: 2px solid #075e64;
+  outline-offset: -4px;
+}
+.install-os-tabs > .install-os-panel {
+  display: none;
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: .3rem 0;
+}
+#install-os-windows:checked ~ .install-os-windows,
+#install-os-macos:checked ~ .install-os-macos,
+#install-os-linux:checked ~ .install-os-linux { display: block; }
+.install-os-panel pre { overflow-x: auto; }
+
+.installer-downloads {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .6rem;
+  margin: 1.2rem 0;
+}
+.installer-downloads > a {
+  display: block;
+  padding: .9rem .3rem;
+  border-radius: .55rem;
+  background: #075e64;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+}
+.installer-downloads > a:hover { background: #03464b; color: #fff; }
+.installer-downloads > a:focus-visible { outline: 3px solid #d49a24; outline-offset: 3px; }
+.installer-downloads span { display: block; margin-top: .25rem; font-size: .75rem; font-weight: 400; }

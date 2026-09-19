@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+}
+</script><title>AMADEUS 1.0.0 User Manual</title><style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #566270;
+      --paper: #ffffff;
+      --soft: #f3f7f8;
+      --line: #d9e2e5;
+      --brand: #0b6f75;
+      --brand-dark: #084e53;
+      --accent: #e6a83c;
+      --code: #edf3f4;
+      --shadow: 0 18px 48px rgba(18, 45, 52, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+        "Yu Gothic UI", Meiryo, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--brand);
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover {
+      color: var(--brand-dark);
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.5rem;
+      left: 0.5rem;
+      z-index: 10;
+      padding: 0.55rem 0.8rem;
+      background: var(--ink);
+      color: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 17rem minmax(0, 58rem);
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    aside {
+      position: sticky;
+      top: 2rem;
+      align-self: start;
+      max-height: calc(100vh - 4rem);
+      overflow: auto;
+      padding: 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      margin: 0;
+      color: var(--brand-dark);
+      font-size: 1.65rem;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .version {
+      display: inline-block;
+      margin: 0.6rem 0 1rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      background: #dceff0;
+      color: var(--brand-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.28rem 0;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    nav a:hover {
+      color: var(--brand);
+    }
+
+    main {
+      min-width: 0;
+      padding: 3rem clamp(1.2rem, 4vw, 4rem);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      margin: -3rem clamp(-4rem, -4vw, -1.2rem) 2.5rem;
+      padding: 3rem clamp(1.2rem, 4vw, 4rem);
+      border-radius: 1rem 1rem 0 0;
+      background:
+        radial-gradient(circle at 92% 18%, rgba(230, 168, 60, 0.35), transparent 28%),
+        linear-gradient(135deg, #084e53, #0b777d);
+      color: white;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.4rem;
+      color: #d6f3f3;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.16;
+    }
+
+    .hero p:last-child {
+      max-width: 44rem;
+      margin: 1rem 0 0;
+      font-size: 1.05rem;
+    }
+
+    section {
+      scroll-margin-top: 1.5rem;
+      margin: 3.2rem 0;
+    }
+
+    h2[id] {
+      scroll-margin-top: 4.9rem;
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--line);
+      color: var(--brand-dark);
+      font-size: 1.62rem;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 1.8rem 0 0.65rem;
+      color: var(--brand-dark);
+      font-size: 1.15rem;
+    }
+
+    p {
+      margin: 0.7rem 0;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    li + li {
+      margin-top: 0.35rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+    }
+
+    .note {
+      margin: 1rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 0.35rem;
+      background: #fff8e9;
+    }
+
+    .table-wrap {
+      margin: 1rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 0.65rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf3f4;
+      color: var(--brand-dark);
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 0.08em 0.35em;
+      border-radius: 0.25rem;
+      background: var(--code);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.9em;
+      overflow-wrap: anywhere;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.45rem;
+      background: var(--soft);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 880px) {
+      .layout {
+        display: block;
+        padding: 0;
+      }
+
+      aside {
+        position: static;
+        max-height: none;
+        border-width: 0 0 1px;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 1rem;
+      }
+
+      main {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        border-radius: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .layout {
+        display: block;
+        padding: 0;
+      }
+
+      aside,
+      .links {
+        display: none;
+      }
+
+      main {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        margin: 0 0 2rem;
+        padding: 1.5rem;
+      }
+
+      section {
+        break-inside: avoid-page;
+      }
+    }
+  
+    summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    details {margin:0.8rem 0;border:1px solid var(--line);border-radius:0.65rem;background:var(--paper);}
+    summary {cursor:pointer;padding:0.75rem 1rem;color:var(--brand-dark);font-weight:600;background:var(--soft);border-radius:0.65rem;}
+    details[open] summary {border-bottom:1px solid var(--line);border-radius:0.65rem 0.65rem 0 0;}
+    .details-content {padding:0.25rem 1rem 0.7rem;}
+    .table-wrap td {overflow-wrap:anywhere;}
+
+    .topbar {position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1.5rem;height:4.6rem;padding:0 clamp(0.9rem,4vw,2.5rem);border-bottom:1px solid var(--line);background:rgba(255,255,255,0.94);backdrop-filter:saturate(1.4) blur(8px);}
+    .topbar-brand {display:inline-flex;align-items:center;text-decoration:none;}
+    .topbar-brand img {height:2.7rem;width:auto;display:block;}
+    .navgroup {display:flex;align-items:center;gap:1rem;margin-left:auto;}
+    .langs {display:flex;gap:0.4rem;}
+    .langs a {display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:1.85rem;border:1px solid var(--line);border-radius:0.4rem;background:var(--paper);transition:background .15s,border-color .15s;}
+    .langs a:hover {background:#eaf3f4;border-color:var(--brand);}
+    .langs a[aria-current="true"] {background:#dceff0;border-color:var(--brand);}
+    .langs svg {width:1.6rem;height:1.1rem;display:block;border:1px solid var(--line);}
+    .langs a:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    .tabs {display:flex;gap:0.35rem;}
+    .tabs a {padding:0.42rem 1.05rem;border:1px solid transparent;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:600;white-space:nowrap;}
+    .tabs a:hover {background:var(--soft);color:var(--brand-dark);}
+    .tabs a[aria-current="page"] {border-color:var(--brand);background:#dceff0;color:var(--brand-dark);}
+    .tabs a:focus-visible,.topbar-brand:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    aside {top:6.1rem;max-height:calc(100vh - 8.1rem);}
+    section {scroll-margin-top:1.5rem;}
+    @media (max-width:880px){aside{top:auto;max-height:none;}}
+    @media (max-width:720px){.topbar{height:auto;flex-wrap:wrap;gap:0.5rem 1rem;padding-top:0.6rem;padding-bottom:0.6rem;}.navgroup{margin-left:auto;}.tabs{width:100%;}.tabs a{flex:1;text-align:center;padding-inline:0.5rem;}h2[id]{scroll-margin-top:7.2rem;}}
+    @media print{.topbar{display:none;}}
+</style><link rel="stylesheet" href="install-tabs.css"></head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="Manual_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.0.0</span><nav><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.0.0</p><h1>AMADEUS<br>User Manual</h1><p>Track individual animals and estimate their front directions without manual training annotation.</p></header>
+<p>AMADEUS (Annotation-free Multi-Animal Direction Estimation Using Self-supervised learning) learns from the input video. It estimates an oriented bounding box (OBB) for each animal and maintains individual identities over time. Each OBB describes body position and approximate shape. Front direction identifies which end of the body axis points toward the front and is reported as an angle in degrees.</p>
+<section><h2 id="section-1">1. Launch</h2>
+<p>Download and run the installer for your operating system. Git is not required. On macOS, a compatible Python installation is required as described below.</p>
+<div class="installer-downloads" role="group" aria-label="Installers by operating system">
+<a href="AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
+<a href="AMADEUS-Setup.command" download>macOS<span>Apple Silicon</span></a>
+<a href="AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
+</div>
+<p class="note"><strong>AMADEUS has not yet been extensively tested on macOS or Linux.</strong> If you encounter an error, please contact Yusuke Notomi at jpmyrmecol [at] gmail.com and include your operating system, installation method, and the error message.</p>
+<p>The installer downloads AMADEUS and prepares the required environment, then opens the Home screen. An internet connection is required. Windows and Linux launchers also prepare Python automatically.</p>
+<details><summary>How to open the downloaded file</summary><div class="details-content">
+<p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut.</p>
+<p><strong>macOS:</strong> open <code>AMADEUS-Setup.command</code>. A downloaded file may not have permission to run. If needed, type <code>chmod +x </code> in Terminal, drag the downloaded file into the Terminal window, press Enter, and open the file again. If macOS blocks opening it, check System Settings → Privacy &amp; Security.</p>
+<p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required.</p>
+<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. The launcher checks compatible Python installations in the standard Python framework directory. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p>
+<p>On macOS and Linux, run the same downloaded launcher for subsequent sessions. It uses the existing AMADEUS installation.</p>
+</div></details>
+<details><summary>Install using Git (Windows, macOS, Linux)</summary>
+<div class="install-os-tabs" role="group" aria-label="Choose your operating system">
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
+<p>With <a href="https://git-scm.com/downloads">Git</a> installed, open <strong>Command Prompt (cmd)</strong> in your preferred installation directory and run this one line (Windows 10 / 11). The directory must not already contain an <code>AMADEUS</code> folder.</p>
+<pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; AMADEUS.bat</code></pre>
+<p>The launcher automatically prepares uv, Python, and the required packages, then opens the home screen. Initial setup requires an internet connection.</p>
+<p>For subsequent launches, open a new Command Prompt and run the following. Keep the created <code>AMADEUS</code> folder in place.</p>
+<pre><code>amadeus</code></pre>
+</div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>With Git installed, run the following command in a terminal in the directory where you want to install AMADEUS.</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>The supplied environment targets Apple Silicon. Intel Macs are not supported by the bundled PyTorch 2.7.1 configuration. Launch without Rosetta.</p><p>Open <code>AMADEUS.command</code>. If permission to run the file is denied, run <code>chmod +x AMADEUS.command AMADEUS.sh</code> in Terminal in the AMADEUS folder.</p><p>AMADEUS uses MPS when available and CPU otherwise. MPS and the full workflow on actual macOS hardware have not been validated.</p><p>To use <code>amadeus</code> / <code>amade</code> from Terminal, add <code>~/.local/bin</code> to PATH. See the instructions shown at startup for setup. Read any error messages in Terminal.</p></div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>With Git installed, run the following command in a terminal in the directory where you want to install AMADEUS.</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>Run <code>bash AMADEUS.sh</code> in the AMADEUS folder. A GUI display environment, such as a desktop session or WSLg, is required.</p><p>If errors related to Tk, OpenCV, or shared libraries occur, check the missing component reported in the terminal. CUDA is used with a supported NVIDIA GPU; otherwise CPU is used.</p><p>To launch with <code>amadeus</code> or <code>amade</code>, add <code>~/.local/bin</code> to PATH. Linux x86_64 CPU environment setup has been verified, but the full workflow with real video and Linux ARM hardware have not been validated.</p></div>
+</div>
+</details>
+<details><summary>Install from a downloaded ZIP</summary><div class="details-content"><p>To install without Git, open the <a href="https://github.com/jpmyrmecol/AMADEUS">GitHub repository</a> and select “Code → Download ZIP”.</p><ol>
+<li>Extract the AMADEUS ZIP archive.</li>
+<li>Start the launcher for your operating system. The same launcher can be used after the initial setup.</li>
+<li>After the initial setup is complete, the home screen opens.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Launcher</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows 10 / 11</td>
+<td>Double-click <code>AMADEUS.bat</code></td>
+</tr>
+<tr>
+<td>macOS (Apple Silicon)</td>
+<td>Open <code>AMADEUS.command</code></td>
+</tr>
+<tr>
+<td>Ubuntu / WSL2</td>
+<td>Run <code>bash AMADEUS.sh</code></td>
+</tr>
+</tbody></table></div>
+</div></details>
+</section><section><h2 id="section-2">2. Home screen</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Screen</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Easy Tracking</strong></td>
+<td>Run the standard tracking workflow with only a few inputs</td>
+</tr>
+<tr>
+<td><strong>Cropping &amp; Trimming</strong></td>
+<td>Preprocess video regions, time ranges, brightness, and related settings</td>
+</tr>
+<tr>
+<td><strong>Segmentation</strong></td>
+<td>Separate animals from the background and define the analysis region</td>
+</tr>
+<tr>
+<td><strong>Advanced Tracking</strong></td>
+<td>Configure individual stages and parameters in detail</td>
+</tr>
+<tr>
+<td><strong>Multi Config Batch</strong></td>
+<td>Run multiple configuration files in sequence</td>
+</tr>
+<tr>
+<td><strong>Refinement</strong></td>
+<td>Review and correct positions, front directions, and individual IDs</td>
+</tr>
+<tr>
+<td><strong>Colab (beta)</strong></td>
+<td>Prepare the files needed to run training and tracking on a Google Colab GPU</td>
+</tr>
+</tbody></table></div>
+</section><section><h2 id="section-3">3. Basic workflow</h2>
+<ol>
+<li>Prepare the video with <strong>Cropping &amp; Trimming</strong>, if needed.</li>
+<li>Open <strong>Easy Tracking</strong> and select a video and session folder. The session folder stores the configuration and results.</li>
+<li>Select <strong>Launch Segmentation</strong> and configure foreground segmentation so that complete, isolated animals are retained.</li>
+<li>Specify the animal count, overlap severity, and whether the animals move backward. Select <strong>Processing</strong> to run training and tracking.</li>
+<li>Review the result video and CSV. Use <strong>Refinement</strong> to correct remaining errors if needed.</li>
+</ol>
+<p>For GPU processing in Google Colab, save the configuration after setup and use <a href="#section-10"><strong>Colab (beta)</strong></a> to run training and tracking there. Use <strong>Advanced Tracking</strong> to configure individual processing stages.</p>
+</section><section><h2 id="section-4">4. Cropping &amp; Trimming (optional)</h2>
+<p>Create a video by cropping the region and time interval to analyze and adjusting its appearance.</p>
+<ol>
+<li>Select the video with <strong>Input Video</strong>.</li>
+<li>Set the interval with <strong>Set In</strong> and <strong>Set Out</strong>.</li>
+<li>Use <strong>Full</strong>, or add regions with <strong>Add Crop</strong>.</li>
+<li>Drag or resize regions and select the regions to export.</li>
+<li>Set brightness, contrast, and color/grayscale for each region.</li>
+<li>Check the output folder, name, and FPS, then select <strong>Export</strong>.</li>
+</ol>
+</section><section><h2 id="section-5">5. Segmentation (foreground extraction)</h2>
+<p>Configure foreground segmentation to extract animals from the background. A <strong>blob</strong> is a connected foreground region. Retain <strong>single-animal blobs</strong> that represent one complete individual. Treat merged animals, fragments, and other unsuitable regions as <strong>outlier blobs</strong>. These settings determine which images are used to generate training data.</p>
+<ol>
+<li>Check the video and analysis frame range.</li>
+<li>Select a foreground extraction method. When using background difference, select Median, Maximum, or Minimum.</li>
+<li>Adjust <strong>Threshold</strong> and <strong>Minimum Blob Area</strong>.</li>
+<li>Select <strong>Analyze</strong>.</li>
+<li>Adjust the blob area bounds so that complete, isolated animals appear cyan (blue), while merged animals, fragments, and other outliers appear orange. Check several frames, including frames with crossings.</li>
+<li>If segmentation misses animals or parts of animals, use <strong>Additional Outlier</strong> to mark these regions with an additional threshold. Adjust it until the missed regions appear orange and are excluded from training samples.</li>
+<li>Select <strong>Processing</strong> to save the results.</li>
+</ol>
+<h3>Foreground extraction methods</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Suitable video</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Background difference</td>
+<td>Animals differ consistently from a static background</td>
+</tr>
+<tr>
+<td>Dark region</td>
+<td>Animals are darker than the background</td>
+</tr>
+<tr>
+<td>Bright region</td>
+<td>Animals are brighter than the background</td>
+</tr>
+<tr>
+<td>Dark + background difference</td>
+<td>Combine darkness with background difference</td>
+</tr>
+<tr>
+<td>Bright + background difference</td>
+<td>Combine brightness with background difference</td>
+</tr>
+</tbody></table></div>
+<p>Results are saved under <code>&lt;Session&gt;/segmentation/</code>.</p>
+<details id="result-obb-import"><summary>Result OBB Import (Beta)</summary><div class="details-content">
+<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the resulting classification carefully before use.</p>
+<p>Blob area alone may not distinguish a large individual from two animals in contact. If you have already tracked the same video, you can import the result OBBs to help retain large single-animal blobs.</p>
+<p>Open <strong>Result OBB Import (beta)</strong> in the sidebar, select <strong>Use imported result OBB</strong>, and choose a CSV with <strong>Reference</strong>. Use a file from <code>&lt;Session&gt;/results/</code> containing <code>frame</code> and the <code>cx</code>, <code>cy</code>, <code>w</code>, <code>h</code>, and <code>heading</code> columns for each ID. The coordinates must correspond to the same video, even if the CSV comes from another project.</p>
+<p>Each imported OBB is assigned to one blob. This is the blob containing the OBB center, or the blob with the greatest overlap if the center lies on the background. An outlier blob is reclassified as a single-animal blob only when it has exactly one assigned OBB and that OBB covers at least <strong>Min OBB coverage</strong> of the blob area (default 0.7). Blobs already within the area bounds, Additional Outlier regions, and blobs with zero or multiple assigned OBBs retain their existing classification.</p>
+<p>The coverage threshold helps reject merged blobs when tracking missed one of the animals. It cannot guarantee that every merged blob is rejected. Hover over blobs to inspect their OBB counts and coverage, and choose the threshold using your video.</p>
+<p><strong>Frame offset</strong> is the frame number in the result CSV minus the video frame index, for cases such as tracking a video that was trimmed afterwards (default 0). With <strong>Show imported OBB</strong> enabled, the imported OBBs are drawn in magenta on the preview and on the exported labeled video, so misalignment is visible. The <code>result-single</code> count in the preview title reports how many blobs were taken out of the outlier group, and hovering over a blob shows its OBB count and measured coverage.</p>
+<p>The settings are stored in <code>segmentation_gui_config.json</code>. To stop using an imported result, select <strong>Clear imported result</strong> or clear the checkbox.</p>
+</div></details>
+</section><section><h2 id="section-6">6. Easy Tracking</h2>
+<p>Answer three configuration questions, then run automatic training data generation, detector training, detection, and tracking in one batch.</p>
+<ol>
+<li>Select <strong>Video File</strong> and <strong>Session</strong>.</li>
+<li>Use <strong>Launch Segmentation</strong> to configure foreground extraction.</li>
+<li>Enter the number of animals in <strong>How many animals are in the video?</strong> and press the Enter button to apply it.</li>
+<li>Select the degree of overlap and whether any animals move backward.</li>
+<li>Select <strong>Processing</strong>.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Choices</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>How many animals are in the video?</td>
+<td>Positive integer</td>
+<td>Number of animals to track</td>
+</tr>
+<tr>
+<td>Use paste augmentation when animals = 1</td>
+<td>On / Off</td>
+<td>Whether to use synthesized images for training even with one animal</td>
+</tr>
+<tr>
+<td>How severe is the overlap?</td>
+<td>Very heavy / Heavy / Light</td>
+<td>Severity of visual overlap. Select Very heavy when almost complete occlusion is expected. This adds identity verification and correction using contrastive learning and increases processing time</td>
+</tr>
+<tr>
+<td>Do the animals ever move backward?</td>
+<td>Yes / No</td>
+<td>Yes adds a preliminary detector to identify and exclude potentially incorrect front direction class labels caused by backward movement</td>
+</tr>
+<tr>
+<td>Delete tmp files</td>
+<td>On / Off</td>
+<td>Whether to delete temporary files after completion</td>
+</tr>
+</tbody></table></div>
+<p><strong>Save Config</strong> and <strong>Load Config</strong> save and load YAML files. <strong>Switch Advanced Mode</strong> opens the current settings in Advanced Tracking.</p>
+<h3>Automated processing</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Operation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initial Tracking</td>
+<td>Associate single-animal blobs across frames and determine initial tracking parameters</td>
+</tr>
+<tr>
+<td>Direction Estimation</td>
+<td>Assign one of eight front direction classes to each retained OBB using movement direction</td>
+</tr>
+<tr>
+<td>Refine Blobs</td>
+<td>Identify and exclude potentially incorrect front direction class labels when backward movement is expected</td>
+</tr>
+<tr>
+<td>Clustered / Mixed Paste</td>
+<td>Synthesize interaction images by copy-pasting single-animal blobs</td>
+</tr>
+<tr>
+<td>Crop Images / Create Dataset</td>
+<td>Crop images and prepare training and validation datasets</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>Train a YOLO OBB detector on the generated dataset</td>
+</tr>
+<tr>
+<td>Detection / ID Tracking / ID Correction</td>
+<td>Detect OBBs and front direction classes, associate detections over time, and refine tracks using geometric and temporal information</td>
+</tr>
+<tr>
+<td>Create Video</td>
+<td>Create a video with the tracking results overlaid</td>
+</tr>
+</tbody></table></div>
+<p>Tracking comprises staged association and refinement. Kalman filters predict OBB center, shape, and front direction. Hungarian assignment associates detections with existing tracks. Automatic refinement then fills short gaps and corrects transient front direction flips and positional inconsistencies. With <strong>Very heavy</strong> overlap, contrastive learning also compares images of isolated individuals aligned by front direction to verify and correct identities across interactions.</p>
+<details id="without-direction-estimation"><summary>Without direction estimation [Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a beta feature. Check the tracking results carefully before use.</strong></p>
+<p>Enable <strong>Without direction estimation</strong> in Easy or Advanced Tracking when front direction is not needed or front and rear cannot be distinguished reliably. It is off by default.</p>
+<p>This mode estimates OBBs and tracks identities without assigning front direction classes. OBB rotation is retained as geometric information, but no front or rear is assigned. Stationary animals and animals with short trajectories are not excluded solely because movement cannot establish front direction.</p>
+<p>Outputs are stored separately under <code>&lt;Session&gt;/without_direction_estimation/</code>. Final CSV files contain <code>frame, cx0, cy0, w0, h0, …</code> and no <code>heading</code> columns. Use the training data and weights generated for this mode.</p>
+</div></details>
+<details id="variable-population"><summary>Variable population [Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a beta feature. Check the tracking results carefully before use.</strong></p>
+<p>Use this mode when the number of animals changes during a video, such as when animals enter or leave the field of view. It is off by default. In Easy Tracking, enabling it disables animal-count entry. In Advanced Tracking, enable it under Main → Basic Settings.</p>
+<p>Newly appearing animals receive new IDs, while IDs that remain missing are eventually retired. The same animal may receive a new ID after re-entry. False detections or association failures can also create extra IDs, so this mode is not intended to provide exact population estimates.</p>
+<p>Variable-mode results are saved in the <code>variable/</code> folder within the tracking output directory.</p>
+</div></details>
+</section><section><h2 id="section-7">7. Advanced Tracking</h2>
+<p>For a changing population, enable Variable population in Main → Basic Settings.</p>
+<p>Configure individual stages and parameters in detail.</p>
+<ol>
+<li>Specify the session, training video, analysis video, and animal count.</li>
+<li>Use <strong>Adjust Parameters</strong> to measure initial values suited to the video.</li>
+<li>Review the stages to run and their settings.</li>
+<li>Select <strong>Run</strong>.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Main settings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Basic</td>
+<td>Videos, session, animal count, image size, frame range</td>
+</tr>
+<tr>
+<td>Initial Tracking</td>
+<td>Extraction of single-animal blobs and association across frames</td>
+</tr>
+<tr>
+<td>Create single animal images</td>
+<td>Tracklets, front direction class assignment, and filtering of potentially incorrect labels</td>
+</tr>
+<tr>
+<td>Create with crossing</td>
+<td>Synthesis of interaction images</td>
+</tr>
+<tr>
+<td>Create dataset</td>
+<td>Training image count, cropping, validation data</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>Epochs, batch size, device, learning rate</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>Detection, staged association, and refinement, including optional identity correction using contrastive learning</td>
+</tr>
+<tr>
+<td>Create Video</td>
+<td>Output range, FPS, overlays</td>
+</tr>
+</tbody></table></div>
+<details><summary>Random noise on animals [Beta]</summary><div class="details-content"><p>Add small patches of background over animals in synthetic training images to simulate occlusion by dirt on the lens or arena cover. Patches are added after copy-paste augmentation. This option is available only in Advanced Tracking and is off by default.</p><p><strong>Noise Size (% of body length)</strong> sets the patch size as a percentage of body length (default 10%). <strong>Max Noise per Animal</strong> sets the maximum number of patches per animal (default 10). The number is chosen randomly from zero to this maximum. Patch shapes are random. OBB labels and masks are unchanged.</p></div></details>
+<p>Use the skip checkboxes to run only the stages you need.</p>
+<p>Analysis weights can be specified as <code>last</code>, <code>best</code>, or a saved epoch number.</p>
+</section><section><h2 id="section-8">8. Multi Config Batch</h2>
+<p>Run multiple tracking configurations in sequence.</p>
+<ol>
+<li>Save the settings as YAML from Easy or Advanced Tracking.</li>
+<li>Add configuration files with <strong>Add Configs</strong> or <strong>Add Folder</strong>.</li>
+<li>Arrange the execution order with <strong>Up</strong> / <strong>Down</strong>.</li>
+<li>Select <strong>Run Queue</strong>.</li>
+</ol>
+</section><section><h2 id="section-9">9. Refinement</h2>
+<p>Review results overlaid on the video and manually correct positions, front directions, and individual IDs. This editor is used to inspect and correct remaining errors after the automated workflow.</p>
+<ul>
+<li><strong>AMADEUS mode:</strong> select <code>config.yaml</code>, weights, and results</li>
+<li><strong>Dataset mode:</strong> select a video and tracking file</li>
+</ul>
+<p>Dataset mode can load CSV/H5 files from AMADEUS, SLEAP, DeepLabCut, idtracker.ai, and others. To edit front direction, select data containing front and rear keypoint coordinates.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Drag an arrow endpoint</td>
+<td>Move the front or rear keypoint</td>
+</tr>
+<tr>
+<td>Drag the whole arrow</td>
+<td>Move the animal position</td>
+</tr>
+<tr>
+<td>Right-click</td>
+<td>Reverse the front direction or swap IDs between two animals</td>
+</tr>
+<tr>
+<td>Mouse wheel</td>
+<td>Zoom in / out</td>
+</tr>
+<tr>
+<td>Drag the background</td>
+<td>Pan the view</td>
+</tr>
+<tr>
+<td>Left / right keys</td>
+<td>Move to the previous / next frame</td>
+</tr>
+<tr>
+<td>Up / down keys</td>
+<td>Change the selected animal</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>Play / pause</td>
+</tr>
+<tr>
+<td>Ctrl+S (Command+S also works on macOS)</td>
+<td>Save</td>
+</tr>
+</tbody></table></div>
+ </section><section><h2 id="section-10">10. Colab (beta)</h2>
+<p>Run a saved AMADEUS configuration in Google Colab to use a GPU.</p>
+<ol>
+<li>In <strong>Colab (beta)</strong>, select the saved <code>config.yaml</code> and a Google Drive destination, then select <strong>Prepare for Google Colab</strong>.</li>
+<li>After preparation, select <strong>Open Google Colab</strong>.</li>
+<li>In Colab, select <strong>Run all</strong> and authorize Google Drive when requested.</li>
+</ol>
+<p>A GPU runtime is required. Final CSV files, result videos, required trained weights, summaries, and logs are saved to Google Drive.</p>
+</section><section><h2 id="section-11">11. Parameter adjustment</h2>
+<p>Start with the default settings and the parameters determined automatically from the video. Check segmentation and the resulting tracks before changing individual parameters.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check first</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Out of memory</td>
+<td>Reduce the training batch size in Advanced Tracking if automatic adjustment does not resolve the error</td>
+</tr>
+</tbody></table></div>
+</section><section><h2 id="section-12">12. Outputs</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;Session&gt;/config.yaml</code></td>
+<td>Run settings</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/segmentation/</code></td>
+<td>Background images and Segmentation settings</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/model/</code></td>
+<td>Downloaded pretrained weights</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/main/&lt;model&gt;/</code></td>
+<td>Training data, trained weights, tracking results, result videos</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/results/</code></td>
+<td>Final CSV</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/log.txt</code>, <code>time.csv</code></td>
+<td>Logs and processing times</td>
+</tr>
+</tbody></table></div>
+<p>The <code>results/</code> folder stores CSV files with a suffix identifying the processing stage. <code>tracked</code> denotes the output of staged association before refinement. <code>filled</code> denotes output after standard refinement. <code>id_resolved</code> includes identity correction using contrastive learning and subsequent refinement.</p>
+<p>In the standard mode with direction estimation, the final CSV has one row per frame, with <code>frame</code> followed by <code>cx0, cy0, w0, h0, heading0, …</code> for each animal. Individual IDs start at 0. Coordinates and OBB dimensions are in input-video pixels: the origin is at the top left, x increases to the right, and y increases downward. The <code>heading</code> columns store <strong>front direction</strong> in degrees, from 0° inclusive to 360° exclusive. Zero points up and angles increase clockwise. These values describe front direction, which can differ from movement direction when an animal moves backward. Missing values are empty fields (NaN), and estimates are not guaranteed for every animal in every frame.</p>
+<p>Trained weights are stored under <code>&lt;Session&gt;/main/&lt;model&gt;/training/&lt;video name&gt;/weights/</code>.</p>
+</section><section><h2 id="section-13">13. Recommended recording conditions</h2>
+<p>AMADEUS learns directly from the input videos, so tracking performance depends on recording conditions. The following conditions are recommended.</p>
+<ul>
+<li>A sufficiently elongated body shape to define a body axis, with visually distinguishable front and rear.</li>
+<li>A fixed camera viewing the animals from above, with movement approximately confined to a two-dimensional plane.</li>
+<li>Stable illumination, an essentially static background, and sufficient contrast between the animals and the background.</li>
+<li>Sufficient spatial resolution, frame rate, and shutter speed for reliable visual tracking in each frame.</li>
+<li>A constant number of animals throughout the recording.</li>
+<li>Sufficient periods in which animals are separated from one another. Images of isolated individuals are used to generate training data.</li>
+</ul>
+<p>Training and analysis videos may be recorded separately, provided that the recording conditions are the same.</p>
+<p>For other recording conditions, see <a href="#without-direction-estimation">Without direction estimation</a> and <a href="#variable-population">Variable population</a> for available modes and their limitations.</p>
+</section><section><h2 id="section-14">14. License</h2>
+<p>GNU Affero General Public License v3.0 only (AGPL-3.0-only). See <a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/LICENSE">LICENSE</a> and <a href="legal/THIRD_PARTY_NOTICES.md">third-party license information</a>.</p>
+</section><footer><p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p></footer></main></div></body></html>

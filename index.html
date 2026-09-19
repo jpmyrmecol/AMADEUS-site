@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+}
+</script>
+<title>AMADEUS — self-supervised multi-animal tracking</title>
+<meta name="description" content="AMADEUS tracks individual animals and estimates body position, shape, and front direction without manual training annotation or physical marking.">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="site.css?v=2">
+<link rel="stylesheet" href="install-tabs.css"></head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="index_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="index.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html" aria-current="page">Home</a><a href="Manual_EN.html">Manual</a><a href="dataset.html">Dataset</a></nav></div></header>
+
+<div class="wrap">
+<main class="card" id="content">
+
+  <div class="hero">
+    <h1>AMADEUS</h1>
+    <p>AMADEUS tracks individual animals and estimates their body position, shape, and front direction without manual training annotation or physical marking. It learns from the input video and uses synthetic interaction images to detect animals during crossings and crowding.</p>
+    <a class="pill" href="https://github.com/jpmyrmecol/AMADEUS">AMADEUS 1.0.0</a>
+  </div>
+
+  <div class="body">
+
+  <section id="about">
+    <h2>What AMADEUS does</h2>
+    <p>AMADEUS stands for Annotation-free Multi-Animal Direction Estimation Using Self-supervised learning.</p>
+    <div class="cards">
+      <article>
+        <h3>No manual training annotation</h3>
+        <p>Training images and labels are generated automatically from the input video after you configure foreground segmentation.</p>
+      </article>
+      <article>
+        <h3>Batch processing</h3>
+        <p>Configure segmentation, then specify the animal count, overlap severity, and whether animals move backward. Training and tracking then run automatically.</p>
+      </article>
+      <article>
+        <h3>Graphical user interface</h3>
+        <p>Use the graphical interface to configure segmentation, run processing stages, and review and correct tracking results.</p>
+      </article>
+      <article>
+        <h3>Position and direction estimation</h3>
+        <p>Each animal is represented by an oriented bounding box (OBB), an individual ID, and front direction in degrees. Front and rear keypoints are derived geometrically from the OBB.</p>
+      </article>
+      <article>
+        <h3>Robust to interactions</h3>
+        <p>A detector trained on synthetic interaction images estimates OBBs and front direction classes during crossings and crowding. Tracking associates detections over time and refines the resulting tracks.</p>
+      </article>
+      <article>
+        <h3>Works with diverse videos</h3>
+        <p>AMADEUS was evaluated on laboratory videos of mice, fish, beetles, ants, flies, and ants with one cricket. Performance depends on the recording conditions described below.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="workflow">
+    <h2>Workflow</h2>
+    <ol>
+      <li>Prepare the video with <strong>Cropping &amp; Trimming</strong>, if needed.</li>
+      <li>Configure <strong>Segmentation</strong> so the animals are extracted cleanly.</li>
+      <li>Run training and tracking with <strong>Easy Tracking</strong>.</li>
+      <li>Check the result video and CSV, and correct them in <strong>Refinement</strong> if needed.</li>
+      
+    </ol>
+    <p>Use <strong>Advanced Tracking</strong> to configure individual stages and <strong>Multi Config Batch</strong> to run several configurations in sequence. To run training and tracking on a Google Colab GPU, save your configuration and open <strong>Colab (beta)</strong> from the Home screen.</p>
+    <div class="links"><a class="primary" href="Manual_EN.html">Read the manual</a></div>
+  </section>
+
+  <section id="install">
+    <h2>Install and launch</h2>
+<p>Download and run the installer for your operating system. Git is not required. On macOS, a compatible Python installation is required as described below.</p>
+<div class="installer-downloads" role="group" aria-label="Installers by operating system">
+<a href="AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
+<a href="AMADEUS-Setup.command" download>macOS<span>Apple Silicon</span></a>
+<a href="AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
+</div>
+<p class="note"><strong>AMADEUS has not yet been extensively tested on macOS or Linux.</strong> If you encounter an error, please contact Yusuke Notomi at jpmyrmecol [at] gmail.com and include your operating system, installation method, and the error message.</p>
+<p>The installer downloads AMADEUS and prepares the required environment, then opens the Home screen. An internet connection is required. Windows and Linux launchers also prepare Python automatically.</p>
+<details><summary>How to open the downloaded file</summary><div class="details-content">
+<p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut.</p>
+<p><strong>macOS:</strong> open <code>AMADEUS-Setup.command</code>. A downloaded file may not have permission to run. If needed, type <code>chmod +x </code> in Terminal, drag the downloaded file into the Terminal window, press Enter, and open the file again. If macOS blocks opening it, check System Settings → Privacy &amp; Security.</p>
+<p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required.</p>
+<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. The launcher checks compatible Python installations in the standard Python framework directory. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p><p>On macOS and Linux, run the same downloaded launcher for subsequent sessions. It uses the existing AMADEUS installation.</p>
+</div></details>
+<details><summary>Install using Git (Windows, macOS, Linux)</summary>
+<div class="install-os-tabs" role="group" aria-label="Choose your operating system">
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
+<p>With <a href="https://git-scm.com/downloads">Git</a> installed, open <strong>Command Prompt (cmd)</strong> in your preferred installation directory and run this one line (Windows 10 / 11). The directory must not already contain an <code>AMADEUS</code> folder.</p>
+<pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; AMADEUS.bat</code></pre>
+<p>The launcher automatically prepares uv, Python, and the required packages, then opens the home screen. Initial setup requires an internet connection.</p>
+<p>For subsequent launches, open a new Command Prompt and run the following. Keep the created <code>AMADEUS</code> folder in place.</p>
+<pre><code>amadeus</code></pre>
+</div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>With Git installed, run the following command in a terminal in the directory where you want to install AMADEUS.</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>The supplied environment targets Apple Silicon. Intel Macs are not supported by the bundled PyTorch 2.7.1 configuration. Launch without Rosetta.</p><p>Open <code>AMADEUS.command</code>. If permission to run the file is denied, run <code>chmod +x AMADEUS.command AMADEUS.sh</code> in Terminal in the AMADEUS folder.</p><p>AMADEUS uses MPS when available and CPU otherwise. MPS and the full workflow on actual macOS hardware have not been validated.</p><p>To use <code>amadeus</code> / <code>amade</code> from Terminal, add <code>~/.local/bin</code> to PATH. See the instructions shown at startup for setup. Read any error messages in Terminal.</p></div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>With Git installed, run the following command in a terminal in the directory where you want to install AMADEUS.</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>Run <code>bash AMADEUS.sh</code> in the AMADEUS folder. A GUI display environment, such as a desktop session or WSLg, is required.</p><p>If errors related to Tk, OpenCV, or shared libraries occur, check the missing component reported in the terminal. CUDA is used with a supported NVIDIA GPU; otherwise CPU is used.</p><p>To launch with <code>amadeus</code> or <code>amade</code>, add <code>~/.local/bin</code> to PATH. Linux x86_64 CPU environment setup has been verified, but the full workflow with real video and Linux ARM hardware have not been validated.</p></div>
+</div>
+</details>
+<details><summary>Install from a downloaded ZIP</summary><p>Download from GitHub using “Code → Download ZIP”, extract the archive, and start the launcher for your operating system.</p>    <div class="table-wrap"><table>
+      <thead><tr><th>OS</th><th>Launcher</th></tr></thead>
+      <tbody>
+        <tr><td>Windows 10 / 11</td><td>Double-click <code>AMADEUS.bat</code></td></tr>
+        <tr><td>macOS (Apple Silicon)</td><td>Open <code>AMADEUS.command</code></td></tr>
+        <tr><td>Ubuntu / WSL2</td><td>Run <code>bash AMADEUS.sh</code></td></tr>
+      </tbody>
+    </table></div></details>
+  </section>
+
+  <section id="recording">
+    <h2>Recommended recording conditions</h2>
+<p>AMADEUS learns directly from the input videos, so tracking performance depends on recording conditions. The following conditions are recommended.</p>
+<ul>
+<li>A sufficiently elongated body shape to define a body axis, with visually distinguishable front and rear.</li>
+<li>A fixed camera viewing the animals from above, with movement approximately confined to a two-dimensional plane.</li>
+<li>Stable illumination, an essentially static background, and sufficient contrast between the animals and the background.</li>
+<li>Sufficient spatial resolution, frame rate, and shutter speed for reliable visual tracking in each frame.</li>
+<li>A constant number of animals throughout the recording.</li>
+<li>Sufficient periods in which animals are separated from one another. Images of isolated individuals are used to generate training data.</li>
+</ul>
+<p>Training and analysis videos may be recorded separately, provided that the recording conditions are the same.</p>
+<p>The manual also describes <a href="Manual_EN.html#without-direction-estimation">tracking without direction estimation</a> and <a href="Manual_EN.html#variable-population">tracking a variable number of animals</a>.</p>
+  </section>
+
+    <section id="cite">
+    <h2>Citation</h2>
+    <p>See the <a href="publication.html">Publication</a> page for the preprint DOI and recommended citation format.</p>
+    <p>Please also cite the address of this site: <code>https://amadeus.jpmyrmecol.com/</code></p>
+  </section>
+
+  <section id="license">
+    <h2>License</h2>
+    <p>AMADEUS is released under the GNU Affero General Public License v3.0 only (AGPL-3.0-only). Third-party components keep their own licenses, listed in the third-party notices distributed with the software.</p>
+  </section>
+
+  </div>
+</main>
+</div>
+
+<footer class="site">
+  <p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
+  <p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p>
+</footer>
+<!-- home-cache-refresh: 2026-09-14 -->
+</body>
+</html>

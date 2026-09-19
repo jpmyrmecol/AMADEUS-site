@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+}
+</script>
+<title>Publication — AMADEUS</title>
+<meta name="description" content="AMADEUSのプレプリントDOIと推奨引用形式です。">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="site.css?v=2">
+</head>
+<body>
+<a class="skip-link" href="#content">本文へ移動</a>
+
+<header class="topbar"><a class="topbar-brand" href="index_JP.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="言語"><a href="publication_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語" aria-current="true"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="publication.html" lang="en" hreflang="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="サイト内メニュー"><a href="index_JP.html">Home</a><a href="Manual_JP.html">Manual</a><a href="dataset_JP.html">Dataset</a><a href="publication_JP.html" aria-current="page">Publication</a></nav></div></header>
+
+<div class="wrap">
+<main class="card" id="content">
+
+  <div class="hero">
+    <p class="eyebrow">研究</p>
+    <h1>Publication</h1>
+    <p>AMADEUSのプレプリント情報と推奨引用形式を掲載します。</p>
+    <span class="pill">プレプリントDOI掲載欄</span>
+  </div>
+
+  <div class="body">
+
+  <section id="preprint">
+    <h2>プレプリント</h2>
+    <div class="cards">
+      <article>
+        <h3>AMADEUS</h3>
+        <p>プレプリント公開時に、確定した書誌情報を入力します。</p>
+        <p><strong>プレプリントDOI</strong><br><code>[PREPRINT-DOI]</code></p>
+        <p><strong>DOI URL</strong><br><code>https://doi.org/[PREPRINT-DOI]</code></p>
+      </article>
+    </div>
+    <p class="note"><span class="status">更新予定</span> プレプリントのDOIと書誌情報が確定したら、上のプレースホルダーを置き換えます。</p>
+  </section>
+
+  <section id="citation">
+    <h2>推奨引用</h2>
+    <p>AMADEUSを引用する際は、次の形式を使用してください。角括弧内を確定した書誌情報に置き換えます。</p>
+    <pre><code>[著者名]（[年]）．[論文タイトル]．AMADEUSプレプリント．https://doi.org/[PREPRINT-DOI]</code></pre>
+    <p><strong>DOIのみの形式</strong><br><code>https://doi.org/[PREPRINT-DOI]</code></p>
+  </section>
+
+  <section id="site-citation">
+    <h2>サイトの引用</h2>
+    <p>プロジェクトサイトもあわせてご記載ください：<code>https://amadeus.jpmyrmecol.com/</code></p>
+  </section>
+
+  </div>
+</main>
+</div>
+
+<footer class="site">
+  <p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
+  <p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p>
+</footer>
+</body>
+</html>
