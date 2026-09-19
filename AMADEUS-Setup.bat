@@ -13,10 +13,11 @@ powershell.exe -NoProfile -Command ^
  "    New-Item -ItemType Directory -Path $temp -Force | Out-Null;" ^
  "    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;" ^
  "    $zip = Join-Path $temp 'AMADEUS.zip';" ^
- "    try { Invoke-WebRequest -UseBasicParsing -Uri 'https://github.com/jpmyrmecol/AMADEUS/archive/refs/heads/main.zip' -OutFile $zip } catch { throw 'Cannot download AMADEUS. Check your internet connection. Automatic download requires a publicly accessible repository.' };" ^
+ "    try { $release = Invoke-RestMethod -UseBasicParsing -Uri 'https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest'; $tag = [string]$release.tag_name; if ([string]::IsNullOrWhiteSpace($tag)) { throw 'The latest release does not contain a tag name.' }; $archiveUrl = 'https://github.com/jpmyrmecol/AMADEUS/archive/refs/tags/' + [Uri]::EscapeDataString($tag) + '.zip'; Invoke-WebRequest -UseBasicParsing -Uri $archiveUrl -OutFile $zip } catch { throw 'Cannot download the latest AMADEUS release. Check your internet connection and confirm that a published GitHub Release exists.' };" ^
  "    Expand-Archive -LiteralPath $zip -DestinationPath $temp;" ^
- "    $source = Join-Path $temp 'AMADEUS-main';" ^
- "    if (!(Test-Path -LiteralPath (Join-Path $source 'AMADEUS.bat'))) { throw 'The downloaded archive does not contain the AMADEUS launcher.' };" ^
+ "    $source = Get-ChildItem -LiteralPath $temp -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'AMADEUS.bat') } | Select-Object -First 1;" ^
+ "    if ($null -eq $source) { throw 'The downloaded release archive does not contain the AMADEUS launcher.' };" ^
+ "    $source = $source.FullName;" ^
  "    New-Item -ItemType Directory -Path $root -Force | Out-Null;" ^
  "    Move-Item -LiteralPath $source -Destination $app;" ^
  "  };" ^
