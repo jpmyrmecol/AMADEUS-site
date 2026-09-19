@@ -41,7 +41,10 @@
 }
 #install-os-windows:checked ~ .install-os-windows,
 #install-os-macos:checked ~ .install-os-macos,
-#install-os-linux:checked ~ .install-os-linux { display: block; }
+#install-os-linux:checked ~ .install-os-linux,
+#uninstall-os-windows:checked ~ .install-os-windows,
+#uninstall-os-macos:checked ~ .install-os-macos,
+#uninstall-os-linux:checked ~ .install-os-linux { display: block; }
 .install-os-panel pre { overflow-x: auto; }
 
 .installer-downloads {
