@@ -356,8 +356,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
     @media (max-width:880px){aside{top:auto;max-height:none;}}
     @media (max-width:720px){.topbar{height:auto;flex-wrap:wrap;gap:0.5rem 1rem;padding-top:0.6rem;padding-bottom:0.6rem;}.navgroup{margin-left:auto;}.tabs{width:100%;}.tabs a{flex:1;text-align:center;padding-inline:0.5rem;}h2[id]{scroll-margin-top:7.2rem;}}
     @media print{.topbar{display:none;}}
-</style><link rel="stylesheet" href="install-tabs.css"></head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="Manual_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.0.0</span><nav><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.0.0</p><h1>AMADEUS<br>User Manual</h1><p>Track individual animals and estimate their front directions without manual training annotation.</p></header>
-<p>AMADEUS (Annotation-free Multi-Animal Direction Estimation Using Self-supervised learning) learns from the input video. It estimates an oriented bounding box (OBB) for each animal and maintains individual identities over time. Each OBB describes body position and approximate shape. Front direction identifies which end of the body axis points toward the front and is reported as an angle in degrees.</p>
+</style><link rel="stylesheet" href="install-tabs.css"></head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="Manual_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.0.0</span><nav><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.0.0</p><h1>AMADEUS<br>User Manual</h1><p>A guide to using AMADEUS.</p></header>
 <section><h2 id="section-1">1. Launch</h2>
 <p>Download and run the installer for your operating system. Git is not required. On macOS, a compatible Python installation is required as described below.</p>
 <div class="installer-downloads" role="group" aria-label="Installers by operating system">
@@ -371,7 +370,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut.</p>
 <p><strong>macOS:</strong> open <code>AMADEUS-Setup.command</code>. A downloaded file may not have permission to run. If needed, type <code>chmod +x </code> in Terminal, drag the downloaded file into the Terminal window, press Enter, and open the file again. If macOS blocks opening it, check System Settings → Privacy &amp; Security.</p>
 <p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required.</p>
-<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. The launcher checks compatible Python installations in the standard Python framework directory. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p>
+<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p>
 <p>On macOS and Linux, run the same downloaded launcher for subsequent sessions. It uses the existing AMADEUS installation.</p>
 </div></details>
 <details><summary>Install using Git (Windows, macOS, Linux)</summary>
@@ -446,7 +445,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 <tr>
 <td><strong>Refinement</strong></td>
-<td>Review and correct positions, front directions, and individual IDs</td>
+<td>Review and correct positions, head directions, and individual IDs</td>
 </tr>
 <tr>
 <td><strong>Colab (beta)</strong></td>
@@ -461,7 +460,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>Specify the animal count, overlap severity, and whether the animals move backward. Select <strong>Processing</strong> to run training and tracking.</li>
 <li>Review the result video and CSV. Use <strong>Refinement</strong> to correct remaining errors if needed.</li>
 </ol>
-<p>For GPU processing in Google Colab, save the configuration after setup and use <a href="#section-10"><strong>Colab (beta)</strong></a> to run training and tracking there. Use <strong>Advanced Tracking</strong> to configure individual processing stages.</p>
+<p>Use <strong>Advanced Tracking</strong> instead of Easy Tracking to configure individual stages and parameters.</p>
 </section><section><h2 id="section-4">4. Cropping &amp; Trimming (optional)</h2>
 <p>Create a video by cropping the region and time interval to analyze and adjusting its appearance.</p>
 <ol>
@@ -473,13 +472,13 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>Check the output folder, name, and FPS, then select <strong>Export</strong>.</li>
 </ol>
 </section><section><h2 id="section-5">5. Segmentation (foreground extraction)</h2>
-<p>Configure foreground segmentation to extract animals from the background. A <strong>blob</strong> is a connected foreground region. Retain <strong>single-animal blobs</strong> that represent one complete individual. Treat merged animals, fragments, and other unsuitable regions as <strong>outlier blobs</strong>. These settings determine which images are used to generate training data.</p>
+<p>Extract animals from the background and distinguish single-animal blobs from multi-animal blobs formed by animals in contact.</p>
 <ol>
 <li>Check the video and analysis frame range.</li>
 <li>Select a foreground extraction method. When using background difference, select Median, Maximum, or Minimum.</li>
 <li>Adjust <strong>Threshold</strong> and <strong>Minimum Blob Area</strong>.</li>
 <li>Select <strong>Analyze</strong>.</li>
-<li>Adjust the blob area bounds so that complete, isolated animals appear cyan (blue), while merged animals, fragments, and other outliers appear orange. Check several frames, including frames with crossings.</li>
+<li>Adjust the blob area bounds so that complete, isolated animals appear cyan (blue), while merged animals, fragments, and other outliers appear orange.</li>
 <li>If segmentation misses animals or parts of animals, use <strong>Additional Outlier</strong> to mark these regions with an additional threshold. Adjust it until the missed regions appear orange and are excluded from training samples.</li>
 <li>Select <strong>Processing</strong> to save the results.</li>
 </ol>
@@ -557,7 +556,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <tr>
 <td>Do the animals ever move backward?</td>
 <td>Yes / No</td>
-<td>Yes adds a preliminary detector to identify and exclude potentially incorrect front direction class labels caused by backward movement</td>
+<td>Yes adds a preliminary detector to identify and exclude potentially incorrect direction class labels caused by backward movement</td>
 </tr>
 <tr>
 <td>Delete tmp files</td>
@@ -580,11 +579,11 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 <tr>
 <td>Direction Estimation</td>
-<td>Assign one of eight front direction classes to each retained OBB using movement direction</td>
+<td>Assign one of eight direction classes to each retained OBB using movement direction</td>
 </tr>
 <tr>
 <td>Refine Blobs</td>
-<td>Identify and exclude potentially incorrect front direction class labels when backward movement is expected</td>
+<td>Identify and exclude potentially incorrect direction class labels when backward movement is expected</td>
 </tr>
 <tr>
 <td>Clustered / Mixed Paste</td>
@@ -600,18 +599,17 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 <tr>
 <td>Detection / ID Tracking / ID Correction</td>
-<td>Detect OBBs and front direction classes, associate detections over time, and refine tracks using geometric and temporal information</td>
+<td>Detect OBBs and direction classes, associate detections over time, and refine tracks using geometric and temporal information</td>
 </tr>
 <tr>
 <td>Create Video</td>
 <td>Create a video with the tracking results overlaid</td>
 </tr>
 </tbody></table></div>
-<p>Tracking comprises staged association and refinement. Kalman filters predict OBB center, shape, and front direction. Hungarian assignment associates detections with existing tracks. Automatic refinement then fills short gaps and corrects transient front direction flips and positional inconsistencies. With <strong>Very heavy</strong> overlap, contrastive learning also compares images of isolated individuals aligned by front direction to verify and correct identities across interactions.</p>
 <details id="without-direction-estimation"><summary>Without direction estimation [Beta]</summary><div class="details-content">
 <p class="note"><strong>This is a beta feature. Check the tracking results carefully before use.</strong></p>
-<p>Enable <strong>Without direction estimation</strong> in Easy or Advanced Tracking when front direction is not needed or front and rear cannot be distinguished reliably. It is off by default.</p>
-<p>This mode estimates OBBs and tracks identities without assigning front direction classes. OBB rotation is retained as geometric information, but no front or rear is assigned. Stationary animals and animals with short trajectories are not excluded solely because movement cannot establish front direction.</p>
+<p>Enable <strong>Without direction estimation</strong> in Easy or Advanced Tracking when head direction is not needed or front and rear cannot be distinguished reliably. It is off by default.</p>
+<p>This mode estimates OBBs and tracks identities without assigning direction classes. OBB rotation is retained as geometric information, but no front or rear is assigned. Stationary animals and animals with short trajectories are not excluded solely because movement cannot establish head direction.</p>
 <p>Outputs are stored separately under <code>&lt;Session&gt;/without_direction_estimation/</code>. Final CSV files contain <code>frame, cx0, cy0, w0, h0, …</code> and no <code>heading</code> columns. Use the training data and weights generated for this mode.</p>
 </div></details>
 <details id="variable-population"><summary>Variable population [Beta]</summary><div class="details-content">
@@ -646,7 +644,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 <tr>
 <td>Create single animal images</td>
-<td>Tracklets, front direction class assignment, and filtering of potentially incorrect labels</td>
+<td>Tracklets, direction class assignment, and filtering of potentially incorrect labels</td>
 </tr>
 <tr>
 <td>Create with crossing</td>
@@ -681,12 +679,12 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>Select <strong>Run Queue</strong>.</li>
 </ol>
 </section><section><h2 id="section-9">9. Refinement</h2>
-<p>Review results overlaid on the video and manually correct positions, front directions, and individual IDs. This editor is used to inspect and correct remaining errors after the automated workflow.</p>
+<p>Review results overlaid on the video and correct head directions and individual IDs.</p>
 <ul>
 <li><strong>AMADEUS mode:</strong> select <code>config.yaml</code>, weights, and results</li>
 <li><strong>Dataset mode:</strong> select a video and tracking file</li>
 </ul>
-<p>Dataset mode can load CSV/H5 files from AMADEUS, SLEAP, DeepLabCut, idtracker.ai, and others. To edit front direction, select data containing front and rear keypoint coordinates.</p>
+<p>Dataset mode can load CSV/H5 files from AMADEUS, SLEAP, DeepLabCut, idtracker.ai, and others. To edit head direction, select data containing front and rear keypoint coordinates.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -704,7 +702,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 <tr>
 <td>Right-click</td>
-<td>Reverse the front direction or swap IDs between two animals</td>
+<td>Reverse the head direction or swap IDs between two animals</td>
 </tr>
 <tr>
 <td>Mouse wheel</td>
@@ -740,7 +738,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </ol>
 <p>A GPU runtime is required. Final CSV files, result videos, required trained weights, summaries, and logs are saved to Google Drive.</p>
 </section><section><h2 id="section-11">11. Parameter adjustment</h2>
-<p>Start with the default settings and the parameters determined automatically from the video. Check segmentation and the resulting tracks before changing individual parameters.</p>
+<p>Guidance on adjusting the main parameters will be added. The default settings are generally sufficient.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -787,7 +785,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 </tbody></table></div>
 <p>The <code>results/</code> folder stores CSV files with a suffix identifying the processing stage. <code>tracked</code> denotes the output of staged association before refinement. <code>filled</code> denotes output after standard refinement. <code>id_resolved</code> includes identity correction using contrastive learning and subsequent refinement.</p>
-<p>In the standard mode with direction estimation, the final CSV has one row per frame, with <code>frame</code> followed by <code>cx0, cy0, w0, h0, heading0, …</code> for each animal. Individual IDs start at 0. Coordinates and OBB dimensions are in input-video pixels: the origin is at the top left, x increases to the right, and y increases downward. The <code>heading</code> columns store <strong>front direction</strong> in degrees, from 0° inclusive to 360° exclusive. Zero points up and angles increase clockwise. These values describe front direction, which can differ from movement direction when an animal moves backward. Missing values are empty fields (NaN), and estimates are not guaranteed for every animal in every frame.</p>
+<p>In the standard mode with direction estimation, the final CSV has one row per frame, with <code>frame</code> followed by <code>cx0, cy0, w0, h0, heading0, …</code> for each animal. Individual IDs start at 0. Coordinates and OBB dimensions are in input-video pixels: the origin is at the top left, x increases to the right, and y increases downward. The <code>heading</code> columns store <strong>head direction</strong> in degrees, from 0° inclusive to 360° exclusive. Zero points up and angles increase clockwise. Missing values are empty fields (NaN), and estimates are not guaranteed for every animal in every frame.</p>
 <p>Trained weights are stored under <code>&lt;Session&gt;/main/&lt;model&gt;/training/&lt;video name&gt;/weights/</code>.</p>
 </section><section><h2 id="section-13">13. Recommended recording conditions</h2>
 <p>AMADEUS learns directly from the input videos, so tracking performance depends on recording conditions. The following conditions are recommended.</p>
@@ -796,11 +794,9 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>A fixed camera viewing the animals from above, with movement approximately confined to a two-dimensional plane.</li>
 <li>Stable illumination, an essentially static background, and sufficient contrast between the animals and the background.</li>
 <li>Sufficient spatial resolution, frame rate, and shutter speed for reliable visual tracking in each frame.</li>
-<li>A constant number of animals throughout the recording.</li>
 <li>Sufficient periods in which animals are separated from one another. Images of isolated individuals are used to generate training data.</li>
 </ul>
 <p>Training and analysis videos may be recorded separately, provided that the recording conditions are the same.</p>
-<p>For other recording conditions, see <a href="#without-direction-estimation">Without direction estimation</a> and <a href="#variable-population">Variable population</a> for available modes and their limitations.</p>
 </section><section><h2 id="section-14">14. License</h2>
 <p>GNU Affero General Public License v3.0 only (AGPL-3.0-only). See <a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/LICENSE">LICENSE</a> and <a href="legal/THIRD_PARTY_NOTICES.md">third-party license information</a>.</p>
 </section><footer><p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p></footer></main></div></body></html>

@@ -10,21 +10,21 @@ if (location.hostname === "jpmyrmecol.github.io") {
 }
 </script>
 <title>AMADEUS — self-supervised multi-animal tracking</title>
-<meta name="description" content="AMADEUS tracks individual animals and estimates body position, shape, and front direction without manual training annotation or physical marking.">
+<meta name="description" content="AMADEUS tracks individual animals and estimates body position, shape, and head direction without manual training annotation or physical marking.">
 <link rel="icon" href="assets/icon.png">
 <link rel="stylesheet" href="site.css?v=2">
 <link rel="stylesheet" href="install-tabs.css"></head>
 <body>
 <a class="skip-link" href="#content">Skip to content</a>
 
-<header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="index_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="index.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html" aria-current="page">Home</a><a href="Manual_EN.html">Manual</a><a href="dataset.html">Dataset</a></nav></div></header>
+<header class="topbar"><a class="topbar-brand" href="index.html"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="index_JP.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="index.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="index.html" aria-current="page">Home</a><a href="Manual_EN.html">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header>
 
 <div class="wrap">
 <main class="card" id="content">
 
   <div class="hero">
     <h1>AMADEUS</h1>
-    <p>AMADEUS tracks individual animals and estimates their body position, shape, and front direction without manual training annotation or physical marking. It learns from the input video and uses synthetic interaction images to detect animals during crossings and crowding.</p>
+    <p>AMADEUS detects oriented bounding boxes (OBBs), estimates head direction, and tracks individual identities. It learns from the input video using self-supervised learning, without manual training annotation.</p>
     <a class="pill" href="https://github.com/jpmyrmecol/AMADEUS">AMADEUS 1.0.0</a>
   </div>
 
@@ -32,7 +32,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
 
   <section id="about">
     <h2>What AMADEUS does</h2>
-    <p>AMADEUS stands for Annotation-free Multi-Animal Direction Estimation Using Self-supervised learning.</p>
     <div class="cards">
       <article>
         <h3>No manual training annotation</h3>
@@ -48,15 +47,15 @@ if (location.hostname === "jpmyrmecol.github.io") {
       </article>
       <article>
         <h3>Position and direction estimation</h3>
-        <p>Each animal is represented by an oriented bounding box (OBB), an individual ID, and front direction in degrees. Front and rear keypoints are derived geometrically from the OBB.</p>
+        <p>Each animal is represented by an oriented bounding box (OBB) enclosing its body, together with its head direction.</p>
       </article>
       <article>
         <h3>Robust to interactions</h3>
-        <p>A detector trained on synthetic interaction images estimates OBBs and front direction classes during crossings and crowding. Tracking associates detections over time and refines the resulting tracks.</p>
+        <p>Training on synthetic interaction images supports tracking during crossings and crowding.</p>
       </article>
       <article>
         <h3>Works with diverse videos</h3>
-        <p>AMADEUS was evaluated on laboratory videos of mice, fish, beetles, ants, flies, and ants with one cricket. Performance depends on the recording conditions described below.</p>
+        <p>AMADEUS can analyze laboratory videos of diverse species.</p>
       </article>
     </div>
   </section>
@@ -88,7 +87,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut.</p>
 <p><strong>macOS:</strong> open <code>AMADEUS-Setup.command</code>. A downloaded file may not have permission to run. If needed, type <code>chmod +x </code> in Terminal, drag the downloaded file into the Terminal window, press Enter, and open the file again. If macOS blocks opening it, check System Settings → Privacy &amp; Security.</p>
 <p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required.</p>
-<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. The launcher checks compatible Python installations in the standard Python framework directory. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p><p>On macOS and Linux, run the same downloaded launcher for subsequent sessions. It uses the existing AMADEUS installation.</p>
+<p id="macos-setup">On macOS, install a native Apple Silicon version of Python 3.10–3.12 with Tcl/Tk 8.6 before launching AMADEUS. Tcl/Tk 9 is not supported by the current GUI dependencies. To select another installation, set <code>AMADEUS_PYTHON</code> to the full path of its Python executable. To use a separate environment, set <code>AMADEUS_VENV</code> to its directory. See the <a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">macOS setup instructions</a>.</p><p>On macOS and Linux, run the same downloaded launcher for subsequent sessions. It uses the existing AMADEUS installation.</p>
 </div></details>
 <details><summary>Install using Git (Windows, macOS, Linux)</summary>
 <div class="install-os-tabs" role="group" aria-label="Choose your operating system">
@@ -124,11 +123,9 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>A fixed camera viewing the animals from above, with movement approximately confined to a two-dimensional plane.</li>
 <li>Stable illumination, an essentially static background, and sufficient contrast between the animals and the background.</li>
 <li>Sufficient spatial resolution, frame rate, and shutter speed for reliable visual tracking in each frame.</li>
-<li>A constant number of animals throughout the recording.</li>
 <li>Sufficient periods in which animals are separated from one another. Images of isolated individuals are used to generate training data.</li>
 </ul>
 <p>Training and analysis videos may be recorded separately, provided that the recording conditions are the same.</p>
-<p>The manual also describes <a href="Manual_EN.html#without-direction-estimation">tracking without direction estimation</a> and <a href="Manual_EN.html#variable-population">tracking a variable number of animals</a>.</p>
   </section>
 
     <section id="cite">
