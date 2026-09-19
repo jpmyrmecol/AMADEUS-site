@@ -163,7 +163,7 @@ pre code { padding: 0; background: none; }
   text-decoration: none; font-weight: 600;
 }
 .links a:hover { border-color: var(--brand); background: #eaf3f4; }
-.links a.primary { border-color: var(--brand-dark); background: var(--brand-dark); color: white; }
+.links a.primary { border-color: #075e64; background: #075e64; color: white; }
 .links a.primary:hover { background: var(--brand); }
 
 .status {
