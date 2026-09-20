@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+}
+</script><title>AMADEUS 1.0.0 日本語マニュアル</title><meta name="description" content="AMADEUSの操作マニュアルです。OBBと個体IDを用いた追跡、方向推定、設定、結果の確認・修正を説明します。"><link rel="canonical" href="https://amadeus.jpmyrmecol.com/jp/manual.html"><link rel="alternate" hreflang="en" href="https://amadeus.jpmyrmecol.com/Manual_EN.html"><link rel="alternate" hreflang="ja" href="https://amadeus.jpmyrmecol.com/jp/manual.html"><link rel="alternate" hreflang="x-default" href="https://amadeus.jpmyrmecol.com/Manual_EN.html"><style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #566270;
+      --paper: #ffffff;
+      --soft: #f3f7f8;
+      --line: #d9e2e5;
+      --brand: #0b6f75;
+      --brand-dark: #084e53;
+      --accent: #e6a83c;
+      --code: #edf3f4;
+      --shadow: 0 18px 48px rgba(18, 45, 52, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+        "Yu Gothic UI", Meiryo, sans-serif;
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--brand);
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover {
+      color: var(--brand-dark);
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.5rem;
+      left: 0.5rem;
+      z-index: 10;
+      padding: 0.55rem 0.8rem;
+      background: var(--ink);
+      color: white;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 17rem minmax(0, 58rem);
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    aside {
+      position: sticky;
+      top: 2rem;
+      align-self: start;
+      max-height: calc(100vh - 4rem);
+      overflow: auto;
+      padding: 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      margin: 0;
+      color: var(--brand-dark);
+      font-size: 1.65rem;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .version {
+      display: inline-block;
+      margin: 0.6rem 0 1rem;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      background: #dceff0;
+      color: var(--brand-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.28rem 0;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    nav a:hover {
+      color: var(--brand);
+    }
+
+    main {
+      min-width: 0;
+      padding: 3rem clamp(1.2rem, 4vw, 4rem);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      margin: -3rem clamp(-4rem, -4vw, -1.2rem) 2.5rem;
+      padding: 3rem clamp(1.2rem, 4vw, 4rem);
+      border-radius: 1rem 1rem 0 0;
+      background:
+        radial-gradient(circle at 92% 18%, rgba(230, 168, 60, 0.35), transparent 28%),
+        linear-gradient(135deg, #084e53, #0b777d);
+      color: white;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.4rem;
+      color: #d6f3f3;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.16;
+    }
+
+    .hero p:last-child {
+      max-width: 44rem;
+      margin: 1rem 0 0;
+      font-size: 1.05rem;
+    }
+
+    section {
+      scroll-margin-top: 1.5rem;
+      margin: 3.2rem 0;
+    }
+
+    h2[id] {
+      scroll-margin-top: 4.9rem;
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--line);
+      color: var(--brand-dark);
+      font-size: 1.62rem;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 1.8rem 0 0.65rem;
+      color: var(--brand-dark);
+      font-size: 1.15rem;
+    }
+
+    p {
+      margin: 0.7rem 0;
+    }
+
+    ol,
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    li + li {
+      margin-top: 0.35rem;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+    }
+
+    .note {
+      margin: 1rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 0.35rem;
+      background: #fff8e9;
+    }
+
+    .table-wrap {
+      margin: 1rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 0.65rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--paper);
+      font-size: 0.94rem;
+    }
+
+    th,
+    td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf3f4;
+      color: var(--brand-dark);
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 0.08em 0.35em;
+      border-radius: 0.25rem;
+      background: var(--code);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.9em;
+      overflow-wrap: anywhere;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.45rem;
+      background: var(--soft);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 880px) {
+      .layout {
+        display: block;
+        padding: 0;
+      }
+
+      aside {
+        position: static;
+        max-height: none;
+        border-width: 0 0 1px;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 1rem;
+      }
+
+      main {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        border-radius: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .layout {
+        display: block;
+        padding: 0;
+      }
+
+      aside,
+      .links {
+        display: none;
+      }
+
+      main {
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .hero {
+        margin: 0 0 2rem;
+        padding: 1.5rem;
+      }
+
+      section {
+        break-inside: avoid-page;
+      }
+    }
+  
+    summary:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    details {margin:0.8rem 0;border:1px solid var(--line);border-radius:0.65rem;background:var(--paper);}
+    summary {cursor:pointer;padding:0.75rem 1rem;color:var(--brand-dark);font-weight:600;background:var(--soft);border-radius:0.65rem;}
+    details[open] summary {border-bottom:1px solid var(--line);border-radius:0.65rem 0.65rem 0 0;}
+    .details-content {padding:0.25rem 1rem 0.7rem;}
+    .table-wrap td {overflow-wrap:anywhere;}
+
+    .topbar {position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1.5rem;height:4.6rem;padding:0 clamp(0.9rem,4vw,2.5rem);border-bottom:1px solid var(--line);background:rgba(255,255,255,0.94);backdrop-filter:saturate(1.4) blur(8px);}
+    .topbar-brand {display:inline-flex;align-items:center;text-decoration:none;}
+    .topbar-brand img {height:2.7rem;width:auto;display:block;}
+    .navgroup {display:flex;align-items:center;gap:1rem;margin-left:auto;}
+    .langs {display:flex;gap:0.4rem;}
+    .langs a {display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:1.85rem;border:1px solid var(--line);border-radius:0.4rem;background:var(--paper);transition:background .15s,border-color .15s;}
+    .langs a:hover {background:#eaf3f4;border-color:var(--brand);}
+    .langs a[aria-current="true"] {background:#dceff0;border-color:var(--brand);}
+    .langs svg {width:1.6rem;height:1.1rem;display:block;border:1px solid var(--line);}
+    .langs a:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    .tabs {display:flex;gap:0.35rem;}
+    .tabs a {padding:0.42rem 1.05rem;border:1px solid transparent;border-radius:999px;color:var(--muted);text-decoration:none;font-weight:600;white-space:nowrap;}
+    .tabs a:hover {background:var(--soft);color:var(--brand-dark);}
+    .tabs a[aria-current="page"] {border-color:var(--brand);background:#dceff0;color:var(--brand-dark);}
+    .tabs a:focus-visible,.topbar-brand:focus-visible {outline:3px solid var(--accent);outline-offset:3px;}
+    aside {top:6.1rem;max-height:calc(100vh - 8.1rem);}
+    section {scroll-margin-top:1.5rem;}
+    @media (max-width:880px){aside{top:auto;max-height:none;}}
+    @media (max-width:720px){.topbar{height:auto;flex-wrap:wrap;gap:0.5rem 1rem;padding-top:0.6rem;padding-bottom:0.6rem;}.navgroup{margin-left:auto;}.tabs{width:100%;}.tabs a{flex:1;text-align:center;padding-inline:0.5rem;}h2[id]{scroll-margin-top:7.2rem;}}
+    @media print{.topbar{display:none;}}
+</style><link rel="stylesheet" href="/install-tabs.css"></head><body><a class="skip-link" href="#content">本文へ移動</a><header class="topbar"><a class="topbar-brand" href="/jp/"><img src="/assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="言語"><a href="/jp/manual.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語" aria-current="true"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="/Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="サイト内メニュー"><a href="/jp/">Home</a><a href="/jp/manual.html" aria-current="page">Manual</a><a href="/jp/dataset.html">Dataset</a><a href="/jp/publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="目次"><p class="brand">AMADEUS</p><span class="version">1.0.0</span><nav><a href="#section-1">1. 起動</a><a href="#section-2">2. ホーム画面</a><a href="#section-3">3. 基本の流れ</a><a href="#section-4">4. Cropping & Trimming（任意）</a><a href="#section-5">5. Segmentation（前景抽出）</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab（beta）</a><a href="#section-11">11. パラメータ調整</a><a href="#section-12">12. 出力</a><a href="#section-13">13. 推奨撮影条件</a><a href="#section-14">14. ライセンス</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">Japanese Manual · 1.0.0</p><h1>AMADEUS<br>日本語マニュアル</h1><p>AMADEUSの操作ガイドです。</p></header>
+<section><h2 id="section-1">1. 起動</h2>
+<p>お使いのOSのボタンからファイルをダウンロードし、実行してください。Gitの事前導入は不要です。macOSでは、以下に示す対応したPython環境が必要です。</p>
+<div class="installer-downloads" role="group" aria-label="OS別インストーラー">
+<a href="/AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
+<a href="/AMADEUS-Setup.command" download>macOS<span>Apple Silicon</span></a>
+<a href="/AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
+</div>
+<p class="note"><strong>macOS、Linux、およびGoogle Colabでの実行は、まだ十分な動作検証を行えていません。</strong> エラーが発生した場合は、Yusuke Notomi（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。</p>
+<p>本体・uv・必要なパッケージを準備し、完了するとホーム画面が開きます。Windows・LinuxではPythonも自動で準備します。インターネット接続が必要です。</p>
+<details><summary>インストールしたAMADEUSの起動方法</summary><div class="details-content">
+<p><strong>Windows：</strong><code>AMADEUS-Setup.bat</code> をダブルクリックします。次回からはデスクトップの <strong>AMADEUS</strong> ショートカットでも起動できます。また、コマンドプロンプトで<strong>AMADEUS</strong> もしくは<strong>AMADE</strong>と入力することで起動できます。</p>
+<p><strong>macOS：</strong><code>AMADEUS-Setup.command</code> を開きます。ブラウザーからのダウンロードでは実行権限が付かない場合があります。その場合はターミナルで <code>chmod +x </code> と入力し、末尾にファイルをドラッグしてEnterを押してから、再度開いてください。macOSが開く操作をブロックした場合は「システム設定 → プライバシーとセキュリティ」で表示を確認してください。</p>
+<p><strong>Linux：</strong>ファイルのプロパティで「プログラムとして実行」を許可し、<code>AMADEUS-Setup.sh</code> を「端末で実行」します。名称や操作はデスクトップ環境で異なります。デスクトップまたはWSLgのGUI表示環境が必要です。</p>
+<p>macOSでは、Apple Siliconでネイティブに動作するPython 3.10–3.12とTcl/Tk 8.6が必要です。Tcl/Tk 9は現在のGUI依存関係に対応していません。Pythonは <code>AMADEUS_PYTHON</code>、使用する環境のフォルダーは <code>AMADEUS_VENV</code> で指定できます。<a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">設定手順</a>を参照してください。</p><p>macOS・Linuxでは、次回も同じ起動用ファイルを実行できます。保存されたAMADEUS本体を使用します。</p>
+</div></details>
+<details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
+<div class="install-os-tabs" role="group" aria-label="OSを選択">
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
+<p><a href="https://git-scm.com/downloads">Git</a>を導入済みなら、保存先のフォルダーで<strong>コマンドプロンプト（cmd）</strong>を開き、次の1行を実行します（Windows 10 / 11）。保存先に同名の <code>AMADEUS</code> フォルダーがない状態で実行してください。</p>
+<pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; AMADEUS.bat</code></pre>
+<p>uv・Python・必要なパッケージを自動で準備し、セットアップ完了後にホーム画面を開きます。初回セットアップにはインターネット接続が必要です。</p>
+<p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
+<pre><code>amadeus</code></pre>
+</div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>Apple Siliconを対象としています。Intel Macは同梱のPyTorch 2.7.1構成の対象外です。Rosettaを使わず起動してください。</p><p><code>AMADEUS.command</code> を開きます。実行権限のエラーが出る場合は、AMADEUSフォルダーのターミナルで <code>chmod +x AMADEUS.command AMADEUS.sh</code> を実行してください。</p><p>利用可能な場合はMPS、利用できない場合はCPUを選択します。MPSおよびmacOS実機での全工程は未検証です。</p><p>ターミナルから <code>amadeus</code> / <code>amade</code> を使うには <code>~/.local/bin</code> をPATHに追加します。設定方法は起動時の案内を参照してください。エラーはターミナルで確認できます。</p></div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>AMADEUSフォルダーで <code>bash AMADEUS.sh</code> を実行します。デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p><p>Tk・OpenCVや共有ライブラリのエラーが出た場合は、ターミナルに表示された不足項目を確認してください。対応するNVIDIA GPUではCUDA、その他ではCPUを利用します。</p><p><code>amadeus</code> / <code>amade</code> を使うには <code>~/.local/bin</code> をPATHに追加します。Linux x86_64のCPU環境構築は確認済みですが、実動画による全工程とLinux ARM実機は未検証です。</p></div>
+</div>
+</details>
+<details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p>Gitを使わない場合は、<a href="https://github.com/jpmyrmecol/AMADEUS">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。</p><ol>
+<li>AMADEUSのZIPファイルを展開します。</li>
+<li>OSに合ったランチャーを起動します。初回セットアップ後も同様に起動できます。</li>
+<li>初回セットアップが完了すると、ホーム画面が開きます。</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>OS</th>
+<th>起動方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows 10 / 11</td>
+<td><code>AMADEUS.bat</code> をダブルクリック</td>
+</tr>
+<tr>
+<td>macOS（Apple Silicon）</td>
+<td><code>AMADEUS.command</code> を開く</td>
+</tr>
+<tr>
+<td>Ubuntu / WSL2</td>
+<td><code>bash AMADEUS.sh</code> を実行</td>
+</tr>
+</tbody></table></div>
+</div></details>
+<details><summary>アンインストール（Windows・macOS・Linux）</summary>
+<div class="install-os-tabs" role="group" aria-label="アンインストールするOSを選択">
+<input class="install-os-choice" type="radio" name="uninstall-os" id="uninstall-os-windows" checked><label for="uninstall-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="uninstall-os" id="uninstall-os-macos"><label for="uninstall-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="uninstall-os" id="uninstall-os-linux"><label for="uninstall-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows"><h3>Windows</h3>
+<p>AMADEUSを終了してからアンインストールしてください。</p>
+<p><strong>インストーラーから導入した場合：</strong>エクスプローラーで <code>%LOCALAPPDATA%\AMADEUS\app\tools</code> を開き、<code>uninstall.bat</code> をダブルクリックします。完了後、<code>%LOCALAPPDATA%\AMADEUS</code> フォルダーとデスクトップの <strong>AMADEUS</strong> ショートカットを削除してください。</p>
+<p><strong>GitまたはZIPから導入した場合：</strong>AMADEUSのインストールフォルダー内にある <code>tools</code> フォルダーを開き、<code>uninstall.bat</code> をダブルクリックします。完了後、不要であればAMADEUSのインストールフォルダーを削除してください。</p>
+<p>アンインストーラーはローカルのPython環境とグローバルの <code>amadeus</code> コマンドを削除します。プロジェクトやセッションのフォルダーとuvは削除しません。</p>
+</div>
+<div class="install-os-panel install-os-macos"><h3>macOS</h3><p>macOSのアンインストール手順は準備中です。</p></div>
+<div class="install-os-panel install-os-linux"><h3>Linux</h3><p>Linuxのアンインストール手順は準備中です。</p></div>
+</div>
+</details>
+</section><section><h2 id="section-2">2. ホーム画面</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>画面</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Easy Tracking</strong></td>
+<td>標準的な追跡処理を少ない入力で実行</td>
+</tr>
+<tr>
+<td><strong>Cropping &amp; Trimming</strong></td>
+<td>動画の範囲、時間、明るさなどを前処理</td>
+</tr>
+<tr>
+<td><strong>Segmentation</strong></td>
+<td>動物を背景から分離し、解析範囲を設定</td>
+</tr>
+<tr>
+<td><strong>Advanced Tracking</strong></td>
+<td>各工程とパラメータを詳しく設定</td>
+</tr>
+<tr>
+<td><strong>Multi Config Batch</strong></td>
+<td>複数の設定ファイルを順番に実行</td>
+</tr>
+<tr>
+<td><strong>Refinement</strong></td>
+<td>追跡方向や個体IDを目視で修正</td>
+</tr>
+<tr>
+<td><strong>Colab（beta）</strong></td>
+<td>Google Drive向けのclean bundleを作り、AMADEUS Colab workflowを開く</td>
+</tr>
+</tbody></table></div>
+</section><section><h2 id="section-3">3. 基本の流れ</h2>
+<ol>
+<li>必要に応じて <strong>Cropping &amp; Trimming</strong> で動画を整えます。</li>
+<li><strong>Segmentation</strong> で動物が正しく抽出される設定を作ります。</li>
+<li><strong>Easy Tracking</strong> で学習と追跡を実行します。</li>
+<li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
+</ol>
+<p>細かい条件を指定する場合は、Easy Trackingの代わりに <strong>Advanced Tracking</strong> を使います。</p>
+</section><section><h2 id="section-4">4. Cropping &amp; Trimming（任意）</h2>
+<p>解析する場所と時間を切り出し、見え方を整えた動画を作成します。</p>
+<ol>
+<li><strong>Input Video</strong> で動画を選びます。</li>
+<li><strong>Set In</strong> と <strong>Set Out</strong> で使用区間を決めます。</li>
+<li><strong>Full</strong> を使うか、<strong>Add Crop</strong> で領域を追加します。</li>
+<li>領域をドラッグ・リサイズし、出力する領域を選びます。</li>
+<li>領域ごとに明るさ、コントラスト、カラー／グレースケールを設定します。</li>
+<li>出力先、名前、FPSを確認して <strong>Export</strong> します。</li>
+</ol>
+</section><section><h2 id="section-5">5. Segmentation（前景抽出）</h2>
+<p>動画から動物の領域を抽出し、単独個体と接触個体を区別します。</p>
+<ol>
+<li>動画と解析フレーム範囲を確認します。</li>
+<li>前景の抽出方法を選びます。背景差分を使う場合は、Median・Maximum・Minimumから選択します。</li>
+<li><strong>Threshold</strong> と <strong>Minimum Blob Area</strong> を調整します。</li>
+<li><strong>Analyze</strong> を実行します。</li>
+<li>単独個体が青、接触個体などが橙になるように外れ値範囲を調整します。</li>
+<li>（任意）前景として抽出されずに残った動物や動物の一部がある場合は、<strong>Additional Outlier</strong> で追加の閾値を設定し、それらが橙色でカバーされるように調整して除外します。</li>
+<li><strong>Processing</strong> を押して保存します。</li>
+</ol>
+<h3>前景の抽出方法</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>モード</th>
+<th>向いている映像</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Background difference</td>
+<td>背景との差が安定している</td>
+</tr>
+<tr>
+<td>Dark region</td>
+<td>動物が背景より暗い</td>
+</tr>
+<tr>
+<td>Bright region</td>
+<td>動物が背景より明るい</td>
+</tr>
+<tr>
+<td>Dark + background difference</td>
+<td>暗さと背景差を組み合わせたい</td>
+</tr>
+<tr>
+<td>Bright + background difference</td>
+<td>明るさと背景差を組み合わせたい</td>
+</tr>
+</tbody></table></div>
+<p>結果は <code>&lt;Session&gt;/segmentation/</code> に保存されます。</p>
+<details id="result-obb-import"><summary>解析済み結果の読み込み（Result OBB Import）［Beta］</summary><div class="details-content">
+<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 判定結果を確認したうえで使用してください。</p>
+<p>面積だけでは、実際に大きな1個体と、接触した2個体とを区別できません。どちらも面積の外れ値になるため、大きな個体が接触個体として扱われ、単独個体の学習データから外れてしまいます。同じ動画をすでに一度追跡している場合は、その結果CSVを読み込むことでこの取り違えを解消できます。</p>
+<p>サイドバーの <strong>Result OBB Import (beta)</strong>（既定は閉じた状態）を開き、<strong>Use imported result OBB</strong> にチェックを入れて、<strong>Reference</strong> から追跡結果CSV（<code>&lt;Session&gt;/results/</code> の <code>frame</code> 列と ID ごとの <code>cx</code>・<code>cy</code>・<code>w</code>・<code>h</code>・<code>heading</code> 列を持つファイル）を選びます。別プロジェクトで解析した結果CSVでも、同じ動画の座標であれば読み込めます。</p>
+<p>各OBBは、その中心を含むblob（中心が背景に落ちる場合は最も重なるblob）1つだけに割り当てられます。したがって、2個体が1つのblobを形成していればそのblobのOBB数は2になります。<strong>面積の外れ値と判定されたblobのうち</strong>、割り当てられたOBBがちょうど1つで、かつそのOBBがblob面積の <strong>Min OBB coverage</strong>（既定：0.7）以上を覆うものだけが、大きな1個体として外れ値から外されます。それ以外は面積による判定のままです。面積の範囲内にあるblob、Additional Outlierで抽出された領域、OBBが2つ以上のblob、結果CSVが説明しないblobは、いずれも変更されません。</p>
+<p>被覆率の条件は、2個体のうち片方を追跡が取りこぼした場合を除外するためのものです。この場合もOBB数は1になりますが、OBBは自分が対応する個体の範囲しか覆わず、もう1個体の分が残るため、外れ値のまま残ります。OBBは1個体の外接矩形なので、検出とセグメンテーションが同じ個体を捉えていれば被覆率は1に近づきます。実際の値はblobにカーソルを合わせると表示されるので、自分のデータで確認して閾値を決めてください。</p>
+<p><strong>Frame offset</strong> は、結果CSVのフレーム番号から動画のフレーム番号を引いた値です（トリミング前の動画で追跡した場合などに使用、既定：0）。<strong>Show imported OBB</strong> をオンにすると、読み込んだOBBがプレビューと書き出し動画にマゼンタで重ね描きされ、位置ずれを目視で確認できます。プレビュー上部の <code>result-single</code> は外れ値から外されたblob数、blobにカーソルを合わせると割り当てOBB数と被覆率が表示されます。</p>
+<p>設定は <code>segmentation_gui_config.json</code> に保存されます。読み込んだ結果を使わない場合は <strong>Clear imported result</strong> で解除するか、チェックを外してください。</p>
+</div></details>
+</section><section><h2 id="section-6">6. Easy Tracking</h2>
+<p>個体数と2つの質問から設定を作り、学習から結果出力までをまとめて実行します。</p>
+<ol>
+<li><strong>Video File</strong> と <strong>Session</strong> を指定します。</li>
+<li><strong>Launch Segmentation</strong> で前景抽出を設定します。</li>
+<li><strong>How many animals are in the video?</strong> に個体数を入力し、Enterボタンで反映します。</li>
+<li>個体の重なり度合いと、後退する個体がいるかを選びます。</li>
+<li><strong>Processing</strong> を押します。</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>入力</th>
+<th>選択肢</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>How many animals are in the video?</td>
+<td>正の整数</td>
+<td>追跡する個体数</td>
+</tr>
+<tr>
+<td>Use paste augmentation when animals = 1</td>
+<td>On / Off</td>
+<td>1個体でも合成画像を学習に使うか</td>
+</tr>
+<tr>
+<td>How severe is the overlap?</td>
+<td>Very heavy / Heavy / Light</td>
+<td>接触の強さ。Very heavyでは埋め込みID補正も実行</td>
+</tr>
+<tr>
+<td>Do the animals ever move backward?</td>
+<td>Yes / No</td>
+<td>Yesでは方向ラベルを追加調整</td>
+</tr>
+<tr>
+<td>Delete tmp files</td>
+<td>On / Off</td>
+<td>完了後に一時ファイルを削除するか</td>
+</tr>
+</tbody></table></div>
+<p><strong>Save Config</strong> と <strong>Load Config</strong> でYAMLを保存・読込できます。<strong>Switch Advanced Mode</strong> では現在の設定をAdvanced Trackingで開きます。</p>
+<h3>自動処理</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>工程</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Initial Tracking</td>
+<td>単独個体を追跡、パラメータを自動調整</td>
+</tr>
+<tr>
+<td>Direction Estimation</td>
+<td>移動軌跡から単独個体の向きを推定</td>
+</tr>
+<tr>
+<td>Refine Blobs</td>
+<td>必要に応じて誤った方向ラベルを除去</td>
+</tr>
+<tr>
+<td>Clustered / Mixed Paste</td>
+<td>仮想相互作用画像を合成</td>
+</tr>
+<tr>
+<td>Crop Images / Create Dataset</td>
+<td>学習用画像とデータセットを作成</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>検出器を学習</td>
+</tr>
+<tr>
+<td>Detection / ID Tracking / ID Correction</td>
+<td>検出、個体対応、時系列補正</td>
+</tr>
+<tr>
+<td>Create Video</td>
+<td>追跡結果を重ねた動画を作成</td>
+</tr>
+</tbody></table></div>
+<details id="without-direction-estimation"><summary>方向推定なし（Without direction estimation）［Beta］</summary><div class="details-content">
+<p class="note"><strong>ベータ版機能です。追跡結果を確認したうえで使用してください。</strong></p>
+<p>head directionが不要な場合、または前後を安定して区別できない対象に使用できます。Easy TrackingとAdvanced Trackingの双方から有効化でき、初期値はオフです。</p>
+<p>head direction classを割り当てずにOBBを推定し、ID trackingを行います。OBBの回転角は幾何情報として保持されますが、frontとrearは割り当てません。動きからhead directionを決められないことだけを理由に、静止した個体や軌跡の短い個体を除外することはありません。</p>
+<p>出力は<code>&lt;Session&gt;/without_direction_estimation/</code>に保存されます。最終CSVには<code>frame, cx0, cy0, w0, h0, …</code>が含まれ、<code>heading</code>列は含まれません。このモード用に生成した学習データとweightを使用してください。</p>
+</div></details>
+<details id="variable-population"><summary>個体数可変（Variable population）［Beta］</summary><div class="details-content">
+<p class="note"><strong>ベータ版機能です。追跡結果を確認したうえで使用してください。</strong></p>
+<p>画面への出入りなどで動画中の個体数が変わる場合に使用します。初期値はオフです。Easy Trackingではチェックを入れると個体数入力が無効になり、Advanced TrackingではMainのBasic Settingsから有効にできます。</p>
+<p>新たに現れた個体には新しいIDを割り当て、長く見失ったIDは終了します。再入場した同一個体でも新しいIDになる場合があります。誤検出や対応失敗でもIDが増えることがあるため、実際の個体数を正確に推定する機能ではありません。</p>
+<p>可変モードの結果は追跡出力フォルダ内の<code>variable/</code>に保存されます。</p>
+</div></details>
+</section><section><h2 id="section-7">7. Advanced Tracking</h2>
+<p>個体数が変わる場合は、MainのBasic SettingsでVariable populationを有効にしてください。</p>
+<p>各工程とパラメータを詳しく設定します。</p>
+<ol>
+<li>セッション、学習動画、解析動画、個体数を指定します。</li>
+<li><strong>Adjust Parameters</strong> で動画に合う初期値を測定します。</li>
+<li>実行する工程と設定を確認します。</li>
+<li><strong>Run</strong> を押します。</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>セクション</th>
+<th>主な設定</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Basic</td>
+<td>動画、セッション、個体数、画像サイズ、フレーム範囲</td>
+</tr>
+<tr>
+<td>Initial Tracking</td>
+<td>単独個体の抽出とフレーム間対応</td>
+</tr>
+<tr>
+<td>Create single animal images</td>
+<td>軌跡、方向判定、方向ラベル調整</td>
+</tr>
+<tr>
+<td>Create with crossing</td>
+<td>接触場面の合成</td>
+</tr>
+<tr>
+<td>Create dataset</td>
+<td>学習画像数、クロップ、検証データ</td>
+</tr>
+<tr>
+<td>Training</td>
+<td>エポック、バッチ、デバイス、学習率</td>
+</tr>
+<tr>
+<td>Analysis</td>
+<td>検出、ID追跡、埋め込み補正</td>
+</tr>
+<tr>
+<td>Create Video</td>
+<td>出力範囲、FPS、描画内容</td>
+</tr>
+</tbody></table></div>
+<details><summary>ランダムノイズ付与（Random noise on animals）［Beta］</summary><div class="details-content"><p>通常・Clusteredの貼り付け完了後、合成画像ごとに個体の上に、背景で置き換えた小さなノイズを貼ります。天井やレンズのゴミの再現用で、Advanced Trackingのみ、既定はオフです。</p><p><strong>Noise Size (% of body length)</strong> で体長に対する大きさ（既定：10）、<strong>Max Noise per Animal</strong> で1個体あたりの上限個数（既定：10、0からこの値までの乱数）を指定します。形状は毎回ランダムで、ラベルとマスクは変わりません。</p></div></details>
+<p>skipチェックボックスをチェックすることで、必要な工程だけを実行できます。</p>
+<p>解析する重みは <code>last</code>、<code>best</code>、または保存済みエポック番号で指定できます。</p>
+</section><section><h2 id="section-8">8. Multi Config Batch</h2>
+<p>複数のTracking設定を順番に実行します。</p>
+<ol>
+<li>EasyまたはAdvanced Trackingで設定をYAMLに保存します。</li>
+<li><strong>Add Configs</strong> または <strong>Add Folder</strong> でconfigを追加します。</li>
+<li><strong>Up</strong> / <strong>Down</strong> で実行順を整えます。</li>
+<li><strong>Run Queue</strong> を押します。</li>
+</ol>
+</section><section><h2 id="section-9">9. Refinement</h2>
+<p>結果を動画に重ねて確認し、体の向きや個体IDを修正します。</p>
+<ul>
+<li><strong>AMADEUS mode:</strong> <code>config.yaml</code>、重み、結果を選択</li>
+<li><strong>Dataset mode:</strong> 動画と追跡ファイルを選択</li>
+</ul>
+<p>Dataset modeでは、AMADEUS形式のほか、SLEAP、DeepLabCut、idtracker.aiなどのCSV/H5を読み込めます。方向を修正する場合は、前端・後端の座標を持つデータを選びます。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>矢印の端をドラッグ</td>
+<td>前端または後端を移動</td>
+</tr>
+<tr>
+<td>矢印全体をドラッグ</td>
+<td>個体位置を移動</td>
+</tr>
+<tr>
+<td>右クリック</td>
+<td>向きの反転、または2個体のID入れ替え</td>
+</tr>
+<tr>
+<td>マウスホイール</td>
+<td>拡大・縮小</td>
+</tr>
+<tr>
+<td>背景をドラッグ</td>
+<td>表示を移動</td>
+</tr>
+<tr>
+<td>左右キー</td>
+<td>前後のフレームへ移動</td>
+</tr>
+<tr>
+<td>上下キー</td>
+<td>選択する個体を変更</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>再生・一時停止</td>
+</tr>
+<tr>
+<td>Ctrl+S（macOSではCommand+Sも可）</td>
+<td>保存</td>
+</tr>
+</tbody></table></div>
+</section><section><h2 id="section-10">10. Colab（beta）</h2>
+<p>保存済みのAMADEUS設定をGoogle Colabで実行し、GPUを使って処理できます。</p>
+<ol>
+<li><strong>Colab（beta）</strong> で保存済みの <code>config.yaml</code> とGoogle Driveの保存先を選び、<strong>Prepare for Google Colab</strong> を押します。</li>
+<li>準備後に <strong>Open Google Colab</strong> を押します。</li>
+<li>Colabで <strong>Run all</strong> を実行し、求められたらGoogle Driveを承認します。</li>
+</ol>
+<p>GPU runtimeが必要です。最終CSV、結果動画、必要な学習済み重み、summary、logがGoogle Driveへ保存されます。</p>
+</section><section><h2 id="section-11">11. パラメータ調整</h2>
+<p>今後、主要なパラメータ調整の指針を追加します。基本的には標準設定で問題ありません。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>症状</th>
+<th>最初に確認する項目</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>メモリ不足</td>
+<td>Advanced modeで、バッチサイズを指定（基本的には自動で調整されます）</td>
+</tr>
+</tbody></table></div>
+</section><section><h2 id="section-12">12. 出力</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>場所</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;Session&gt;/config.yaml</code></td>
+<td>実行設定</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/segmentation/</code></td>
+<td>背景画像、Segmentation設定</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/model/</code></td>
+<td>ダウンロードした事前学習重み</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/main/&lt;model&gt;/</code></td>
+<td>学習データ、学習済み重み、追跡結果、結果動画</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/results/</code></td>
+<td>最終CSV</td>
+</tr>
+<tr>
+<td><code>&lt;Session&gt;/log.txt</code>、<code>time.csv</code></td>
+<td>ログと処理時間</td>
+</tr>
+</tbody></table></div>
+<p><code>results/</code> には、<code>tracked</code>（後処理なし）、<code>filled</code>（通常後処理済み）、もしくは<code>id_resolved</code>（埋め込みID補正 + 後処理済み）の最終CSVが保存されます。</p>
+<p>最終CSVは1行が1フレームで、<code>frame</code> と個体別の <code>cx0, cy0, w0, h0, heading0, …</code> を持ちます。個体IDは0から始まります。座標とOBB寸法は入力動画のピクセル単位、原点は左上、xは右向き、yは下向きです。<code>heading</code> は上を0°、時計回りを正とする0°以上360°未満の角度です。欠測は空欄（NaN）で、全個体が全フレームで必ず得られるわけではありません。</p>
+<p>学習済み重みは <code>&lt;Session&gt;/main/&lt;model&gt;/training/&lt;動画名&gt;/weights/</code> に保存されます。</p>
+</section><section><h2 id="section-13">13. 推奨撮影条件</h2>
+<ul>
+<li>比較的細長い体型で体軸が判別可能であり、初心者でも個体の前後を見分けられる動物であること。</li>
+<li>固定した真上視点のカメラで撮影し、動きが概ね2次元平面内に収まっていること。</li>
+<li>カメラが固定され、照明が安定していること。</li>
+<li>背景が基本的に静止していること。</li>
+<li>個体と背景の間に十分なコントラストがあること。</li>
+<li>初心者でも目視で個体を追跡できる程度の解像度があること。</li>
+<li>初心者でもフレームごとに目視で個体を追跡できる程度のfpsとシャッタースピードで撮影されていること。</li>
+<li>学習データ生成のため、個体同士が接触していない単独個体の場面が比較的頻繁に含まれていること。<br>ただし、撮影条件が同一であれば、学習用動画と解析用動画を別々に撮影しても構いません。</li>
+</ul>
+</section><section><h2 id="section-14">14. ライセンス</h2>
+<p>GNU Affero General Public License v3.0 only（AGPL-3.0-only）です。<a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/LICENSE">LICENSE</a> と <a href="/legal/THIRD_PARTY_NOTICES.md">第三者ライセンス情報</a> を参照してください。</p>
+</section><footer><p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p></footer></main></div></body></html>
