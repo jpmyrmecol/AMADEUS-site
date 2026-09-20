@@ -4,24 +4,24 @@
     <loc>https://amadeus.jpmyrmecol.com/</loc>
   </url>
   <url>
-    <loc>https://amadeus.jpmyrmecol.com/index_JP.html</loc>
+    <loc>https://amadeus.jpmyrmecol.com/jp/</loc>
   </url>
   <url>
     <loc>https://amadeus.jpmyrmecol.com/Manual_EN.html</loc>
   </url>
   <url>
-    <loc>https://amadeus.jpmyrmecol.com/Manual_JP.html</loc>
+    <loc>https://amadeus.jpmyrmecol.com/jp/manual.html</loc>
   </url>
   <url>
     <loc>https://amadeus.jpmyrmecol.com/dataset.html</loc>
   </url>
   <url>
-    <loc>https://amadeus.jpmyrmecol.com/dataset_JP.html</loc>
+    <loc>https://amadeus.jpmyrmecol.com/jp/dataset.html</loc>
   </url>
   <url>
     <loc>https://amadeus.jpmyrmecol.com/publication.html</loc>
   </url>
   <url>
-    <loc>https://amadeus.jpmyrmecol.com/publication_JP.html</loc>
+    <loc>https://amadeus.jpmyrmecol.com/jp/publication.html</loc>
   </url>
 </urlset>
