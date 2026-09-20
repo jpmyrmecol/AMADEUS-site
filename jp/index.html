@@ -73,7 +73,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
       <li><strong>Segmentation</strong> で動物が正しく抽出される設定を作ります。</li>
       <li><strong>Easy Tracking</strong> で学習と追跡を実行します。</li>
       <li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
-      <li>GPUで追跡する場合は <strong>Google Colab</strong> を開きます。</li>
     </ol>
     <p>細かい条件を指定する場合はEasy Trackingの代わりに <strong>Advanced Tracking</strong> を、複数の設定を順番に実行する場合は <strong>Multi Config Batch</strong> を使います。</p>
     <div class="links"><a class="primary" href="/jp/manual.html">マニュアルを読む</a></div>
@@ -81,44 +80,14 @@ if (location.hostname === "jpmyrmecol.github.io") {
 
   <section id="install">
     <h2>インストールと起動</h2>
-<p>お使いのOSのボタンからファイルをダウンロードし、実行してください。Gitの事前導入は不要です。macOSでは、以下に示す対応したPython環境が必要です。</p>
+<p>お使いのOSのインストーラーをダウンロードし、実行してください。</p>
 <div class="installer-downloads" role="group" aria-label="OS別インストーラー">
 <a href="/AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
 <a href="/AMADEUS-Setup.command" download>macOS<span>Apple Silicon</span></a>
 <a href="/AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
 </div>
-<p class="note"><strong>macOS、Linux、およびGoogle Colabでの実行は、まだ十分な動作検証を行えていません。</strong> エラーが発生した場合は、Yusuke Notomi（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。</p>
-<p>本体・uv・必要なパッケージを準備し、完了するとホーム画面が開きます。Windows・LinuxではPythonも自動で準備します。インターネット接続が必要です。</p>
-<details><summary>インストールしたAMADEUSの起動方法</summary><div class="details-content">
-<p><strong>Windows：</strong><code>AMADEUS-Setup.bat</code> をダブルクリックします。次回からはデスクトップの <strong>AMADEUS</strong> ショートカットでも起動できます。また、コマンドプロンプトで<strong>AMADEUS</strong> もしくは<strong>AMADE</strong>と入力することで起動できます。</p>
-<p><strong>macOS：</strong><code>AMADEUS-Setup.command</code> を開きます。ブラウザーからのダウンロードでは実行権限が付かない場合があります。その場合はターミナルで <code>chmod +x </code> と入力し、末尾にファイルをドラッグしてEnterを押してから、再度開いてください。macOSが開く操作をブロックした場合は「システム設定 → プライバシーとセキュリティ」で表示を確認してください。</p>
-<p><strong>Linux：</strong>ファイルのプロパティで「プログラムとして実行」を許可し、<code>AMADEUS-Setup.sh</code> を「端末で実行」します。名称や操作はデスクトップ環境で異なります。デスクトップまたはWSLgのGUI表示環境が必要です。</p>
-<p>macOSはPython 3.10–3.12とTcl/Tk 8.6が必要です。既存の対応環境は <code>AMADEUS_VENV</code>、Pythonは <code>AMADEUS_PYTHON</code> で指定できます。<a href="https://github.com/jpmyrmecol/AMADEUS#macos-setup">設定・修復手順</a>をご覧ください。macOS用パッケージはMPS／CPUに対応します。</p><p>macOS・Linuxでは、次回も同じ起動用ファイルを実行できます。保存されたAMADEUS本体を使用します。</p>
-</div></details>
-<details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
-<div class="install-os-tabs" role="group" aria-label="OSを選択">
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
-<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
-<p><a href="https://git-scm.com/downloads">Git</a>を導入済みなら、保存先のフォルダーで<strong>コマンドプロンプト（cmd）</strong>を開き、次の1行を実行します（Windows 10 / 11）。保存先に同名の <code>AMADEUS</code> フォルダーがない状態で実行してください。</p>
-<pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; AMADEUS.bat</code></pre>
-<p>uv・Python・必要なパッケージを自動で準備し、セットアップ完了後にホーム画面を開きます。初回セットアップにはインターネット接続が必要です。</p>
-<p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
-<pre><code>amadeus</code></pre>
-</div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>Apple Siliconを対象としています。Intel Macは同梱のPyTorch 2.7.1構成の対象外です。Rosettaを使わず起動してください。</p><p><code>AMADEUS.command</code> を開きます。実行権限のエラーが出る場合は、AMADEUSフォルダーのターミナルで <code>chmod +x AMADEUS.command AMADEUS.sh</code> を実行してください。</p><p>利用可能な場合はMPS、利用できない場合はCPUを選択します。MPSおよびmacOS実機での全工程は未検証です。</p><p>ターミナルから <code>amadeus</code> / <code>amade</code> を使うには <code>~/.local/bin</code> をPATHに追加します。設定方法は起動時の案内を参照してください。エラーはターミナルで確認できます。</p></div>
-<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; bash AMADEUS.sh</code></pre><p>AMADEUSフォルダーで <code>bash AMADEUS.sh</code> を実行します。デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p><p>Tk・OpenCVや共有ライブラリのエラーが出た場合は、ターミナルに表示された不足項目を確認してください。対応するNVIDIA GPUではCUDA、その他ではCPUを利用します。</p><p><code>amadeus</code> / <code>amade</code> を使うには <code>~/.local/bin</code> をPATHに追加します。Linux x86_64のCPU環境構築は確認済みですが、実動画による全工程とLinux ARM実機は未検証です。</p></div>
-</div>
-</details>
-<details><summary>ZIPをダウンロードしてインストールする場合</summary><p>GitHubの「Code → Download ZIP」からダウンロードし、展開後にOSに合ったランチャーを起動します。</p>    <div class="table-wrap"><table>
-      <thead><tr><th>OS</th><th>ランチャー</th></tr></thead>
-      <tbody>
-        <tr><td>Windows 10 / 11</td><td><code>AMADEUS.bat</code> をダブルクリック</td></tr>
-        <tr><td>macOS（Apple Silicon）</td><td><code>AMADEUS.command</code> を開く</td></tr>
-        <tr><td>Ubuntu / WSL2</td><td><code>bash AMADEUS.sh</code> を実行</td></tr>
-      </tbody>
-    </table></div></details>
+<p class="note"><strong>macOSおよびLinuxでの実行は、まだ十分な動作検証を行えていません。</strong> エラーが発生した場合は、Yusuke Notomi（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。</p>
+<p>インストーラーはAMADEUSをダウンロードし、必要な環境を準備します。</p>
   </section>
 
   <section id="recording">
@@ -137,7 +106,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
     <section id="cite">
     <h2>引用</h2>
     <p>プレプリントのDOIと推奨引用形式は、<a href="/jp/publication.html">Publication</a>ページに掲載します。</p>
-    <p>あわせて本サイトのアドレスもご記載ください：<code>https://amadeus.jpmyrmecol.com/</code></p>
   </section>
 
   <section id="license">
