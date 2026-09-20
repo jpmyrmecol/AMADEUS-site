@@ -7,6 +7,8 @@
 if (location.hostname === "jpmyrmecol.github.io") {
   location.replace("https://amadeus.jpmyrmecol.com"
     + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+} else if (location.pathname.toLowerCase() === "/index.html") {
+  location.replace("/" + location.search + location.hash);
 }
 </script>
 <title>AMADEUS | Annotation-free multi-animal tracking software</title>
