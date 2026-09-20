@@ -15,7 +15,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background: var(--soft); }
 
 body {
   margin: 0;
@@ -44,7 +44,6 @@ a:hover { color: var(--brand-dark); }
   padding: 0 clamp(0.9rem, 4vw, 2.5rem);
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: saturate(1.4) blur(8px);
 }
 
 .topbar-brand { display: inline-flex; align-items: center; text-decoration: none; }
