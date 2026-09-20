@@ -621,8 +621,8 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tbody></table></div>
 <details id="without-direction-estimation"><summary>方向推定なし（Without direction estimation）［Beta］</summary><div class="details-content">
 <p class="note"><strong>ベータ版機能です。追跡結果を確認したうえで使用してください。</strong></p>
-<p>front directionが不要な場合、または前後を安定して区別できない対象に使用できます。Easy TrackingとAdvanced Trackingの双方から有効化でき、初期値はオフです。</p>
-<p>front direction classを割り当てずにOBBを推定し、ID trackingを行います。OBBの回転角は幾何情報として保持されますが、frontとrearは割り当てません。動きからfront directionを決められないことだけを理由に、静止した個体や軌跡の短い個体を除外することはありません。</p>
+<p>head directionが不要な場合、または前後を安定して区別できない対象に使用できます。Easy TrackingとAdvanced Trackingの双方から有効化でき、初期値はオフです。</p>
+<p>head direction classを割り当てずにOBBを推定し、ID trackingを行います。OBBの回転角は幾何情報として保持されますが、frontとrearは割り当てません。動きからhead directionを決められないことだけを理由に、静止した個体や軌跡の短い個体を除外することはありません。</p>
 <p>出力は<code>&lt;Session&gt;/without_direction_estimation/</code>に保存されます。最終CSVには<code>frame, cx0, cy0, w0, h0, …</code>が含まれ、<code>heading</code>列は含まれません。このモード用に生成した学習データとweightを使用してください。</p>
 </div></details>
 <details id="variable-population"><summary>個体数可変（Variable population）［Beta］</summary><div class="details-content">
