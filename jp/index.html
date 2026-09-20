@@ -7,6 +7,8 @@
 if (location.hostname === "jpmyrmecol.github.io") {
   location.replace("https://amadeus.jpmyrmecol.com"
     + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+} else if (location.pathname.toLowerCase() === "/jp/index.html") {
+  location.replace("/jp/" + location.search + location.hash);
 }
 </script>
 <title>AMADEUS — 自己教師学習による複数個体トラッキング</title>
