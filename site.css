@@ -133,6 +133,20 @@ li + li { margin-top: 0.35rem; }
   padding: 1.1rem 1.2rem;
   border: 1px solid var(--line); border-radius: 0.75rem; background: var(--soft);
 }
+#about .cards article {
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  #about .cards article:hover {
+    transform: translateY(-2px);
+    border-color: #cbd9dc;
+    box-shadow: 0 6px 16px rgba(18, 45, 52, 0.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #about .cards article { transition: none; }
+  #about .cards article:hover { transform: none; }
+}
 .cards h3 { margin: 0 0 0.35rem; font-size: 1.02rem; }
 .cards p { margin: 0; color: var(--muted); font-size: 0.95rem; }
 
