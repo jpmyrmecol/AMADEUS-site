@@ -369,10 +369,10 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>An internet connection is required for the initial setup.</p>
 <details><summary>How to launch the installed AMADEUS</summary><div class="details-content">
 <p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut. You can also launch AMADEUS by typing <strong>AMADEUS</strong> or <strong>AMADE</strong> in Command Prompt.</p>
-<p><strong>macOS:</strong> open <code>AMADEUS-Setup.command</code>. Native Apple Silicon is required; Intel Macs and Rosetta are not supported.</p>
-<p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required.</p>
-
-<p>On macOS and Linux, use the same launcher for subsequent sessions.</p>
+<p><strong>macOS:</strong> Create an <code>AMADEUS</code> folder in your Home folder and place <code>AMADEUS-Setup.command</code> inside it. Before the first run, open Terminal and execute:</p>
+<pre><code>chmod +x ~/AMADEUS/AMADEUS-Setup.command</code></pre>
+<p>Then double-click <code>AMADEUS-Setup.command</code>. If you are prompted to install Python, install it and then double-click <code>AMADEUS-Setup.command</code> again. For subsequent launches, simply double-click <code>AMADEUS-Setup.command</code>. Native Apple Silicon is required; Intel Macs and Rosetta are not supported.</p>
+<p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required. Use the same launcher for subsequent sessions.</p>
 </div></details>
 <details><summary>Install using Git (Windows, macOS, Linux)</summary>
 <div class="install-os-tabs" role="group" aria-label="Choose your operating system">
