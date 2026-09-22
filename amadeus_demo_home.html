@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+} else if (location.pathname.toLowerCase() === "/jp/index.html") {
+  location.replace("/jp/" + location.search + location.hash);
+}
+</script>
+<title>AMADEUS Demo Home — 背景動画プレビュー</title>
+<meta name="description" content="AMADEUSは、解析動画そのものから自己教師的に学習し、複数個体の方向付き境界ボックス検出とID追跡を行います。学習画像への手動アノテーションは不要です。">
+<link rel="canonical" href="https://amadeus.jpmyrmecol.com/jp/">
+<link rel="alternate" hreflang="en" href="https://amadeus.jpmyrmecol.com/">
+<link rel="alternate" hreflang="ja" href="https://amadeus.jpmyrmecol.com/jp/">
+<link rel="alternate" hreflang="x-default" href="https://amadeus.jpmyrmecol.com/">
+<link rel="icon" href="/assets/icon.png">
+<link rel="stylesheet" href="/site.css?v=2">
+<link rel="stylesheet" href="/install-tabs.css">
+<link rel="stylesheet" href="/background-video.css?v=2">
+<script src="/background-video.js?v=1" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#content">本文へ移動</a>
+
+<header class="topbar"><a class="topbar-brand" href="/jp/"><img src="/assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="言語"><a href="/jp/" lang="ja" hreflang="ja" title="日本語" aria-label="日本語" aria-current="true"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="/" lang="en" hreflang="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="サイト内メニュー"><a href="/jp/" aria-current="page">Home</a><a href="/jp/manual.html">Manual</a><a href="/jp/dataset.html">Dataset</a><a href="/jp/publication.html">Publication</a></nav></div></header>
+
+<div class="wrap">
+<main class="card" id="content">
+
+  <div class="hero">
+    <h1>AMADEUS</h1>
+    <p>複数個体の方向付き境界ボックス（OBB）検出とID追跡を行います。解析対象の動画そのものから自己教師的にモデルを学習するため、学習画像への手動アノテーションは必要ありません。</p>
+    <a class="pill" href="https://github.com/jpmyrmecol/AMADEUS">AMADEUS 1.0.0</a>
+  </div>
+
+  <div class="body">
+
+  <section id="about">
+    <h2>AMADEUSでできること</h2>
+    <div class="cards">
+      <article>
+        <h3>手動アノテーション不要</h3>
+        <p>学習画像とラベルは入力された動画から生成されます。手動のラベル付け作業は必要ありません。</p>
+      </article>
+      <article>
+        <h3>バッチ処理</h3>
+        <p>最初のセグメンテーションの後、3つの質問に答えるだけでその後のすべての工程が自動で実行されます。</p>
+      </article>
+      <article>
+        <h3>GUI</h3>
+        <p>ユーザーフレンドリーなグラフィカルユーザーインターフェースを備えています。</p>
+      </article>
+      <article>
+        <h3>位置と形と方向を推定</h3>
+        <p>各個体は、個体を囲う方向付き境界ボックスで出力されます。</p>
+      </article>
+      <article>
+        <h3>相互作用に頑健</h3>
+        <p>相互作用を再現した画像を大量に合成して学習することで、交差時や密集した状況でも安定して追跡することができます。</p>
+      </article>
+      <article>
+        <h3>多様な動画での実行</h3>
+        <p>動物種を問わず、様々な実験室動画での解析が可能です。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="workflow">
+    <h2>基本の流れ</h2>
+    <ol>
+      <li>必要に応じて <strong>Cropping &amp; Trimming</strong> で動画を整えます。</li>
+      <li><strong>Segmentation</strong> で動物が正しく抽出される設定を作ります。</li>
+      <li><strong>Easy Tracking</strong> で学習と追跡を実行します。</li>
+      <li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
+    </ol>
+    <p>細かい条件を指定する場合はEasy Trackingの代わりに <strong>Advanced Tracking</strong> を、複数の設定を順番に実行する場合は <strong>Multi Config Batch</strong> を使います。</p>
+    <div class="links"><a class="primary" href="/jp/manual.html">マニュアルを読む</a></div>
+  </section>
+
+  <section id="install">
+    <h2>インストールと起動</h2>
+<p>お使いのOSのインストーラーをダウンロードし、実行してください。Apple Silicon搭載Macでは、最初にPythonを確認し、必要な場合は確認画面を表示し、公式Pythonインストーラーを開きます。Pythonのインストール完了後、AMADEUS Setupをもう一度実行してください。Pythonの事前インストールは不要です。</p>
+<div class="installer-downloads" role="group" aria-label="OS別インストーラー">
+<a href="/AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
+<a href="/AMADEUS-Setup.command" download>macOS<span>Apple Silicon</span></a>
+<a href="/AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
+</div>
+<p class="note"><strong>macOSおよびLinuxでの実行は、まだ十分な動作検証を行えていません。</strong> エラーが発生した場合は、Yusuke Notomi（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。</p>
+<p>インストーラーはAMADEUSをダウンロードし、必要な環境を準備します。</p>
+  </section>
+
+  <section id="recording">
+    <h2>推奨撮影条件</h2>
+    <p>AMADEUSは与えられた動画から学習するため、撮影条件が結果を左右します。次のような録画を想定しています。</p>
+    <ul>
+      <li>体が比較的細長く体軸が判別でき、初心者でも前後を区別できる動物。</li>
+      <li>固定した真上からのカメラで、動きが概ね二次元平面に収まっていること。</li>
+      <li>照明が安定し、背景がほぼ静止していること。</li>
+      <li>初心者が1フレームずつ個体を目で追える程度のコントラスト・解像度・フレームレート。</li>
+      <li>個体が接触せず単独でいる場面が比較的多く含まれること。ここから学習データが作られます。</li>
+    </ul>
+    <p>撮影条件が同じであれば、学習用動画と解析用動画は別に撮影しても構いません。</p>
+  </section>
+
+    <section id="cite">
+    <h2>引用</h2>
+    <p>プレプリントのDOIと推奨引用形式は、<a href="/jp/publication.html">Publication</a>ページに掲載します。</p>
+  </section>
+
+  <section id="license">
+    <h2>ライセンス</h2>
+    <p>AMADEUSはGNU Affero General Public License v3.0 only（AGPL-3.0-only）で公開しています。同梱する第三者コンポーネントはそれぞれのライセンスに従い、内容はソフトウェアに同梱の第三者ライセンス表記に記載しています。</p>
+    <p>デモ動画内の魚の映像には、<a href="https://ftc-2024.github.io/">Fish Tracking Challenge 2024</a>で公開されたFish datasetを使用しています。このデータセットは<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license</a>の下で公開されています。</p>
+  </section>
+
+  </div>
+</main>
+</div>
+
+<footer class="site">
+  <p>AMADEUS 1.0.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
+  <p><a href="https://jpmyrmecol.com/">jpmyrmecol.com</a></p>
+</footer>
+<!-- home-cache-refresh: 2026-09-14 -->
+</body>
+</html>
