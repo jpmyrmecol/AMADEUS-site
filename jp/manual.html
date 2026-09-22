@@ -369,9 +369,10 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>初回セットアップにはインターネット接続が必要です。</p>
 <details><summary>インストールしたAMADEUSの起動方法</summary><div class="details-content">
 <p><strong>Windows：</strong><code>AMADEUS-Setup.bat</code> をダブルクリックします。次回からはデスクトップの <strong>AMADEUS</strong> ショートカットでも起動できます。また、コマンドプロンプトで<strong>AMADEUS</strong> もしくは<strong>AMADE</strong>と入力することで起動できます。</p>
-<p><strong>macOS：</strong><code>AMADEUS-Setup.command</code> を開きます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。</p>
-<p><strong>Linux：</strong>ファイルのプロパティで「プログラムとして実行」を許可し、<code>AMADEUS-Setup.sh</code> を「端末で実行」します。名称や操作はデスクトップ環境で異なります。デスクトップまたはWSLgのGUI表示環境が必要です。</p>
-<p>macOS・Linuxでは、次回も同じ起動用ファイルを使用します。</p>
+<p><strong>macOS：</strong>ホームフォルダ直下に <code>AMADEUS</code> フォルダを作成し、<code>AMADEUS-Setup.command</code> をその中に置きます。初回起動前にターミナルを開き、次を実行します。</p>
+<pre><code>chmod +x ~/AMADEUS/AMADEUS-Setup.command</code></pre>
+<p>その後、<code>AMADEUS-Setup.command</code> をダブルクリックします。Pythonのインストールを求められた場合は、Pythonをインストールした後、<code>AMADEUS-Setup.command</code> をもう一度ダブルクリックしてください。それ以降は、<code>AMADEUS-Setup.command</code> をダブルクリックするだけで起動します。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。</p>
+<p><strong>Linux：</strong>ファイルのプロパティで「プログラムとして実行」を許可し、<code>AMADEUS-Setup.sh</code> を「端末で実行」します。名称や操作はデスクトップ環境で異なります。デスクトップまたはWSLgのGUI表示環境が必要です。次回も同じ起動用ファイルを使用します。</p>
 </div></details>
 <details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
 <div class="install-os-tabs" role="group" aria-label="OSを選択">
