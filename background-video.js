@@ -4,10 +4,14 @@
   const MIN_SIDE_MARGIN = 180;
   const MIN_VIEWPORT_HEIGHT = 650;
   const VIDEO_SRC = "/assets/amadeus_demo_web.mov";
+  const MOBILE_VIDEO_SRC = "/assets/amadeus_demo_mobile.mov";
 
   let video = null;
   let resizeFrame = 0;
   let playbackUnavailable = false;
+  let mobileDemoUnavailable = false;
+  let mobileDemo = null;
+  let mobileDemoVideo = null;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function topbarHeight() {
@@ -45,10 +49,8 @@
     );
   }
 
-  function shouldShowVideo() {
-    return !playbackUnavailable &&
-      !reducedMotion.matches &&
-      window.innerHeight >= MIN_VIEWPORT_HEIGHT &&
+  function hasRoomForBackgroundVideo() {
+    return window.innerHeight >= MIN_VIEWPORT_HEIGHT &&
       visibleSideMargin() >= MIN_SIDE_MARGIN;
   }
 
@@ -60,6 +62,45 @@
     video.remove();
     video = null;
     document.body.classList.remove("site-background-active");
+  }
+
+  function syncMobileDemo(hasBackgroundSpace) {
+    if (!mobileDemo) {
+      mobileDemo = document.querySelector(".site-mobile-demo");
+      if (mobileDemo) {
+        mobileDemoVideo = mobileDemo.querySelector("video");
+        if (mobileDemoVideo) {
+          mobileDemoVideo.addEventListener("error", () => {
+            if (!mobileDemo.classList.contains("is-visible")) return;
+            mobileDemoUnavailable = true;
+            mobileDemo.classList.remove("is-visible");
+            mobileDemoVideo.pause();
+            mobileDemoVideo.removeAttribute("src");
+            mobileDemoVideo.load();
+          });
+        }
+      }
+    }
+
+    if (!mobileDemo || !mobileDemoVideo) return;
+
+    const shouldShow = !hasBackgroundSpace &&
+      !reducedMotion.matches &&
+      !mobileDemoUnavailable;
+    mobileDemo.classList.toggle("is-visible", shouldShow);
+
+    if (shouldShow && !mobileDemoVideo.hasAttribute("src")) {
+      mobileDemoVideo.src = MOBILE_VIDEO_SRC;
+      mobileDemoVideo.load();
+      const playPromise = mobileDemoVideo.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    } else if (!shouldShow && mobileDemoVideo.hasAttribute("src")) {
+      mobileDemoVideo.pause();
+      mobileDemoVideo.removeAttribute("src");
+      mobileDemoVideo.load();
+    }
   }
 
   function addVideo() {
@@ -95,11 +136,14 @@
     resizeFrame = 0;
     updateTopOffset();
 
-    if (shouldShowVideo()) {
+    const hasBackgroundSpace = hasRoomForBackgroundVideo();
+    if (!playbackUnavailable && !reducedMotion.matches && hasBackgroundSpace) {
       addVideo();
     } else {
       removeVideo();
     }
+
+    syncMobileDemo(hasBackgroundSpace);
   }
 
   function scheduleSync() {
