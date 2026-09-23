@@ -23,6 +23,32 @@ body.site-background-active > footer.site {
   background: rgba(243, 247, 248, 0.96);
 }
 
+.site-mobile-demo {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  background: #fff;
+}
+
+.site-mobile-demo.is-visible {
+  display: flex;
+}
+
+.site-mobile-demo__video {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - var(--site-background-top, 4.6rem));
+  object-fit: contain;
+}
+
+@supports (height: 100svh) {
+  .site-mobile-demo__video {
+    max-height: calc(100svh - var(--site-background-top, 4.6rem));
+  }
+}
+
 @media print {
   .site-background-video {
     display: none !important;
