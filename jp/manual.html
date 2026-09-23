@@ -460,7 +460,36 @@ if (location.hostname === "jpmyrmecol.github.io") {
     @media (max-width:880px){aside{top:auto;max-height:none;}}
     @media (max-width:720px){.topbar{height:auto;flex-wrap:wrap;gap:0.7rem 1rem;padding-top:0.6rem;padding-bottom:0.6rem;}.navgroup{margin-left:auto;}.tabs{width:100%;}.tabs a{flex:1;text-align:center;padding-inline:0.5rem;}h2[id]{scroll-margin-top:7.2rem;}}
     @media print{.topbar{display:none;}}
-</style><link rel="stylesheet" href="/install-tabs.css">
+
+    /* Manual mobile overrides follow the base header and TOC styles. */
+    @media (max-width: 1279px) {
+      .toc-menu-toggle { display: flex; }
+      aside nav { display: none; }
+      aside.toc-open nav { display: grid; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+          "brand langs"
+          "tabs tabs";
+        align-items: center;
+        column-gap: 0.75rem;
+        row-gap: 0.7rem;
+        height: auto;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+      }
+      .topbar-brand { grid-area: brand; }
+      .navgroup { display: contents; }
+      .langs { grid-area: langs; justify-self: end; }
+      .tabs { grid-area: tabs; width: 100%; flex-wrap: wrap; }
+      .tabs a { flex: 1; text-align: center; padding-inline: 0.5rem; }
+    }
+
+  </style><link rel="stylesheet" href="/install-tabs.css">
 </head><body><a class="skip-link" href="#content">本文へ移動</a><header class="topbar"><a class="topbar-brand" href="/jp/"><img src="/assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="言語"><a href="/jp/manual.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語" aria-current="true"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="/Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="サイト内メニュー"><a href="/jp/">Home</a><a href="/jp/manual.html" aria-current="page">Manual</a><a href="/jp/dataset.html">Dataset</a><a href="/jp/publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="目次"><p class="brand">AMADEUS</p><span class="version">1.0.2</span><button class="toc-menu-toggle" type="button" aria-controls="manual-toc" aria-expanded="false">目次</button><nav id="manual-toc" aria-label="目次"><a href="#section-1">1. 起動</a><a href="#section-2">2. ホーム画面</a><a href="#section-3">3. 基本の流れ</a><a href="#section-4">4. Cropping & Trimming（任意）</a><a href="#section-5">5. Segmentation（前景抽出）</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab（beta）</a><a href="#section-11">11. パラメータ調整</a><a href="#section-12">12. 出力</a><a href="#section-13">13. 推奨撮影条件</a><a href="#section-14">14. ライセンス</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">Japanese Manual · 1.0.2</p><h1>AMADEUS<br>日本語マニュアル</h1><p>AMADEUSの操作ガイドです。</p></header>
 <section><h2 id="section-1">1. 起動</h2>
 <p>お使いのOSのボタンからファイルをダウンロードし、実行してください。Gitの事前導入は不要です。</p>
