@@ -469,6 +469,8 @@ if (location.hostname === "jpmyrmecol.github.io") {
     }
 
     @media (max-width: 720px) {
+      .layout { margin-top: 0; }
+      .hero { margin-bottom: 0.75rem; }
       .topbar {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
@@ -949,6 +951,25 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </section><section><h2 id="section-14">14. License</h2>
 <p>GNU Affero General Public License v3.0 only (AGPL-3.0-only). See <a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a> and <a href="legal/THIRD_PARTY_NOTICES.md">third-party license information</a>.</p>
 </section><footer><p>AMADEUS 1.0.2 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/" target="_blank" rel="noopener noreferrer">jpmyrmecol.com</a></p></footer></main></div><script>
+const manualLayout = document.querySelector(".layout");
+const manualMain = document.getElementById("content");
+const manualAside = manualLayout.querySelector("aside");
+const manualHero = manualMain.querySelector(".hero");
+const mobileLayout = window.matchMedia("(max-width: 720px)");
+const placeManualContents = () => {
+  const moveIntoMain = mobileLayout.matches && manualAside.parentElement !== manualMain;
+  const moveBesideMain = !mobileLayout.matches && manualAside.parentElement !== manualLayout;
+  if (!moveIntoMain && !moveBesideMain) return;
+  if (moveIntoMain) {
+    manualHero.insertAdjacentElement("afterend", manualAside);
+  } else {
+    manualLayout.insertBefore(manualAside, manualMain);
+  }
+  manualAside.classList.remove("toc-open");
+  manualAside.querySelector(".toc-menu-toggle").setAttribute("aria-expanded", "false");
+};
+placeManualContents();
+mobileLayout.addEventListener("change", placeManualContents);
 document.querySelectorAll(".toc-menu-toggle").forEach((button) => {
   const aside = button.closest("aside");
   const nav = aside.querySelector("#manual-toc");
