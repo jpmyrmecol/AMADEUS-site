@@ -193,9 +193,23 @@ footer.site {
 footer.site p { margin: 0.35rem 0; }
 
 @media (max-width: 720px) {
-  .topbar { height: auto; flex-wrap: wrap; gap: 0.5rem 1rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
-  .navgroup { width: 100%; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
-  .tabs { width: 100%; flex-wrap: wrap; }
+  .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand langs"
+      "tabs tabs";
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.5rem;
+    height: auto;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+  .topbar-brand { grid-area: brand; }
+  .navgroup { display: contents; }
+  .langs { grid-area: langs; justify-self: end; }
+  .tabs { grid-area: tabs; width: 100%; flex-wrap: wrap; }
   .tabs a { flex: 1; text-align: center; padding-inline: 0.5rem; }
   .wrap { margin-top: 1rem; padding: 0; }
   main.card { border-radius: 0; border-inline: 0; }
