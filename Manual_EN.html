@@ -61,11 +61,10 @@ if (location.hostname === "jpmyrmecol.github.io") {
     }
 
     .layout {
-      display: grid;
-      grid-template-columns: 17rem minmax(0, 58rem);
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
+      display: block;
+      max-width: 62rem;
+      margin: 2rem auto 3rem;
+      padding: 0 clamp(0.9rem, 4vw, 2rem);
     }
 
     aside {
@@ -267,24 +266,76 @@ if (location.hostname === "jpmyrmecol.github.io") {
       font-size: 0.88rem;
     }
 
-    @media (max-width: 880px) {
+    @media (max-width: 1279px) {
       .layout {
         display: block;
-        padding: 0;
+        width: auto;
+        max-width: 62rem;
+        margin: 2rem auto 3rem;
+        padding: 0 clamp(0.9rem, 4vw, 2rem);
       }
 
       aside {
         position: static;
         max-height: none;
-        border-width: 0 0 1px;
+        overflow: visible;
+        margin: 0 0 1rem;
+        padding: 0 0 0.75rem;
+        border: 0;
         border-radius: 0;
+        background: transparent;
         box-shadow: none;
       }
 
-      nav {
-        display: grid;
+      aside .brand,
+      aside .version {
+        display: none;
+      }
+
+      .toc-menu-toggle {
+        display: flex;
+      }
+
+      aside nav {
+        display: none;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0 1rem;
+      }
+
+      aside.toc-open nav {
+        display: grid;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .layout {
+        --manual-aside-width: min(17rem, calc((100vw - 62rem) / 2));
+        display: grid;
+        grid-template-columns: minmax(0, var(--manual-aside-width)) minmax(0, 58rem);
+        gap: 1rem;
+        width: calc(var(--manual-aside-width) + 59rem);
+        max-width: none;
+        margin: 2rem 0 3rem calc(50% - 29rem - var(--manual-aside-width) - 1rem);
+        padding: 0;
+      }
+
+      aside {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+      }
+
+      main {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        width: 100%;
+        margin: 1rem auto 3rem;
+        padding: 0;
       }
 
       main {
@@ -296,6 +347,26 @@ if (location.hostname === "jpmyrmecol.github.io") {
       .hero {
         border-radius: 0;
       }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+          "brand langs"
+          "tabs tabs";
+        align-items: center;
+        column-gap: 0.75rem;
+        row-gap: 0.5rem;
+        height: auto;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+      }
+
+      .topbar-brand { grid-area: brand; }
+      .navgroup { display: contents; }
+      .langs { grid-area: langs; justify-self: end; }
+      .tabs { grid-area: tabs; width: 100%; flex-wrap: wrap; }
+      .tabs a { flex: 1; text-align: center; padding-inline: 0.5rem; }
     }
 
     @media print {
@@ -336,6 +407,39 @@ if (location.hostname === "jpmyrmecol.github.io") {
     .details-content {padding:0.25rem 1rem 0.7rem;}
     .table-wrap td {overflow-wrap:anywhere;}
 
+    .toc-menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 2.75rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: var(--paper);
+      color: var(--brand-dark);
+      font: inherit;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .toc-menu-toggle::after {
+      content: "+";
+      color: var(--brand);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .toc-menu-toggle[aria-expanded="true"]::after {
+      content: "−";
+    }
+
+    .toc-menu-toggle:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .topbar {position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:1.5rem;height:4.6rem;padding:0 clamp(0.9rem,4vw,2.5rem);border-bottom:1px solid var(--line);background:rgba(255,255,255,0.94);backdrop-filter:saturate(1.4) blur(8px);}
     .topbar-brand {display:inline-flex;align-items:center;text-decoration:none;}
     .topbar-brand img {height:2.7rem;width:auto;display:block;}
@@ -357,7 +461,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
     @media (max-width:720px){.topbar{height:auto;flex-wrap:wrap;gap:0.5rem 1rem;padding-top:0.6rem;padding-bottom:0.6rem;}.navgroup{margin-left:auto;}.tabs{width:100%;}.tabs a{flex:1;text-align:center;padding-inline:0.5rem;}h2[id]{scroll-margin-top:7.2rem;}}
     @media print{.topbar{display:none;}}
 </style><link rel="stylesheet" href="install-tabs.css">
-</head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="/"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="/jp/manual.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="/">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.0.2</span><nav><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.0.2</p><h1>AMADEUS<br>User Manual</h1><p>A guide to using AMADEUS.</p></header>
+</head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="/"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="/jp/manual.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="/">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.0.2</span><button class="toc-menu-toggle" type="button" aria-controls="manual-toc" aria-expanded="false">Menu</button><nav id="manual-toc" aria-label="Table of contents"><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.0.2</p><h1>AMADEUS<br>User Manual</h1><p>A guide to using AMADEUS.</p></header>
 <section><h2 id="section-1">1. Launch</h2>
 <p>Download and run the installer for your operating system. Git is not required.</p>
 <div class="installer-downloads" role="group" aria-label="Installers by operating system">
@@ -815,4 +919,19 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>Training and analysis videos may be recorded separately, provided that the recording conditions are the same.</p>
 </section><section><h2 id="section-14">14. License</h2>
 <p>GNU Affero General Public License v3.0 only (AGPL-3.0-only). See <a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a> and <a href="legal/THIRD_PARTY_NOTICES.md">third-party license information</a>.</p>
-</section><footer><p>AMADEUS 1.0.2 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/" target="_blank" rel="noopener noreferrer">jpmyrmecol.com</a></p></footer></main></div></body></html>
+</section><footer><p>AMADEUS 1.0.2 · AGPL-3.0-only · © 2026 Yusuke Notomi</p><p><a href="https://jpmyrmecol.com/" target="_blank" rel="noopener noreferrer">jpmyrmecol.com</a></p></footer></main></div><script>
+document.querySelectorAll(".toc-menu-toggle").forEach((button) => {
+  const aside = button.closest("aside");
+  const nav = aside.querySelector("#manual-toc");
+  button.addEventListener("click", () => {
+    const expanded = button.getAttribute("aria-expanded") !== "true";
+    button.setAttribute("aria-expanded", String(expanded));
+    aside.classList.toggle("toc-open", expanded);
+  });
+  nav.addEventListener("click", (event) => {
+    if (!event.target.closest("a")) return;
+    button.setAttribute("aria-expanded", "false");
+    aside.classList.remove("toc-open");
+  });
+});
+</script></body></html>
