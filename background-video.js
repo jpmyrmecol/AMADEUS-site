@@ -90,6 +90,13 @@
     mobileDemo.classList.toggle("is-visible", shouldShow);
 
     if (shouldShow && !mobileDemoVideo.hasAttribute("src")) {
+      mobileDemoVideo.autoplay = true;
+      mobileDemoVideo.muted = true;
+      mobileDemoVideo.defaultMuted = true;
+      mobileDemoVideo.loop = true;
+      mobileDemoVideo.playsInline = true;
+      mobileDemoVideo.controls = false;
+      mobileDemoVideo.preload = "metadata";
       mobileDemoVideo.src = MOBILE_VIDEO_SRC;
       mobileDemoVideo.load();
       const playPromise = mobileDemoVideo.play();
