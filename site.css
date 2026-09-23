@@ -201,7 +201,7 @@ footer.site p { margin: 0.35rem 0; }
       "tabs tabs";
     align-items: center;
     column-gap: 0.75rem;
-    row-gap: 0.5rem;
+    row-gap: 0.7rem;
     height: auto;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
@@ -211,6 +211,6 @@ footer.site p { margin: 0.35rem 0; }
   .langs { grid-area: langs; justify-self: end; }
   .tabs { grid-area: tabs; width: 100%; flex-wrap: wrap; }
   .tabs a { flex: 1; text-align: center; padding-inline: 0.5rem; }
-  .wrap { margin-top: 1rem; padding: 0; }
+  .wrap { margin-top: 0; padding: 0; }
   main.card { border-radius: 0; border-inline: 0; }
 }
