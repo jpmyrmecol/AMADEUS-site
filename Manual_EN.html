@@ -689,12 +689,13 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div></details>
 
 <details id="region-expansion"><summary>Region Expansion [Optional, Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the results carefully before use.</p>
 <p>Use this when foreground regions that should form one blob are separated by small gaps or deep notches after thresholding.</p>
 <p><strong>Expand region (px)</strong> expands foreground regions outward by the specified number of pixels. Enable <strong>Keep merging expansion only</strong> to retain only the expansion needed to connect separate regions, while avoiding unnecessary enlargement of isolated blobs.</p>
 </div></details>
 
-<details id="result-obb-import"><summary>Result OBB Import (Beta)</summary><div class="details-content">
-<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the resulting classification carefully before use.</p>
+<details id="result-obb-import"><summary>Result OBB Import [Optional, Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the results carefully before use.</p>
 <p>Blob area alone may not distinguish a large individual from two animals in contact. If you have already tracked the same video, you can import the result OBBs to help retain large single-animal blobs.</p>
 <p>Open <strong>Result OBB Import (beta)</strong> in the sidebar, select <strong>Use imported result OBB</strong>, and choose a CSV with <strong>Reference</strong>. Use a file from <code>&lt;Session&gt;/results/</code> containing <code>frame</code> and the <code>cx</code>, <code>cy</code>, <code>w</code>, <code>h</code>, and <code>heading</code> columns for each ID. The coordinates must correspond to the same video, even if the CSV comes from another project.</p>
 <p>Each imported OBB is assigned to one blob. This is the blob containing the OBB center, or the blob with the greatest overlap if the center lies on the background. An outlier blob is reclassified as a single-animal blob only when it has exactly one assigned OBB and that OBB covers at least <strong>Min OBB coverage</strong> of the blob area (default 0.7). Blobs already within the area bounds, Additional Outlier regions, and blobs with zero or multiple assigned OBBs retain their existing classification.</p>
@@ -704,12 +705,14 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div></details>
 
 <details id="additional-outlier"><summary>Additional Outlier [Optional, Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the results carefully before use.</p>
 <p>Use this when some regions need to be classified as outliers using a segmentation condition different from the main foreground extraction.</p>
 <p>Enable the set with <strong>Enabled</strong>, then specify the frame range, segmentation mode, threshold settings, and <strong>Min blob area</strong>. Multiple Additional Outlier Sets can be created when different conditions are needed.</p>
 <p>Regions detected by this secondary rule are added as outliers and shown in orange. Normal single-animal regions already protected by the main segmentation and area bounds are not overwritten by Additional Outlier.</p>
 </div></details>
 
 <details id="single-animal-smoothing"><summary>Single-animal Smoothing [Optional, Beta]</summary><div class="details-content">
+<p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the results carefully before use.</p>
 <p>Use this to smooth the contours of single-animal blobs after Outlier Extraction, for example when legs or other narrow protrusions make the extracted body outline irregular.</p>
 <p>Enable <strong>Smooth single-animal blobs</strong> and adjust <strong>Smoothing level</strong>. Higher values remove thicker protrusions. Only blue single-animal blobs are smoothed; removed pixels become background, and the area bounds are applied again after smoothing.</p>
 </div></details>
