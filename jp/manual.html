@@ -568,8 +568,20 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p><strong>GitまたはZIPから導入した場合：</strong>AMADEUSのインストールフォルダー内にある <code>tools</code> フォルダーを開き、<code>uninstall.bat</code> をダブルクリックします。完了後、不要であればAMADEUSのインストールフォルダーを削除してください。</p>
 <p>アンインストーラーはローカルのPython環境とグローバルの <code>amadeus</code> コマンドを削除します。プロジェクトやセッションのフォルダーとuvは削除しません。</p>
 </div>
-<div class="install-os-panel install-os-macos"><h3>macOS</h3><p>macOSのアンインストール手順は準備中です。</p></div>
-<div class="install-os-panel install-os-linux"><h3>Linux</h3><p>Linuxのアンインストール手順は準備中です。</p></div>
+<div class="install-os-panel install-os-macos"><h3>macOS</h3>
+<p>AMADEUSを終了し、ダウンロードまたは展開したAMADEUSフォルダーを削除してください。</p>
+<p>その後、Terminalで以下を実行してAMADEUSのコマンドランチャーを削除してください。</p>
+<pre><code>rm -f ~/.local/bin/amadeus ~/.local/bin/amade</code></pre>
+<p>AMADEUSフォルダーの場所が分からない場合は、コマンドランチャーを削除する前に <code>cat ~/.local/bin/amadeus</code> を実行すると、表示される <code>cd</code> のパスからAMADEUSフォルダーの場所を確認できます。</p>
+<p>AMADEUSフォルダー外に保存したtracking sessionやresultsは削除されません。</p>
+</div>
+<div class="install-os-panel install-os-linux"><h3>Linux</h3>
+<p>AMADEUSを終了し、ダウンロードまたは展開したAMADEUSフォルダーを削除してください。</p>
+<p>その後、Terminalで以下を実行してAMADEUSのコマンドランチャーを削除してください。</p>
+<pre><code>rm -f ~/.local/bin/amadeus ~/.local/bin/amade</code></pre>
+<p>AMADEUSフォルダーの場所が分からない場合は、コマンドランチャーを削除する前に <code>cat ~/.local/bin/amadeus</code> を実行すると、表示される <code>cd</code> のパスからAMADEUSフォルダーの場所を確認できます。</p>
+<p>AMADEUSフォルダー外に保存したtracking sessionやresultsは削除されません。</p>
+</div>
 </div>
 </details>
 </section><section><h2 id="section-2">2. ホーム画面</h2>
