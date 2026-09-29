@@ -710,11 +710,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <td>追跡する個体数</td>
 </tr>
 <tr>
-<td>Use paste augmentation when animals = 1</td>
-<td>On / Off</td>
-<td>1個体でも合成画像を学習に使うか</td>
-</tr>
-<tr>
 <td>How severe is the overlap?</td>
 <td>Very heavy / Heavy / Light</td>
 <td>接触の強さ。Very heavyでは埋め込みID補正も実行</td>
@@ -722,12 +717,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <tr>
 <td>Do the animals ever move backward?</td>
 <td>Yes / No</td>
-<td>Yesでは方向ラベルを追加調整</td>
-</tr>
-<tr>
-<td>Delete tmp files</td>
-<td>On / Off</td>
-<td>完了後に一時ファイルを削除するか</td>
+<td>Yesでは信頼性の低い方向を有するラベルが付与された個体を除去します</td>
 </tr>
 </tbody></table></div>
 <p><strong>Save Config</strong> と <strong>Load Config</strong> でYAMLを保存・読込できます。<strong>Switch Advanced Mode</strong> では現在の設定をAdvanced Trackingで開きます。</p>
