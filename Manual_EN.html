@@ -645,8 +645,9 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <ol>
 <li>Check the video and analysis frame range.</li>
 <li>Select a foreground extraction method. When using background difference, select Median, Maximum, or Minimum.</li>
-<li>Adjust <strong>Threshold</strong> and <strong>Minimum Blob Area</strong>.</li>
-<li>Adjust the <strong>Outlier Extraction</strong> thresholds so that complete, isolated animals appear cyan (blue), while merged animals, fragments, and other outliers appear orange.</li>
+<li>Adjust <strong>Threshold</strong> and <strong>Minimum Blob Area</strong> so that the animals are extracted cleanly from the background.</li>
+<li>When the initial foreground-extraction thresholds are set, select <strong>Analyze</strong>. AMADEUS samples frames and calculates the area distribution used for Outlier Extraction.</li>
+<li>After Analyze is completed, the <strong>Outlier Extraction</strong> controls are displayed. Adjust the IQR thresholds (or Absolute bounds) so that complete, isolated animals appear cyan (blue), while merged animals, fragments, and other outliers appear orange.</li>
 <li>Select <strong>Processing</strong> to save the results.</li>
 </ol>
 <h3>Foreground extraction methods</h3>
@@ -679,6 +680,19 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 </tbody></table></div>
 <p>Results are saved under <code>&lt;Session&gt;/segmentation/</code>.</p>
+<p>Additional settings are hidden by default. Check <strong>Show optional settings</strong> at the top of the sidebar to display the optional sections below.</p>
+
+<details id="segmentation-roi"><summary>ROI [Optional]</summary><div class="details-content">
+<p>Use ROI when only part of the image should be included in segmentation, for example to exclude arena edges or other areas outside the analysis region.</p>
+<p>Select <strong>Use this ROI</strong>, choose a rectangle or circle, and adjust its position and size. <strong>From frame</strong> and <strong>To frame</strong> restrict the ROI to a frame range. Multiple ROI Sets can be added when different regions are needed at different times.</p>
+<p><strong>Reverse ROI</strong> excludes the selected region instead of keeping it.</p>
+</div></details>
+
+<details id="region-expansion"><summary>Region Expansion [Optional, Beta]</summary><div class="details-content">
+<p>Use this when foreground regions that should form one blob are separated by small gaps or deep notches after thresholding.</p>
+<p><strong>Expand region (px)</strong> expands foreground regions outward by the specified number of pixels. Enable <strong>Keep merging expansion only</strong> to retain only the expansion needed to connect separate regions, while avoiding unnecessary enlargement of isolated blobs.</p>
+</div></details>
+
 <details id="result-obb-import"><summary>Result OBB Import (Beta)</summary><div class="details-content">
 <p class="note"><strong>This is a recently added beta feature and remains incomplete.</strong> Check the resulting classification carefully before use.</p>
 <p>Blob area alone may not distinguish a large individual from two animals in contact. If you have already tracked the same video, you can import the result OBBs to help retain large single-animal blobs.</p>
@@ -687,6 +701,17 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>The coverage threshold helps reject merged blobs when tracking missed one of the animals. It cannot guarantee that every merged blob is rejected. Hover over blobs to inspect their OBB counts and coverage, and choose the threshold using your video.</p>
 <p><strong>Frame offset</strong> is the frame number in the result CSV minus the video frame index, for cases such as tracking a video that was trimmed afterwards (default 0). With <strong>Show imported OBB</strong> enabled, the imported OBBs are drawn in magenta on the preview and on the exported labeled video, so misalignment is visible. The <code>result-single</code> count in the preview title reports how many blobs were taken out of the outlier group, and hovering over a blob shows its OBB count and measured coverage.</p>
 <p>The settings are stored in <code>segmentation_gui_config.json</code>. To stop using an imported result, select <strong>Clear imported result</strong> or clear the checkbox.</p>
+</div></details>
+
+<details id="additional-outlier"><summary>Additional Outlier [Optional, Beta]</summary><div class="details-content">
+<p>Use this when some regions need to be classified as outliers using a segmentation condition different from the main foreground extraction.</p>
+<p>Enable the set with <strong>Enabled</strong>, then specify the frame range, segmentation mode, threshold settings, and <strong>Min blob area</strong>. Multiple Additional Outlier Sets can be created when different conditions are needed.</p>
+<p>Regions detected by this secondary rule are added as outliers and shown in orange. Normal single-animal regions already protected by the main segmentation and area bounds are not overwritten by Additional Outlier.</p>
+</div></details>
+
+<details id="single-animal-smoothing"><summary>Single-animal Smoothing [Optional, Beta]</summary><div class="details-content">
+<p>Use this to smooth the contours of single-animal blobs after Outlier Extraction, for example when legs or other narrow protrusions make the extracted body outline irregular.</p>
+<p>Enable <strong>Smooth single-animal blobs</strong> and adjust <strong>Smoothing level</strong>. Higher values remove thicker protrusions. Only blue single-animal blobs are smoothed; removed pixels become background, and the area bounds are applied again after smoothing.</p>
 </div></details>
 </section><section><h2 id="section-6">6. Easy Tracking</h2>
 <p>Answer three configuration questions, then run automatic training data generation, detector training, detection, and tracking in one batch.</p>
