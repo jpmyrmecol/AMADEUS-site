@@ -644,8 +644,9 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <ol>
 <li>動画と解析フレーム範囲を確認します。</li>
 <li>前景の抽出方法を選びます。背景差分を使う場合は、Median・Maximum・Minimumから選択します。</li>
-<li><strong>Threshold</strong> と <strong>Minimum Blob Area</strong> を調整します。</li>
-<li>単独個体が青、接触個体などが橙になるように、<strong>Outlier Extraction</strong> の閾値を調整します。</li>
+<li><strong>Threshold</strong> と <strong>Minimum Blob Area</strong> を調整し、動物が背景からきれいに抽出されるようにします。</li>
+<li>最初の前景抽出の閾値調整が終わったら、<strong>Analyze</strong> を押します。AMADEUSが複数フレームをサンプリングし、Outlier Extractionに使用する面積分布を計算します。</li>
+<li>Analyzeが完了すると、<strong>Outlier Extraction</strong> の設定が表示されます。単独個体が青、接触個体・断片・その他の外れ値が橙になるように、IQRの閾値（またはAbsoluteの範囲）を調整します。</li>
 <li><strong>Processing</strong> を押して保存します。</li>
 </ol>
 <h3>前景の抽出方法</h3>
@@ -678,6 +679,19 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 </tbody></table></div>
 <p>結果は <code>&lt;Session&gt;/segmentation/</code> に保存されます。</p>
+<p>追加設定は初期状態では非表示です。サイドバー上部の <strong>Show optional settings</strong> にチェックを入れると、以下のOptional項目が表示されます。</p>
+
+<details id="segmentation-roi"><summary>ROI［Optional］</summary><div class="details-content">
+<p>画像の一部だけをSegmentationの対象にしたい場合に使用します。例えば、アリーナの外側や解析対象外の領域を除外できます。</p>
+<p><strong>Use this ROI</strong> にチェックを入れ、rectangleまたはcircleを選択して、位置と大きさを調整します。<strong>From frame</strong> と <strong>To frame</strong> で適用するフレーム範囲を指定できます。時間帯によって異なる領域を使う場合は、複数のROI Setを追加できます。</p>
+<p><strong>Reverse ROI</strong> を有効にすると、指定した領域の内側ではなく外側を残します。</p>
+</div></details>
+
+<details id="region-expansion"><summary>Region Expansion［Optional, Beta］</summary><div class="details-content">
+<p>本来1つのblobとしてつながってほしい前景領域が、閾値処理によって小さな隙間や深いくぼみで分離してしまう場合に使用します。</p>
+<p><strong>Expand region (px)</strong> で前景領域を指定ピクセル数だけ外側へ拡張します。<strong>Keep merging expansion only</strong> にチェックを入れると、別々の領域を接続するために必要な拡張だけを残し、孤立したblob全体が不要に太ることを抑えます。</p>
+</div></details>
+
 <details id="result-obb-import"><summary>解析済み結果の読み込み（Result OBB Import）［Beta］</summary><div class="details-content">
 <p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 判定結果を確認したうえで使用してください。</p>
 <p>面積だけでは、実際に大きな1個体と、接触した2個体とを区別できません。どちらも面積の外れ値になるため、大きな個体が接触個体として扱われ、単独個体の学習データから外れてしまいます。同じ動画をすでに一度追跡している場合は、その結果CSVを読み込むことでこの取り違えを解消できます。</p>
@@ -686,6 +700,17 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>被覆率の条件は、2個体のうち片方を追跡が取りこぼした場合を除外するためのものです。この場合もOBB数は1になりますが、OBBは自分が対応する個体の範囲しか覆わず、もう1個体の分が残るため、外れ値のまま残ります。OBBは1個体の外接矩形なので、検出とセグメンテーションが同じ個体を捉えていれば被覆率は1に近づきます。実際の値はblobにカーソルを合わせると表示されるので、自分のデータで確認して閾値を決めてください。</p>
 <p><strong>Frame offset</strong> は、結果CSVのフレーム番号から動画のフレーム番号を引いた値です（トリミング前の動画で追跡した場合などに使用、既定：0）。<strong>Show imported OBB</strong> をオンにすると、読み込んだOBBがプレビューと書き出し動画にマゼンタで重ね描きされ、位置ずれを目視で確認できます。プレビュー上部の <code>result-single</code> は外れ値から外されたblob数、blobにカーソルを合わせると割り当てOBB数と被覆率が表示されます。</p>
 <p>設定は <code>segmentation_gui_config.json</code> に保存されます。読み込んだ結果を使わない場合は <strong>Clear imported result</strong> で解除するか、チェックを外してください。</p>
+</div></details>
+
+<details id="additional-outlier"><summary>Additional Outlier［Optional, Beta］</summary><div class="details-content">
+<p>通常の前景抽出とは別のSegmentation条件を使って、特定の領域を追加で外れ値として扱いたい場合に使用します。</p>
+<p><strong>Enabled</strong> にチェックを入れ、適用するフレーム範囲、Segmentation mode、各種Threshold、<strong>Min blob area</strong> を調整します。異なる条件が必要な場合は、複数のAdditional Outlier Setを追加できます。</p>
+<p>この追加条件で検出された領域は外れ値として追加され、橙色で表示されます。通常のSegmentationと面積範囲によって保護された単独個体の領域は、Additional Outlierによって上書きされません。</p>
+</div></details>
+
+<details id="single-animal-smoothing"><summary>Single-animal Smoothing［Optional, Beta］</summary><div class="details-content">
+<p>Outlier Extraction後の単独個体blobの輪郭を滑らかにしたい場合に使用します。脚などの細い突出部によって身体の輪郭が不規則になる場合に有効です。</p>
+<p><strong>Smooth single-animal blobs</strong> にチェックを入れ、<strong>Smoothing level</strong> を調整します。値を大きくすると、より太い突出部まで除去されます。処理対象は青色の単独個体blobのみで、削除された画素は背景となり、処理後に面積範囲が再適用されます。</p>
 </div></details>
 </section><section><h2 id="section-6">6. Easy Tracking</h2>
 <p>個体数と2つの質問から設定を作り、学習から結果出力までをまとめて実行します。</p>
