@@ -568,8 +568,20 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p><strong>Git or ZIP installation:</strong> Open the <code>tools</code> folder in the AMADEUS installation directory and double-click <code>uninstall.bat</code>. After it finishes, delete the AMADEUS installation folder if you no longer need it.</p>
 <p>The uninstaller removes the local Python environment and the global <code>amadeus</code> command. Project and session folders and the uv installation are kept.</p>
 </div>
-<div class="install-os-panel install-os-macos"><h3>macOS</h3><p>Uninstall instructions for macOS are in preparation.</p></div>
-<div class="install-os-panel install-os-linux"><h3>Linux</h3><p>Uninstall instructions for Linux are in preparation.</p></div>
+<div class="install-os-panel install-os-macos"><h3>macOS</h3>
+<p>Close AMADEUS, then delete the AMADEUS folder that you downloaded or extracted.</p>
+<p>Open Terminal and remove the AMADEUS command launchers:</p>
+<pre><code>rm -f ~/.local/bin/amadeus ~/.local/bin/amade</code></pre>
+<p>If you cannot find the AMADEUS folder, run <code>cat ~/.local/bin/amadeus</code> before deleting the command launcher; the displayed <code>cd</code> path points to the AMADEUS folder.</p>
+<p>Tracking sessions and results stored outside the AMADEUS folder are not removed.</p>
+</div>
+<div class="install-os-panel install-os-linux"><h3>Linux</h3>
+<p>Close AMADEUS, then delete the AMADEUS folder that you downloaded or extracted.</p>
+<p>Open a terminal and remove the AMADEUS command launchers:</p>
+<pre><code>rm -f ~/.local/bin/amadeus ~/.local/bin/amade</code></pre>
+<p>If you cannot find the AMADEUS folder, run <code>cat ~/.local/bin/amadeus</code> before deleting the command launcher; the displayed <code>cd</code> path points to the AMADEUS folder.</p>
+<p>Tracking sessions and results stored outside the AMADEUS folder are not removed.</p>
+</div>
 </div>
 </details>
 </section><section><h2 id="section-2">2. Home screen</h2>
