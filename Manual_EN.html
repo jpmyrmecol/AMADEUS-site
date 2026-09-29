@@ -711,11 +711,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <td>Number of animals to track</td>
 </tr>
 <tr>
-<td>Use paste augmentation when animals = 1</td>
-<td>On / Off</td>
-<td>Whether to use synthesized images for training even with one animal</td>
-</tr>
-<tr>
 <td>How severe is the overlap?</td>
 <td>Very heavy / Heavy / Light</td>
 <td>Severity of visual overlap. Select Very heavy when almost complete occlusion is expected. This adds identity verification and correction using contrastive learning and increases processing time</td>
@@ -723,12 +718,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <tr>
 <td>Do the animals ever move backward?</td>
 <td>Yes / No</td>
-<td>Yes adds a preliminary detector to identify and exclude potentially incorrect direction class labels caused by backward movement</td>
-</tr>
-<tr>
-<td>Delete tmp files</td>
-<td>On / Off</td>
-<td>Whether to delete temporary files after completion</td>
+<td>When Yes is selected, individuals assigned labels with unreliable directions are excluded</td>
 </tr>
 </tbody></table></div>
 <p><strong>Save Config</strong> and <strong>Load Config</strong> save and load YAML files. <strong>Switch Advanced Mode</strong> opens the current settings in Advanced Tracking.</p>
