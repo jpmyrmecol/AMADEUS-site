@@ -688,12 +688,13 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div></details>
 
 <details id="region-expansion"><summary>Region Expansion［Optional, Beta］</summary><div class="details-content">
+<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
 <p>本来1つのblobとしてつながってほしい前景領域が、閾値処理によって小さな隙間や深いくぼみで分離してしまう場合に使用します。</p>
 <p><strong>Expand region (px)</strong> で前景領域を指定ピクセル数だけ外側へ拡張します。<strong>Keep merging expansion only</strong> にチェックを入れると、別々の領域を接続するために必要な拡張だけを残し、孤立したblob全体が不要に太ることを抑えます。</p>
 </div></details>
 
-<details id="result-obb-import"><summary>解析済み結果の読み込み（Result OBB Import）［Beta］</summary><div class="details-content">
-<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 判定結果を確認したうえで使用してください。</p>
+<details id="result-obb-import"><summary>Result OBB Import［Optional, Beta］</summary><div class="details-content">
+<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
 <p>面積だけでは、実際に大きな1個体と、接触した2個体とを区別できません。どちらも面積の外れ値になるため、大きな個体が接触個体として扱われ、単独個体の学習データから外れてしまいます。同じ動画をすでに一度追跡している場合は、その結果CSVを読み込むことでこの取り違えを解消できます。</p>
 <p>サイドバーの <strong>Result OBB Import (beta)</strong>（既定は閉じた状態）を開き、<strong>Use imported result OBB</strong> にチェックを入れて、<strong>Reference</strong> から追跡結果CSV（<code>&lt;Session&gt;/results/</code> の <code>frame</code> 列と ID ごとの <code>cx</code>・<code>cy</code>・<code>w</code>・<code>h</code>・<code>heading</code> 列を持つファイル）を選びます。別プロジェクトで解析した結果CSVでも、同じ動画の座標であれば読み込めます。</p>
 <p>各OBBは、その中心を含むblob（中心が背景に落ちる場合は最も重なるblob）1つだけに割り当てられます。したがって、2個体が1つのblobを形成していればそのblobのOBB数は2になります。<strong>面積の外れ値と判定されたblobのうち</strong>、割り当てられたOBBがちょうど1つで、かつそのOBBがblob面積の <strong>Min OBB coverage</strong>（既定：0.7）以上を覆うものだけが、大きな1個体として外れ値から外されます。それ以外は面積による判定のままです。面積の範囲内にあるblob、Additional Outlierで抽出された領域、OBBが2つ以上のblob、結果CSVが説明しないblobは、いずれも変更されません。</p>
@@ -703,12 +704,14 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div></details>
 
 <details id="additional-outlier"><summary>Additional Outlier［Optional, Beta］</summary><div class="details-content">
+<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
 <p>通常の前景抽出とは別のSegmentation条件を使って、特定の領域を追加で外れ値として扱いたい場合に使用します。</p>
 <p><strong>Enabled</strong> にチェックを入れ、適用するフレーム範囲、Segmentation mode、各種Threshold、<strong>Min blob area</strong> を調整します。異なる条件が必要な場合は、複数のAdditional Outlier Setを追加できます。</p>
 <p>この追加条件で検出された領域は外れ値として追加され、橙色で表示されます。通常のSegmentationと面積範囲によって保護された単独個体の領域は、Additional Outlierによって上書きされません。</p>
 </div></details>
 
 <details id="single-animal-smoothing"><summary>Single-animal Smoothing［Optional, Beta］</summary><div class="details-content">
+<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
 <p>Outlier Extraction後の単独個体blobの輪郭を滑らかにしたい場合に使用します。脚などの細い突出部によって身体の輪郭が不規則になる場合に有効です。</p>
 <p><strong>Smooth single-animal blobs</strong> にチェックを入れ、<strong>Smoothing level</strong> を調整します。値を大きくすると、より太い突出部まで除去されます。処理対象は青色の単独個体blobのみで、削除された画素は背景となり、処理後に面積範囲が再適用されます。</p>
 </div></details>
