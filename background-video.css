@@ -59,16 +59,16 @@ body.site-background-active > footer.site {
   height: auto;
 }
 
-.site-mobile-demo.is-reduced-motion {
+.site-mobile-demo.is-manual-playback {
   cursor: pointer;
 }
 
-.site-mobile-demo.is-reduced-motion:focus-visible {
+.site-mobile-demo.is-manual-playback:focus-visible {
   outline: 3px solid #e6a83c;
   outline-offset: -4px;
 }
 
-.site-mobile-demo.is-reduced-motion .site-mobile-demo__video {
+.site-mobile-demo.is-manual-playback .site-mobile-demo__video {
   aspect-ratio: 2 / 3;
   object-fit: cover;
 }
