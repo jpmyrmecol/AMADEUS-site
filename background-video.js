@@ -11,6 +11,7 @@
   let video = null;
   let poster = null;
   let desktopControl = null;
+  let desktopHitArea = null;
   let resizeFrame = 0;
   let playbackUnavailable = false;
   let desktopManualPlayback = false;
@@ -78,38 +79,17 @@
 
   function setControlState(control, isPlaying) {
     if (!control) return;
-    const label = control.querySelector(".site-demo-control__label");
-    control.classList.toggle("is-playing", isPlaying);
-    control.setAttribute(
-      "aria-label",
-      isPlaying ? "Pause demo video" : "Play demo video"
-    );
-    if (label) {
-      label.textContent = isPlaying ? "Pause demo" : "Play demo";
-    }
-  }
-
-  function markControlUnavailable(control) {
-    if (!control) return;
-    const label = control.querySelector(".site-demo-control__label");
-    control.disabled = true;
-    control.classList.add("is-unavailable");
-    control.setAttribute("aria-label", "Demo video unavailable");
-    if (label) {
-      label.textContent = "Demo unavailable";
-    }
+    control.classList.toggle("is-hidden", isPlaying);
   }
 
   function createControl(extraClass) {
-    const control = document.createElement("button");
-    control.type = "button";
+    const control = document.createElement("span");
     control.className = "site-demo-control " + extraClass;
+    control.setAttribute("aria-hidden", "true");
     control.innerHTML =
-      '<span class="site-demo-control__disc" aria-hidden="true">' +
+      '<span class="site-demo-control__disc">' +
       '<span class="site-demo-control__icon"></span>' +
-      "</span>" +
-      '<span class="site-demo-control__label">Play demo</span>';
-    control.setAttribute("aria-label", "Play demo video");
+      "</span>";
     return control;
   }
 
@@ -134,6 +114,12 @@
     if (!desktopControl) return;
     desktopControl.remove();
     desktopControl = null;
+  }
+
+  function removeDesktopHitArea() {
+    if (!desktopHitArea) return;
+    desktopHitArea.remove();
+    desktopHitArea = null;
   }
 
   function addBackgroundPoster() {
@@ -178,18 +164,25 @@
     video.src = VIDEO_SRC;
 
     video.addEventListener("play", () => {
-      if (desktopControl) setControlState(desktopControl, true);
+      setControlState(desktopControl, true);
+      if (desktopHitArea) {
+        desktopHitArea.setAttribute("aria-label", "Pause demo video");
+      }
     });
     video.addEventListener("pause", () => {
-      if (desktopControl) setControlState(desktopControl, false);
+      setControlState(desktopControl, false);
+      if (desktopHitArea) {
+        desktopHitArea.setAttribute("aria-label", "Play demo video");
+      }
     });
     video.addEventListener("error", () => {
       playbackUnavailable = true;
       desktopManualPlayback = false;
       removeBackgroundVideo();
-      if (reducedMotion.matches && hasRoomForBackgroundVideo()) {
-        addBackgroundPoster();
-        markControlUnavailable(desktopControl);
+      setControlState(desktopControl, true);
+      if (desktopHitArea) {
+        desktopHitArea.disabled = true;
+        desktopHitArea.setAttribute("aria-label", "Demo video unavailable");
       }
     }, { once: true });
 
@@ -221,19 +214,34 @@
     }
   }
 
-  function ensureDesktopControl() {
+  function ensureDesktopInteraction() {
+    if (!desktopHitArea) {
+      desktopHitArea = document.createElement("button");
+      desktopHitArea.type = "button";
+      desktopHitArea.className = "site-background-hitarea";
+      desktopHitArea.setAttribute("aria-label", "Play demo video");
+      desktopHitArea.addEventListener("click", toggleDesktopPlayback);
+      document.body.append(desktopHitArea);
+    }
+
     if (!desktopControl) {
       desktopControl = createControl("site-demo-control--background");
-      desktopControl.addEventListener("click", toggleDesktopPlayback);
       document.body.append(desktopControl);
     }
 
     positionDesktopControl();
-    if (playbackUnavailable) {
-      markControlUnavailable(desktopControl);
-    } else {
-      setControlState(desktopControl, Boolean(video && !video.paused));
-    }
+
+    const isPlaying = Boolean(video && !video.paused);
+    setControlState(desktopControl, isPlaying);
+    desktopHitArea.disabled = playbackUnavailable;
+    desktopHitArea.setAttribute(
+      "aria-label",
+      playbackUnavailable
+        ? "Demo video unavailable"
+        : isPlaying
+          ? "Pause demo video"
+          : "Play demo video"
+    );
   }
 
   function ensureMobileElements() {
@@ -245,11 +253,30 @@
     mobileDemoVideo = mobileDemo.querySelector("video");
     if (!mobileDemoVideo) return;
 
+    mobileDemo.addEventListener("click", () => {
+      if (reducedMotion.matches &&
+          mobileDemo.classList.contains("is-reduced-motion")) {
+        toggleMobilePlayback();
+      }
+    });
+
+    mobileDemo.addEventListener("keydown", (event) => {
+      if (!reducedMotion.matches ||
+          !mobileDemo.classList.contains("is-reduced-motion")) {
+        return;
+      }
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleMobilePlayback();
+    });
+
     mobileDemoVideo.addEventListener("play", () => {
-      if (mobileControl) setControlState(mobileControl, true);
+      setControlState(mobileControl, true);
+      mobileDemo.setAttribute("aria-label", "Pause demo video");
     });
     mobileDemoVideo.addEventListener("pause", () => {
-      if (mobileControl) setControlState(mobileControl, false);
+      setControlState(mobileControl, false);
+      mobileDemo.setAttribute("aria-label", "Play demo video");
     });
     mobileDemoVideo.addEventListener("error", () => {
       if (!mobileDemo.classList.contains("is-visible")) return;
@@ -261,7 +288,10 @@
 
       if (reducedMotion.matches) {
         mobileDemoVideo.poster = MOBILE_VIDEO_POSTER_SRC;
-        markControlUnavailable(mobileControl);
+        setControlState(mobileControl, true);
+        mobileDemo.removeAttribute("role");
+        mobileDemo.removeAttribute("tabindex");
+        mobileDemo.setAttribute("aria-label", "Demo video unavailable");
       } else {
         mobileDemo.classList.remove("is-visible");
       }
@@ -302,23 +332,22 @@
 
     if (!mobileControl) {
       mobileControl = createControl("site-demo-control--mobile");
-      mobileControl.addEventListener("click", toggleMobilePlayback);
       mobileDemo.append(mobileControl);
     }
 
-    if (mobileDemoUnavailable) {
-      markControlUnavailable(mobileControl);
-    } else {
-      setControlState(mobileControl, Boolean(
-        mobileDemoVideo.hasAttribute("src") && !mobileDemoVideo.paused
-      ));
-    }
+    setControlState(
+      mobileControl,
+      Boolean(mobileDemoVideo.hasAttribute("src") && !mobileDemoVideo.paused)
+    );
   }
 
   function hideMobileDemo() {
     if (!mobileDemo || !mobileDemoVideo) return;
 
     mobileDemo.classList.remove("is-visible", "is-reduced-motion");
+    mobileDemo.removeAttribute("role");
+    mobileDemo.removeAttribute("tabindex");
+    mobileDemo.removeAttribute("aria-label");
     removeMobileControl();
     mobileManualPlayback = false;
 
@@ -333,6 +362,8 @@
     if (!mobileDemo || !mobileDemoVideo) return;
 
     mobileDemo.classList.add("is-visible", "is-reduced-motion");
+    mobileDemo.setAttribute("role", "button");
+    mobileDemo.setAttribute("tabindex", "0");
 
     mobileDemoVideo.autoplay = false;
     mobileDemoVideo.muted = true;
@@ -352,6 +383,14 @@
     }
 
     ensureMobileControl();
+
+    const isPlaying = Boolean(
+      mobileDemoVideo.hasAttribute("src") && !mobileDemoVideo.paused
+    );
+    mobileDemo.setAttribute(
+      "aria-label",
+      isPlaying ? "Pause demo video" : "Play demo video"
+    );
   }
 
   function showAutoplayMobileDemo() {
@@ -359,6 +398,9 @@
 
     mobileDemo.classList.add("is-visible");
     mobileDemo.classList.remove("is-reduced-motion");
+    mobileDemo.removeAttribute("role");
+    mobileDemo.removeAttribute("tabindex");
+    mobileDemo.removeAttribute("aria-label");
     removeMobileControl();
     mobileManualPlayback = false;
 
@@ -405,12 +447,13 @@
       removeBackgroundVideo();
       removeBackgroundPoster();
       removeDesktopControl();
+      removeDesktopHitArea();
       return;
     }
 
     if (reducedMotion.matches) {
       addBackgroundPoster();
-      ensureDesktopControl();
+      ensureDesktopInteraction();
 
       if (!desktopManualPlayback) {
         removeBackgroundVideo();
@@ -421,6 +464,7 @@
     desktopManualPlayback = false;
     removeBackgroundPoster();
     removeDesktopControl();
+    removeDesktopHitArea();
 
     if (!playbackUnavailable) {
       const target = createBackgroundVideo(true);
@@ -452,6 +496,7 @@
     removeBackgroundVideo();
     removeBackgroundPoster();
     removeDesktopControl();
+    removeDesktopHitArea();
 
     ensureMobileElements();
     if (mobileDemoVideo) {
@@ -459,6 +504,11 @@
       mobileDemoVideo.removeAttribute("src");
       mobileDemoVideo.removeAttribute("poster");
       mobileDemoVideo.load();
+    }
+    if (mobileDemo) {
+      mobileDemo.removeAttribute("role");
+      mobileDemo.removeAttribute("tabindex");
+      mobileDemo.removeAttribute("aria-label");
     }
     removeMobileControl();
 
