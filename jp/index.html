@@ -34,7 +34,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
   <div class="hero">
     <h1>AMADEUS</h1>
     <p>複数個体の方向付き境界ボックス（OBB）検出とID追跡を行います。解析対象の動画そのものから自己教師的にモデルを学習するため、学習画像への手動アノテーションは必要ありません。</p>
-    <a class="pill" href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">AMADEUS 1.1.0</a>
+    <a class="pill" href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">AMADEUS 1.1.1</a>
   </div>
 
   <div class="site-mobile-demo">
@@ -88,9 +88,9 @@ if (location.hostname === "jpmyrmecol.github.io") {
   <section id="install">
     <h2>インストールと起動</h2>
 <h3>推奨環境</h3>
-<p>現在、AMADEUSでは、最も安定して動作する環境として、<strong>NVIDIA GPUを搭載したWindowsまたはLinux環境を推奨しています</strong>。</p>
+<p>AMADEUSは、<strong>Windows/LinuxのNVIDIA GPU、macOSのApple Silicon、およびLinux/Windows 11のROCm対応AMD GPUに対応しています</strong>。</p>
 <p><strong>NVIDIA GPUについては、動画の解像度や個体数にも依存しますが、8 GB以上のVRAMを推奨しています。ただし、ラップトップに搭載された4 GB VRAMのGPUでも実行可能であることを確認しています。</strong></p>
-<p>Apple SiliconやAMD GPUなど、その他の環境についても対応を進めています。ただし、一部の依存パッケージがこれらの環境向けに十分最適化されていない場合があり、ハードウェアやバックエンドによってはGPUアクセラレーションや処理性能が制限されることがあります。</p>
+<p>AMD GPUの対応状況は、GPU、OS、ドライバのROCm互換性に依存します。</p>
 <p>お使いのOSのインストーラーをダウンロードし、実行してください。</p>
 <div class="installer-downloads" role="group" aria-label="OS別インストーラー">
 <a href="/AMADEUS-Setup.bat" download>Windows<span>10 / 11</span></a>
@@ -132,7 +132,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div>
 
 <footer class="site">
-  <p>AMADEUS 1.1.0 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
+  <p>AMADEUS 1.1.1 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
   <p><a href="https://jpmyrmecol.com/" target="_blank" rel="noopener noreferrer">jpmyrmecol.com</a></p>
 </footer>
 <!-- home-cache-refresh: 2026-09-14 -->
