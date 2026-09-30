@@ -988,7 +988,7 @@ If needed, prepare the video with <strong>Cropping &amp; Trimming</strong> befor
 <td>Logs and processing times</td>
 </tr>
 </tbody></table></div>
-<p>The <code>results/</code> folder stores CSV files with a suffix identifying the processing stage. <code>tracked</code> denotes the output of staged association before refinement. <code>filled</code> denotes output after standard refinement. <code>id_resolved</code> includes identity correction using contrastive learning and subsequent refinement.</p>
+<p>The <code>results/</code> folder stores the final CSV after post-processing. The standard output is <code>&lt;model&gt;_&lt;dataset&gt;_&lt;run&gt;_&lt;video&gt;.csv</code>. When embedding-based ID correction is run, the output is <code>&lt;model&gt;_&lt;dataset&gt;_&lt;run&gt;_&lt;video&gt;_id_resolved.csv</code>.</p>
 <p>In the standard mode with direction estimation, the final CSV has one row per frame, with <code>frame</code> followed by <code>cx0, cy0, w0, h0, heading0, …</code> for each animal. Individual IDs start at 0. Coordinates and OBB dimensions are in input-video pixels: the origin is at the top left, x increases to the right, and y increases downward. The <code>heading</code> columns store <strong>head direction</strong> in degrees, from 0° inclusive to 360° exclusive. Zero points up and angles increase clockwise. Missing values are empty fields (NaN), and estimates are not guaranteed for every animal in every frame.</p>
 <p>Trained weights are stored under <code>&lt;Session&gt;/main/&lt;model&gt;/training/&lt;video name&gt;/weights/</code>.</p>
 </section><section><h2 id="section-13">13. Recommended recording conditions</h2>
