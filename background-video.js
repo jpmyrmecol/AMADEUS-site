@@ -3,6 +3,8 @@
 
   const MIN_SIDE_MARGIN = 100;
   const MIN_VIEWPORT_HEIGHT = 650;
+  const BACKGROUND_VIDEO_ASPECT_RATIO = 1920 / 840;
+  const MIN_VISIBLE_BACKGROUND_WIDTH = 0.70;
   const VIDEO_SRC = "/assets/amadeus_demo_web.mp4";
   const MOBILE_VIDEO_SRC = "/assets/amadeus_demo_mobile.mp4";
   const VIDEO_POSTER_SRC = "/assets/amadeus_demo_web_poster.webp";
@@ -68,8 +70,16 @@
   }
 
   function hasRoomForBackgroundVideo() {
+    const backgroundHeight = Math.max(1, window.innerHeight - topbarHeight());
+    const viewportAspectRatio = window.innerWidth / backgroundHeight;
+    const visibleBackgroundWidth = Math.min(
+      1,
+      viewportAspectRatio / BACKGROUND_VIDEO_ASPECT_RATIO
+    );
+
     return window.innerHeight >= MIN_VIEWPORT_HEIGHT &&
-      visibleSideMargin() >= MIN_SIDE_MARGIN;
+      visibleSideMargin() >= MIN_SIDE_MARGIN &&
+      visibleBackgroundWidth >= MIN_VISIBLE_BACKGROUND_WIDTH;
   }
 
   function refreshBackgroundActive() {
