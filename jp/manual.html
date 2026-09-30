@@ -642,12 +642,13 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tbody></table></div>
 </section><section><h2 id="section-3">3. 基本の流れ</h2>
 <ol>
-<li>必要に応じて <strong>Cropping &amp; Trimming</strong> で動画を整えます。</li>
-<li><strong>Segmentation</strong> で動物が正しく抽出される設定を作ります。</li>
-<li><strong>Easy Tracking</strong> で学習と追跡を実行します。</li>
+<li>Home画面から <strong>Easy Tracking</strong> を開きます。画面の案内に従って動画を入力し、Sessionを指定したら <strong>Launch Segmentation</strong> を押します。</li>
+<li><strong>Segmentation</strong> で動物が正しく抽出されるように設定し、<strong>Processing</strong> を実行します。Segmentationが完了すると、自動的に <strong>Easy Tracking</strong> に戻ります。</li>
+<li>Easy Trackingで残りの項目を設定し、<strong>Processing</strong> を押して学習と追跡を実行します。</li>
 <li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
 </ol>
 <p>細かい条件を指定する場合は、Easy Trackingの代わりに <strong>Advanced Tracking</strong> を使います。</p>
+<p>必要に応じて、追跡前に <strong>Cropping &amp; Trimming</strong> で動画を整えます。</p>
 </section><section><h2 id="section-4">4. Cropping &amp; Trimming（任意）</h2>
 <p>解析する場所と時間を切り出し、見え方を整えた動画を作成します。</p>
 <ol>
