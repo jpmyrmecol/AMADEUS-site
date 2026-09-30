@@ -39,6 +39,9 @@
   min-width: 0;
   padding: .3rem 0;
 }
+#launch-os-windows:checked ~ .install-os-windows,
+#launch-os-macos:checked ~ .install-os-macos,
+#launch-os-linux:checked ~ .install-os-linux,
 #install-os-windows:checked ~ .install-os-windows,
 #install-os-macos:checked ~ .install-os-macos,
 #install-os-linux:checked ~ .install-os-linux,
