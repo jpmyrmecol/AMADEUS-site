@@ -493,7 +493,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
       .tabs a { flex: 1; text-align: center; padding-inline: 0.5rem; }
     }
 
-  </style><link rel="stylesheet" href="install-tabs.css">
+  </style><link rel="stylesheet" href="install-tabs.css?v=2">
 </head><body><a class="skip-link" href="#content">Skip to content</a><header class="topbar"><a class="topbar-brand" href="/"><img src="assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="Language"><a href="/jp/manual.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="Manual_EN.html" lang="en" hreflang="en" title="English" aria-label="English" aria-current="true"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="Site sections"><a href="/">Home</a><a href="Manual_EN.html" aria-current="page">Manual</a><a href="dataset.html">Dataset</a><a href="publication.html">Publication</a></nav></div></header><div class="layout"><aside aria-label="Contents"><p class="brand">AMADEUS</p><span class="version">1.1.1</span><button class="toc-menu-toggle" type="button" aria-controls="manual-toc" aria-expanded="false">Menu</button><nav id="manual-toc" aria-label="Table of contents"><a href="#section-1">1. Launch</a><a href="#section-2">2. Home screen</a><a href="#section-3">3. Basic workflow</a><a href="#section-4">4. Cropping & Trimming (optional)</a><a href="#section-5">5. Segmentation (foreground extraction)</a><a href="#section-6">6. Easy Tracking</a><a href="#section-7">7. Advanced Tracking</a><a href="#section-8">8. Multi Config Batch</a><a href="#section-9">9. Refinement</a><a href="#section-10">10. Colab (beta)</a><a href="#section-11">11. Parameter adjustment</a><a href="#section-12">12. Outputs</a><a href="#section-13">13. Recommended recording conditions</a><a href="#section-14">14. License</a></nav></aside><main id="content"><header class="hero"><p class="eyebrow">English Manual · 1.1.1</p><h1>AMADEUS<br>User Manual</h1><p>A guide to using AMADEUS.</p></header>
 <section><h2 id="section-1">1. Launch</h2>
 <h3>Recommended environment</h3>
@@ -507,13 +507,30 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div>
 <p class="note">If you encounter an error, please contact Yusuke Notomi at jpmyrmecol [at] gmail.com and include your operating system, installation method, and the error message.</p>
 <p>An internet connection is required for the initial setup.</p>
-<details><summary>Installation and launching AMADEUS</summary><div class="details-content">
-<p><strong>Windows:</strong> double-click <code>AMADEUS-Setup.bat</code>. For subsequent launches, you can also use the <strong>AMADEUS</strong> desktop shortcut. You can also launch AMADEUS by typing <strong>AMADEUS</strong> or <strong>AMADE</strong> in Command Prompt.</p>
-<p><strong>macOS:</strong> Create an <code>AMADEUS</code> folder in your Home folder and place <code>AMADEUS-Setup.command</code> inside it. Before the first run, open Terminal and execute:</p>
+<details><summary>Installation and launching AMADEUS</summary>
+<div class="install-os-tabs" role="group" aria-label="Choose your operating system for installation">
+<input class="install-os-choice" type="radio" name="launch-os" id="launch-os-windows" checked><label for="launch-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="launch-os" id="launch-os-macos"><label for="launch-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="launch-os" id="launch-os-linux"><label for="launch-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows" aria-labelledby="launch-os-windows-heading"><h3 id="launch-os-windows-heading">Windows</h3>
+<p>Double-click <code>AMADEUS-Setup.bat</code>.</p>
+<p>After the initial setup, launch AMADEUS from the <strong>AMADEUS</strong> desktop shortcut, or type <code>amadeus</code> or <code>amade</code> in Command Prompt.</p>
+</div>
+<div class="install-os-panel install-os-macos" aria-labelledby="launch-os-macos-heading"><h3 id="launch-os-macos-heading">macOS (Apple Silicon)</h3>
+<p>Create an <code>AMADEUS</code> folder in your Home folder and place <code>AMADEUS-Setup.command</code> inside it. Before the first run, open Terminal and execute:</p>
 <pre><code>chmod +x ~/AMADEUS/AMADEUS-Setup.command</code></pre>
-<p>Then double-click <code>AMADEUS-Setup.command</code>. If you are prompted to install Python, install it and then double-click <code>AMADEUS-Setup.command</code> again. For subsequent launches, simply double-click <code>AMADEUS-Setup.command</code>. Native Apple Silicon is required; Intel Macs and Rosetta are not supported.</p>
-<p><strong>Linux:</strong> allow execution as a program in the file properties, then choose to run <code>AMADEUS-Setup.sh</code> in a terminal. Names and actions vary by desktop environment. A graphical desktop or WSLg is required. Use the same launcher for subsequent sessions.</p>
-</div></details>
+<p>Then double-click <code>AMADEUS-Setup.command</code>. If you are prompted to install Python, install it and then double-click <code>AMADEUS-Setup.command</code> again.</p>
+<p>After the initial setup, either double-click <code>AMADEUS-Setup.command</code> or type <code>amadeus</code> or <code>amade</code> in Terminal. Native Apple Silicon is required; Intel Macs and Rosetta are not supported.</p>
+</div>
+<div class="install-os-panel install-os-linux" aria-labelledby="launch-os-linux-heading"><h3 id="launch-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
+<p>You can allow <code>AMADEUS-Setup.sh</code> to run as a program in the file properties and choose to run it in a terminal. Names and actions vary by desktop environment.</p>
+<p>You can also run it directly from a terminal. For example, if it is saved in your <code>Downloads</code> folder, run:</p>
+<pre><code>bash ~/Downloads/AMADEUS-Setup.sh</code></pre>
+<p>If you saved it elsewhere, replace <code>~/Downloads/AMADEUS-Setup.sh</code> with the actual path.</p>
+<p>After the initial setup, type <code>amadeus</code> or <code>amade</code> in a terminal to launch AMADEUS. A graphical desktop or WSLg is required.</p>
+</div>
+</div>
+</details>
 <details><summary>Install using Git (Windows, macOS, Linux)</summary>
 <div class="install-os-tabs" role="group" aria-label="Choose your operating system">
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
