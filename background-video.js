@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const MIN_SIDE_MARGIN = 180;
+  const MIN_SIDE_MARGIN = 100;
   const MIN_VIEWPORT_HEIGHT = 650;
   const VIDEO_SRC = "/assets/amadeus_demo_web.mp4";
   const MOBILE_VIDEO_SRC = "/assets/amadeus_demo_mobile.mp4";
