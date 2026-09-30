@@ -15,12 +15,14 @@
   let resizeFrame = 0;
   let playbackUnavailable = false;
   let desktopManualPlayback = false;
+  let desktopAutoplayFallback = false;
 
   let mobileDemoUnavailable = false;
   let mobileDemo = null;
   let mobileDemoVideo = null;
   let mobileControl = null;
   let mobileManualPlayback = false;
+  let mobileAutoplayFallback = false;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -254,15 +256,13 @@
     if (!mobileDemoVideo) return;
 
     mobileDemo.addEventListener("click", () => {
-      if (reducedMotion.matches &&
-          mobileDemo.classList.contains("is-reduced-motion")) {
+      if (mobileDemo.classList.contains("is-manual-playback")) {
         toggleMobilePlayback();
       }
     });
 
     mobileDemo.addEventListener("keydown", (event) => {
-      if (!reducedMotion.matches ||
-          !mobileDemo.classList.contains("is-reduced-motion")) {
+      if (!mobileDemo.classList.contains("is-manual-playback")) {
         return;
       }
       if (event.key !== "Enter" && event.key !== " ") return;
@@ -286,7 +286,7 @@
       mobileDemoVideo.removeAttribute("src");
       mobileDemoVideo.load();
 
-      if (reducedMotion.matches) {
+      if (reducedMotion.matches || mobileAutoplayFallback) {
         mobileDemoVideo.poster = MOBILE_VIDEO_POSTER_SRC;
         setControlState(mobileControl, true);
         mobileDemo.removeAttribute("role");
@@ -344,7 +344,7 @@
   function hideMobileDemo() {
     if (!mobileDemo || !mobileDemoVideo) return;
 
-    mobileDemo.classList.remove("is-visible", "is-reduced-motion");
+    mobileDemo.classList.remove("is-visible", "is-manual-playback");
     mobileDemo.removeAttribute("role");
     mobileDemo.removeAttribute("tabindex");
     mobileDemo.removeAttribute("aria-label");
@@ -358,10 +358,10 @@
     mobileDemoVideo.load();
   }
 
-  function showReducedMotionMobileDemo() {
+  function showManualMobileDemo() {
     if (!mobileDemo || !mobileDemoVideo) return;
 
-    mobileDemo.classList.add("is-visible", "is-reduced-motion");
+    mobileDemo.classList.add("is-visible", "is-manual-playback");
     mobileDemo.setAttribute("role", "button");
     mobileDemo.setAttribute("tabindex", "0");
 
@@ -397,7 +397,7 @@
     if (!mobileDemo || !mobileDemoVideo) return;
 
     mobileDemo.classList.add("is-visible");
-    mobileDemo.classList.remove("is-reduced-motion");
+    mobileDemo.classList.remove("is-manual-playback");
     mobileDemo.removeAttribute("role");
     mobileDemo.removeAttribute("tabindex");
     mobileDemo.removeAttribute("aria-label");
@@ -420,7 +420,17 @@
 
     const playPromise = mobileDemoVideo.play();
     if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(() => {});
+      playPromise.catch(() => {
+        if (reducedMotion.matches ||
+            hasRoomForBackgroundVideo() ||
+            !mobileDemo.classList.contains("is-visible")) {
+          return;
+        }
+
+        mobileAutoplayFallback = true;
+        mobileManualPlayback = false;
+        showManualMobileDemo();
+      });
     }
   }
 
@@ -434,8 +444,8 @@
       return;
     }
 
-    if (reducedMotion.matches) {
-      showReducedMotionMobileDemo();
+    if (reducedMotion.matches || mobileAutoplayFallback) {
+      showManualMobileDemo();
     } else {
       showAutoplayMobileDemo();
     }
@@ -451,7 +461,7 @@
       return;
     }
 
-    if (reducedMotion.matches) {
+    if (reducedMotion.matches || desktopAutoplayFallback) {
       addBackgroundPoster();
       ensureDesktopInteraction();
 
@@ -470,7 +480,19 @@
       const target = createBackgroundVideo(true);
       const playPromise = target.play();
       if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {});
+        playPromise.catch(() => {
+          if (video !== target ||
+              reducedMotion.matches ||
+              !hasRoomForBackgroundVideo()) {
+            return;
+          }
+
+          desktopAutoplayFallback = true;
+          desktopManualPlayback = false;
+          removeBackgroundVideo();
+          addBackgroundPoster();
+          ensureDesktopInteraction();
+        });
       }
     } else {
       removeBackgroundVideo();
