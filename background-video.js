@@ -3,8 +3,8 @@
 
   const MIN_SIDE_MARGIN = 180;
   const MIN_VIEWPORT_HEIGHT = 650;
-  const VIDEO_SRC = "/assets/amadeus_demo_web.mov";
-  const MOBILE_VIDEO_SRC = "/assets/amadeus_demo_mobile.mov";
+  const VIDEO_SRC = "/assets/amadeus_demo_web.mp4";
+  const MOBILE_VIDEO_SRC = "/assets/amadeus_demo_mobile.mp4";
 
   let video = null;
   let resizeFrame = 0;
