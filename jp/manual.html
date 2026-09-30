@@ -989,8 +989,8 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <td>ログと処理時間</td>
 </tr>
 </tbody></table></div>
-<p><code>results/</code> には、<code>tracked</code>（後処理なし）、<code>filled</code>（通常後処理済み）、もしくは<code>id_resolved</code>（埋め込みID補正 + 後処理済み）の最終CSVが保存されます。</p>
-<p>最終CSVは1行が1フレームで、<code>frame</code> と個体別の <code>cx0, cy0, w0, h0, heading0, …</code> を持ちます。個体IDは0から始まります。座標とOBB寸法は入力動画のピクセル単位、原点は左上、xは右向き、yは下向きです。<code>heading</code> は上を0°、時計回りを正とする0°以上360°未満の角度です。欠測は空欄（NaN）で、全個体が全フレームで必ず得られるわけではありません。</p>
+<p><code>results/</code> には、後処理後の最終CSVが保存されます。通常は <code>&lt;model&gt;_&lt;dataset&gt;_&lt;run&gt;_&lt;video&gt;.csv</code>、埋め込みID補正工程が実行された場合は <code>&lt;model&gt;_&lt;dataset&gt;_&lt;run&gt;_&lt;video&gt;_id_resolved.csv</code> です。</p>
+<p>方向推定ありの通常モードでは、最終CSVは1行が1フレームで、<code>frame</code> と個体別の <code>cx0, cy0, w0, h0, heading0, …</code> を持ちます。個体IDは0から始まります。座標とOBB寸法は入力動画のピクセル単位、原点は左上、xは右向き、yは下向きです。<code>heading</code> は上を0°、時計回りを正とする0°以上360°未満の角度です。欠測は空欄（NaN）で、全個体が全フレームで必ず得られるわけではありません。</p>
 <p>学習済み重みは <code>&lt;Session&gt;/main/&lt;model&gt;/training/&lt;動画名&gt;/weights/</code> に保存されます。</p>
 </section><section><h2 id="section-13">13. 推奨撮影条件</h2>
 <ul>
