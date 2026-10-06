@@ -704,9 +704,8 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>追加設定は初期状態では非表示です。サイドバー上部の <strong>Show optional settings</strong> にチェックを入れると、以下のOptional項目が表示されます。</p>
 
 <details id="segmentation-roi"><summary>ROI［Optional］</summary><div class="details-content">
-<p>画像の一部だけをSegmentationの対象にしたい場合に使用します。例えば、アリーナの外側や解析対象外の領域を除外できます。</p>
-<p><strong>Use this ROI</strong> にチェックを入れ、rectangleまたはcircleを選択して、位置と大きさを調整します。<strong>From frame</strong> と <strong>To frame</strong> で適用するフレーム範囲を指定できます。時間帯によって異なる領域を使う場合は、複数のROI Setを追加できます。</p>
-<p><strong>Reverse ROI</strong> を有効にすると、指定した領域の内側ではなく外側を残します。</p>
+<p>画像の一部だけをSegmentationの対象にする場合に使用します。<strong>Use this ROI</strong> を有効にし、<strong>Edit ROI</strong> で4頂点をドラッグして形を調整するか、ROI内をドラッグして全体を移動します。<strong>From frame</strong> と <strong>To frame</strong> で適用するフレーム範囲を指定できます。</p>
+<p>複数のROI SetはOR（和集合）で結合されます。<strong>Reverse ROI</strong> は結合したROIの内外を反転します。</p>
 </div></details>
 
 <details id="region-expansion"><summary>Region Expansion［Optional, Beta］</summary><div class="details-content">

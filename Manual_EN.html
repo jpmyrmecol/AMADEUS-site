@@ -704,9 +704,8 @@ If needed, prepare the video with <strong>Cropping &amp; Trimming</strong> befor
 <p>Additional settings are hidden by default. Check <strong>Show optional settings</strong> at the top of the sidebar to display the optional sections below.</p>
 
 <details id="segmentation-roi"><summary>ROI [Optional]</summary><div class="details-content">
-<p>Use ROI when only part of the image should be included in segmentation, for example to exclude arena edges or other areas outside the analysis region.</p>
-<p>Select <strong>Use this ROI</strong>, choose a rectangle or circle, and adjust its position and size. <strong>From frame</strong> and <strong>To frame</strong> restrict the ROI to a frame range. Multiple ROI Sets can be added when different regions are needed at different times.</p>
-<p><strong>Reverse ROI</strong> excludes the selected region instead of keeping it.</p>
+<p>Use ROI when only part of the image should be included in segmentation. Enable <strong>Use this ROI</strong>, then use <strong>Edit ROI</strong> to drag the four vertices or move the whole ROI. <strong>From frame</strong> and <strong>To frame</strong> set its active frame range.</p>
+<p>Multiple ROI Sets are combined by union (OR). <strong>Reverse ROI</strong> inverts the combined ROI.</p>
 </div></details>
 
 <details id="region-expansion"><summary>Region Expansion [Optional, Beta]</summary><div class="details-content">
