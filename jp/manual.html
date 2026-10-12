@@ -716,13 +716,12 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div></details>
 
 <details id="result-obb-import"><summary>Result OBB Import［Optional, Beta］</summary><div class="details-content">
-<p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
-<p>面積だけでは、実際に大きな1個体と、接触した2個体とを区別できません。どちらも面積の外れ値になるため、大きな個体が接触個体として扱われ、単独個体の学習データから外れてしまいます。同じ動画をすでに一度追跡している場合は、その結果CSVを読み込むことでこの取り違えを解消できます。</p>
-<p>サイドバーの <strong>Result OBB Import (beta)</strong>（既定は閉じた状態）を開き、<strong>Use imported result OBB</strong> にチェックを入れて、<strong>Reference</strong> から追跡結果CSV（<code>&lt;Session&gt;/results/</code> の <code>frame</code> 列と ID ごとの <code>cx</code>・<code>cy</code>・<code>w</code>・<code>h</code>・<code>heading</code> 列を持つファイル）を選びます。別プロジェクトで解析した結果CSVでも、同じ動画の座標であれば読み込めます。</p>
-<p>各OBBは、その中心を含むblob（中心が背景に落ちる場合は最も重なるblob）1つだけに割り当てられます。したがって、2個体が1つのblobを形成していればそのblobのOBB数は2になります。<strong>面積の外れ値と判定されたblobのうち</strong>、割り当てられたOBBがちょうど1つで、かつそのOBBがblob面積の <strong>Min OBB coverage</strong>（既定：0.7）以上を覆うものだけが、大きな1個体として外れ値から外されます。それ以外は面積による判定のままです。面積の範囲内にあるblob、Additional Outlierで抽出された領域、OBBが2つ以上のblob、結果CSVが説明しないblobは、いずれも変更されません。</p>
-<p>被覆率の条件は、2個体のうち片方を追跡が取りこぼした場合を除外するためのものです。この場合もOBB数は1になりますが、OBBは自分が対応する個体の範囲しか覆わず、もう1個体の分が残るため、外れ値のまま残ります。OBBは1個体の外接矩形なので、検出とセグメンテーションが同じ個体を捉えていれば被覆率は1に近づきます。実際の値はblobにカーソルを合わせると表示されるので、自分のデータで確認して閾値を決めてください。</p>
-<p><strong>Frame offset</strong> は、結果CSVのフレーム番号から動画のフレーム番号を引いた値です（トリミング前の動画で追跡した場合などに使用、既定：0）。<strong>Show imported OBB</strong> をオンにすると、読み込んだOBBがプレビューと書き出し動画にマゼンタで重ね描きされ、位置ずれを目視で確認できます。プレビュー上部の <code>result-single</code> は外れ値から外されたblob数、blobにカーソルを合わせると割り当てOBB数と被覆率が表示されます。</p>
-<p>設定は <code>segmentation_gui_config.json</code> に保存されます。読み込んだ結果を使わない場合は <strong>Clear imported result</strong> で解除するか、チェックを外してください。</p>
+<p class="note"><strong>ベータ版の機能です。</strong>処理結果を確認して使用してください。</p>
+<p>以前の追跡結果CSVのOBBを参照し、Segmentationの外れ値判定を改善します。大きな単独個体や、前景抽出が不完全な個体の処理に役立つ場合があります。</p>
+<p><strong>Use imported result OBB</strong>を有効にし、<strong>Reference</strong>から結果CSVを選択します。CSVには<code>frame</code>列と、各IDの<code>cx</code>・<code>cy</code>・<code>w</code>・<code>h</code>・<code>heading</code>列が必要です。フレーム番号と画像座標が現在の動画に一致していれば、別プロジェクトの結果も使用できます。</p>
+<p><strong>Min OBB coverage</strong>（初期値0.7）は、blobが対応するOBBに覆われる割合の最低値です。<strong>Minimum area</strong>と<strong>Maximum area</strong>は各OBB内の前景画素面積の許容範囲です。これらを用いて単独個体と外れ値を判定し、前景抽出が不完全な場合は結果OBBに基づいて除外領域を補完します。</p>
+<p><strong>Show imported OBB</strong>を有効にすると参照OBBがマゼンタで表示されます。blobにカーソルを合わせると、対応OBB数や被覆率を確認できます。確認後、<strong>Processing</strong>を実行してください。参照を解除するには<strong>Clear imported result</strong>を使用します。</p>
+<p>選択したCSVは後続の追跡工程にも引き継がれます。方向推定を行う単独個体の学習画像生成では、元のblob輪郭・大きさ・向きが結果OBBと整合する場合、従来は除外されていた個体を救済できます。静止個体や頻繁に接触する個体で有効な場合があります。複数個体が重なったblobや結果OBBと整合しない領域は、単独個体の学習画像として採用されません。</p>
 </div></details>
 
 <details id="additional-outlier"><summary>Additional Outlier［Optional, Beta］</summary><div class="details-content">
