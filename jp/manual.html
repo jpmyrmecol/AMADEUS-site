@@ -532,6 +532,49 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div>
 </div>
 </details>
+<details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
+<p>GitインストールではGitHubの最新公開リリースを取得し、そのタグのバージョンをインストールします。<code>main</code>の未リリース変更は含まれません。AMADEUSの更新機能との互換性のため、Gitのブランチ名は<code>main</code>のまま維持します。Gitとインターネット接続が必要です。macOSとLinuxでは<code>curl</code>も必要です。</p>
+<div class="install-os-tabs" role="group" aria-label="OSを選択">
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
+<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
+<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
+<p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>を導入済みなら、保存先のフォルダーで<strong>コマンドプロンプト（cmd）</strong>を開き、次の1行を実行します（Windows 10 / 11）。保存先に同名の <code>AMADEUS</code> フォルダーがない状態で実行してください。</p>
+<pre><code>powershell -NoProfile -Command "$ErrorActionPreference='Stop'; $tag=(Invoke-RestMethod -Uri 'https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest').tag_name; if (-not $tag) {throw 'Latest release tag not found'}; git clone https://github.com/jpmyrmecol/AMADEUS.git; if ($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}; Set-Location AMADEUS; git reset --hard $tag; if ($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}; &amp; .\AMADEUS.bat; exit $LASTEXITCODE"</code></pre>
+<p>初回セットアップにはインターネット接続が必要です。</p>
+<p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
+<pre><code>amadeus</code></pre>
+</div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>release_url=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jpmyrmecol/AMADEUS/releases/latest) &amp;&amp; git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; git reset --hard "${release_url##*/}" &amp;&amp; bash AMADEUS.sh</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>release_url=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jpmyrmecol/AMADEUS/releases/latest) &amp;&amp; git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; git reset --hard "${release_url##*/}" &amp;&amp; bash AMADEUS.sh</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
+</div>
+</details>
+<details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p>Gitを使わない場合は、<a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。</p><ol>
+<li>AMADEUSのZIPファイルを展開します。</li>
+<li>OSに合ったランチャーを起動します。初回セットアップ後も同様に起動できます。</li>
+<li>初回セットアップが完了すると、ホーム画面が開きます。</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>OS</th>
+<th>起動方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows 10 / 11</td>
+<td><code>AMADEUS.bat</code> をダブルクリック</td>
+</tr>
+<tr>
+<td>macOS（Apple Silicon）</td>
+<td><code>AMADEUS.command</code> を開く</td>
+</tr>
+<tr>
+<td>Ubuntu / WSL2</td>
+<td><code>bash AMADEUS.sh</code> を実行</td>
+</tr>
+</tbody></table></div>
+</div></details>
 <p>更新はHome画面の <strong>Update</strong> から行います。v1.0.5以降のアンインストールは <strong>Uninstall</strong> から行えます。<strong>インストールフォルダ内のファイルはすべて削除されます。</strong>必要なセッションや結果は、事前に別のフォルダへ移してください。</p>
 <details><summary>v1.0.4までのアンインストール（Windows・macOS・Linux）</summary>
 <div class="install-os-tabs" role="group" aria-label="アンインストールするOSを選択">
