@@ -507,7 +507,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <a href="/AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
 </div>
 <p class="note">エラーが発生した場合は、納富（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。特にAMD GPU（ROCm）は実機での検証がまだ十分ではないため、動作結果や問題についてもご報告いただけると助かります。</p>
-<p>初回セットアップにはインターネット接続が必要です。AMADEUSはすべての対応OSで<strong>Python 3.12.x</strong>を必要とし、macOSではTcl/Tk 8.6も必要です。</p>
+<p>初回セットアップにはインターネット接続が必要です。必要なソフトウェアはインストーラーが準備します。画面に案内が表示された場合は、その指示に従ってください。</p>
 <details><summary>インストールおよびAMADEUSの起動方法</summary>
 <div class="install-os-tabs" role="group" aria-label="インストールするOSを選択">
 <input class="install-os-choice" type="radio" name="launch-os" id="launch-os-windows" checked><label for="launch-os-windows">Windows</label>
@@ -521,7 +521,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>ホームフォルダ直下に <code>AMADEUS</code> フォルダを作成し、<code>AMADEUS-Setup.command</code> をその中に置きます。初回起動前にターミナルを開き、次を実行します。</p>
 <pre><code>chmod +x ~/AMADEUS/AMADEUS-Setup.command</code></pre>
 <p>その後、<code>AMADEUS-Setup.command</code> をダブルクリックします。Pythonのインストールを求められた場合は、Pythonをインストールした後、<code>AMADEUS-Setup.command</code> をもう一度ダブルクリックしてください。</p>
-<p>初回セットアップ後は、<code>AMADEUS-Setup.command</code> をダブルクリックするか、ターミナルで <code>amadeus</code> もしくは <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。</p>
+<p>初回セットアップ後は、<code>AMADEUS-Setup.command</code> をダブルクリックするか、ターミナルで <code>amadeus</code> もしくは <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOSでの一連の処理は、実機での検証がまだ十分ではありません。</p>
 </div>
 <div class="install-os-panel install-os-linux" aria-labelledby="launch-os-linux-heading"><h3 id="launch-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
 <p><code>AMADEUS-Setup.sh</code> は、ファイルのプロパティで「プログラムとして実行」を許可して「端末で実行」できます。名称や操作はデスクトップ環境で異なります。</p>
@@ -532,49 +532,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div>
 </div>
 </details>
-<details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
-<p>GitインストールではGitHubの最新公開リリースを取得し、そのタグのバージョンをインストールします。<code>main</code>の未リリース変更は含まれません。AMADEUSの更新機能との互換性のため、Gitのブランチ名は<code>main</code>のまま維持します。Gitとインターネット接続が必要です。macOSとLinuxでは<code>curl</code>も必要です。</p>
-<div class="install-os-tabs" role="group" aria-label="OSを選択">
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
-<input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
-<div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
-<p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>を導入済みなら、保存先のフォルダーで<strong>コマンドプロンプト（cmd）</strong>を開き、次の1行を実行します（Windows 10 / 11）。保存先に同名の <code>AMADEUS</code> フォルダーがない状態で実行してください。</p>
-<pre><code>powershell -NoProfile -Command "$ErrorActionPreference='Stop'; $tag=(Invoke-RestMethod -Uri 'https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest').tag_name; if (-not $tag) {throw 'Latest release tag not found'}; git clone https://github.com/jpmyrmecol/AMADEUS.git; if ($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}; Set-Location AMADEUS; git reset --hard $tag; if ($LASTEXITCODE -ne 0) {exit $LASTEXITCODE}; &amp; .\AMADEUS.bat; exit $LASTEXITCODE"</code></pre>
-<p>初回セットアップにはインターネット接続が必要です。</p>
-<p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
-<pre><code>amadeus</code></pre>
-</div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>release_url=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jpmyrmecol/AMADEUS/releases/latest) &amp;&amp; git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; git reset --hard "${release_url##*/}" &amp;&amp; bash AMADEUS.sh</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
-<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>release_url=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jpmyrmecol/AMADEUS/releases/latest) &amp;&amp; git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; git reset --hard "${release_url##*/}" &amp;&amp; bash AMADEUS.sh</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
-</div>
-</details>
-<details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p>Gitを使わない場合は、<a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。</p><ol>
-<li>AMADEUSのZIPファイルを展開します。</li>
-<li>OSに合ったランチャーを起動します。初回セットアップ後も同様に起動できます。</li>
-<li>初回セットアップが完了すると、ホーム画面が開きます。</li>
-</ol>
-<div class="table-wrap"><table>
-<thead>
-<tr>
-<th>OS</th>
-<th>起動方法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Windows 10 / 11</td>
-<td><code>AMADEUS.bat</code> をダブルクリック</td>
-</tr>
-<tr>
-<td>macOS（Apple Silicon）</td>
-<td><code>AMADEUS.command</code> を開く</td>
-</tr>
-<tr>
-<td>Ubuntu / WSL2</td>
-<td><code>bash AMADEUS.sh</code> を実行</td>
-</tr>
-</tbody></table></div>
-</div></details>
+<p>更新はHome画面の <strong>Update</strong> から行います。v1.0.5以降のアンインストールは <strong>Uninstall</strong> から行えます。<strong>インストールフォルダ内のファイルはすべて削除されます。</strong>必要なセッションや結果は、事前に別のフォルダへ移してください。</p>
 <details><summary>v1.0.4までのアンインストール（Windows・macOS・Linux）</summary>
 <div class="install-os-tabs" role="group" aria-label="アンインストールするOSを選択">
 <input class="install-os-choice" type="radio" name="uninstall-os" id="uninstall-os-windows" checked><label for="uninstall-os-windows">Windows</label>
@@ -584,7 +542,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>AMADEUSを終了してからアンインストールしてください。</p>
 <p><strong>インストーラーから導入した場合：</strong>エクスプローラーで <code>%LOCALAPPDATA%\AMADEUS\app\tools</code> を開き、<code>uninstall.bat</code> をダブルクリックします。完了後、<code>%LOCALAPPDATA%\AMADEUS</code> フォルダーとデスクトップの <strong>AMADEUS</strong> ショートカットを削除してください。</p>
 <p><strong>GitまたはZIPから導入した場合：</strong>AMADEUSのインストールフォルダー内にある <code>tools</code> フォルダーを開き、<code>uninstall.bat</code> をダブルクリックします。完了後、不要であればAMADEUSのインストールフォルダーを削除してください。</p>
-<p>アンインストーラーはローカルのPython環境とグローバルの <code>amadeus</code> コマンドを削除します。プロジェクトやセッションのフォルダーとuvは削除しません。</p>
+<p>旧アンインストーラーは実行環境と <code>amadeus</code> コマンドを削除します。インストールフォルダを削除する前に、必要なセッションや結果を退避してください。</p>
 <p><strong>v1.0.5以降：</strong>GUIのHome画面にある <strong>Uninstall</strong> ボタンからアンインストールできます。</p>
 </div>
 <div class="install-os-panel install-os-macos"><h3>macOS</h3>
@@ -645,7 +603,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </section><section><h2 id="section-3">3. 基本の流れ</h2>
 <ol>
 <li><strong>Easy Tracking</strong> を開き、画面の案内に従って動画を入力した後、<strong>Launch Segmentation</strong> を押します。</li>
-<li><strong>Segmentation</strong> で動物が背景から適切に抽出されるように設定し、<strong>Analysis</strong> ボタンを押します。</li>
+<li><strong>Segmentation</strong> で動物が背景から適切に抽出されるように設定し、<strong>Analyze</strong> ボタンを押します。</li>
 <li>単独個体が青、接触個体・断片・その他の外れ値が橙になるように、IQRの閾値（またはAbsoluteの範囲）を調整して、<strong>Processing</strong> を実行します。終了後、自動的に <strong>Easy Tracking</strong> に戻ります。</li>
 <li>Easy Trackingで3つの質問項目に回答し、<strong>Processing</strong> を押して、休憩します。</li>
 <li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
@@ -667,7 +625,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <ol>
 <li>動画と解析フレーム範囲を確認します。</li>
 <li>前景の抽出方法を選びます。背景差分を使う場合は、Median・Maximum・Minimumから選択します。</li>
-<li><strong>Threshold</strong> と <strong>Minimum Blob Area</strong> を調整し、動物が背景からきれいに抽出されるようにします。</li>
+<li><strong>Threshold</strong> と <strong>Min blob area</strong> を調整し、動物が背景からきれいに抽出されるようにします。</li>
 <li>最初の前景抽出の閾値調整が終わったら、<strong>Analyze</strong> を押します。AMADEUSが複数フレームをサンプリングし、Outlier Extractionに使用する面積分布を計算します。</li>
 <li>Analyzeが完了すると、<strong>Outlier Extraction</strong> の設定が表示されます。単独個体が青、接触個体・断片・その他の外れ値が橙になるように、IQRの閾値（またはAbsoluteの範囲）を調整します。</li>
 <li><strong>Processing</strong> を押して保存します。</li>
@@ -713,6 +671,12 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p class="note"><strong>最近追加されたベータ版の機能で、まだ不完全です。</strong> 結果を確認したうえで使用してください。</p>
 <p>本来1つのblobとしてつながってほしい前景領域が、閾値処理によって小さな隙間や深いくぼみで分離してしまう場合に使用します。</p>
 <p><strong>Expand region (px)</strong> で前景領域を指定ピクセル数だけ外側へ拡張します。<strong>Keep merging expansion only</strong> にチェックを入れると、別々の領域を接続するために必要な拡張だけを残し、孤立したblob全体が不要に太ることを抑えます。</p>
+</div></details>
+
+<details id="temporal-merges"><summary>Exclude temporal merges［Optional, Beta］</summary><div class="details-content">
+<p class="note"><strong>ベータ版機能で、初期値はオフです。結果を確認して使用してください。</strong></p>
+<p>連続フレーム間の変化から個体の合流を検出し、単独個体の学習画像に混入しないよう除外します。<strong>Enabled</strong> をオンにして、<strong>Analyze</strong> の前に <strong>Search</strong> を実行します。矢印ボタンで検出箇所を確認できます。</p>
+<p>動画、フレーム範囲、前景抽出の設定を変更し、再検索を求められた場合は <strong>Search</strong> を実行してください。条件が一致する検索結果は自動で保存・再利用されます。除外箇所を確認してから <strong>Processing</strong> を実行してください。</p>
 </div></details>
 
 <details id="result-obb-import"><summary>Result OBB Import［Optional, Beta］</summary><div class="details-content">
@@ -942,7 +906,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </ol>
 <p>GPU runtimeが必要です。最終CSV、結果動画、必要な学習済み重み、summary、logがGoogle Driveへ保存されます。</p>
 </section><section><h2 id="section-11">11. パラメータ調整</h2>
-<p>今後、主要なパラメータ調整の指針を追加します。基本的には標準設定で問題ありません。</p>
+<p>まずは標準設定を使用してください。問題が発生した場合は、次の項目を確認します。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -957,6 +921,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 </tbody></table></div>
 </section><section><h2 id="section-12">12. 出力</h2>
+<p>前端・後端のキーポイントはOBBの形状から算出した位置であり、解剖学的な部位を直接検出したものではありません。</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
