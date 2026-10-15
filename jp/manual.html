@@ -533,7 +533,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </div>
 </details>
 <details><summary>Gitを使ってインストールする場合（Windows・macOS・Linux）</summary>
-<p>GitインストールではGitHubの最新公開リリースを取得し、そのタグのバージョンをインストールします。<code>main</code>の未リリース変更は含まれません。AMADEUSの更新機能との互換性のため、Gitのブランチ名は<code>main</code>のまま維持します。Gitとインターネット接続が必要です。macOSとLinuxでは<code>curl</code>も必要です。</p>
 <div class="install-os-tabs" role="group" aria-label="OSを選択">
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-windows" checked><label for="install-os-windows">Windows</label>
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
@@ -549,7 +548,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。</p><pre><code>release_url=$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jpmyrmecol/AMADEUS/releases/latest) &amp;&amp; git clone https://github.com/jpmyrmecol/AMADEUS.git &amp;&amp; cd AMADEUS &amp;&amp; git reset --hard "${release_url##*/}" &amp;&amp; bash AMADEUS.sh</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
 </div>
 </details>
-<details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p>Gitを使わない場合は、<a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。</p><ol>
+<details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p><a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。Gitの事前インストールは必要ありません。</p><ol>
 <li>AMADEUSのZIPファイルを展開します。</li>
 <li>OSに合ったランチャーを起動します。初回セットアップ後も同様に起動できます。</li>
 <li>初回セットアップが完了すると、ホーム画面が開きます。</li>
@@ -575,7 +574,6 @@ if (location.hostname === "jpmyrmecol.github.io") {
 </tr>
 </tbody></table></div>
 </div></details>
-<p>更新はHome画面の <strong>Update</strong> から行います。v1.0.5以降のアンインストールは <strong>Uninstall</strong> から行えます。<strong>インストールフォルダ内のファイルはすべて削除されます。</strong>必要なセッションや結果は、事前に別のフォルダへ移してください。</p>
 <details><summary>v1.0.4までのアンインストール（Windows・macOS・Linux）</summary>
 <div class="install-os-tabs" role="group" aria-label="アンインストールするOSを選択">
 <input class="install-os-choice" type="radio" name="uninstall-os" id="uninstall-os-windows" checked><label for="uninstall-os-windows">Windows</label>
