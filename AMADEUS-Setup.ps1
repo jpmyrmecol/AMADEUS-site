@@ -37,7 +37,16 @@ function Test-CompleteInstallation([string]$Root) {
     $pyproject = Get-Content -Raw -LiteralPath (Join-Path $Root "pyproject.toml")
     if ($pyproject -notmatch '(?m)^name\s*=\s*"amadeus"\s*$') { return $false }
     $versionText = (Get-Content -Raw -LiteralPath (Join-Path $Root "VERSION")).Trim()
-    return $versionText -match '^[vV]?[0-9]+\.[0-9]+\.[0-9]+$'
+    if ($versionText -notmatch '^[vV]?[0-9]+\.[0-9]+\.[0-9]+$') { return $false }
+    # Modules introduced in 1.2.2 must not invalidate older complete releases.
+    if ([Version]::Parse(($versionText -replace '^[vV]', '')) -ge [Version]'1.2.2') {
+        foreach ($relative in @("gui/addon_gui.py", "gui/addon_manager.py", "gui/dark_widgets.py", "gui/home_drop_routes.py", "gui/save_shortcut.py", "gui/segmentation_workflow.py")) {
+            $file = Join-Path $Root $relative
+            if (!(Test-Path -LiteralPath $file -PathType Leaf)) { return $false }
+            if ((Get-Item -LiteralPath $file).Length -eq 0) { return $false }
+        }
+    }
+    return $true
 }
 
 function Test-LegacyVersion([string]$Root) {
@@ -175,3 +184,4 @@ try {
 } finally {
     Pop-Location
 }
+

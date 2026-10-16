@@ -27,7 +27,7 @@ fi
 
 # A missing virtual environment is repairable by the normal launcher.
 installation_complete() {
-    local root="$1" file version
+    local root="$1" file version major minor patch
     for file in tools/runtime_profiles.py tools/python_runtime.py tools/ffmpeg_runtime.py main/compute_telemetry.py main/compute_backend.py gui/splash_ipc.py gui/tk_compat.py \
         AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py \
         gui/gui_easy_tracking.py gui/gui_segmentation.py gui/gui_advanced_tracking.py gui/gui_refinement.py gui/gui_preprocess.py gui/gui_colab.py gui/gui_multi_config_batch.py \
@@ -40,7 +40,17 @@ installation_complete() {
     fi
     grep -Eq '^name[[:space:]]*=[[:space:]]*"amadeus"[[:space:]]*$' "$root/pyproject.toml" || return 1
     version="$(tr -d '[:space:]' < "$root/VERSION")" || return 1
-    [[ "$version" =~ ^[vV]?[0-9]+\.[0-9]+\.[0-9]+$ ]]
+    [[ "$version" =~ ^[vV]?([0-9]+)\.([0-9]+)\.([0-9]+)$ ]] || return 1
+    major=$((10#${BASH_REMATCH[1]}))
+    minor=$((10#${BASH_REMATCH[2]}))
+    patch=$((10#${BASH_REMATCH[3]}))
+    # Keep older complete releases launchable offline; these modules arrived in 1.2.2.
+    if (( major > 1 || (major == 1 && minor > 2) || (major == 1 && minor == 2 && patch >= 2) )); then
+        for file in gui/addon_gui.py gui/addon_manager.py gui/dark_widgets.py gui/home_drop_routes.py gui/save_shortcut.py gui/segmentation_workflow.py; do
+            [ -s "$root/$file" ] || return 1
+        done
+    fi
+    return 0
 }
 
 legacy_version() {
@@ -179,3 +189,4 @@ fi
 
 echo "[AMADEUS] Starting $app..."
 bash "$app/AMADEUS.sh" || fail "Setup or launch failed. See the message above."
+
