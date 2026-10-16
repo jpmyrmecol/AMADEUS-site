@@ -23,6 +23,7 @@ powershell.exe -NoProfile -Command ^
  "if (!(Test-Path -LiteralPath (Join-Path $r 'main') -PathType Container)) { exit 1 };" ^
  "$p=Get-Content -Raw -LiteralPath (Join-Path $r 'pyproject.toml'); $rx='(?m)^name\s*=\s*'+[char]34+'amadeus'+[char]34+'\s*$'; if ($p -notmatch $rx) { exit 1 };" ^
  "$v=(Get-Content -Raw -LiteralPath (Join-Path $r 'VERSION')).Trim(); if ($v -notmatch '^[vV]?[0-9]+\.[0-9]+\.[0-9]+$') { exit 1 };" ^
+ "if ([Version]::Parse(($v -replace '^[vV]', '')) -ge [Version]'1.2.2') { foreach ($f in @('gui/addon_gui.py','gui/addon_manager.py','gui/dark_widgets.py','gui/home_drop_routes.py','gui/save_shortcut.py','gui/segmentation_workflow.py')) { $p=Join-Path $r $f; if (!(Test-Path -LiteralPath $p -PathType Leaf)) { exit 1 }; if ((Get-Item -LiteralPath $p).Length -eq 0) { exit 1 } } };" ^
  "if ([Version]::Parse(($v -replace '^[vV]', '')) -le [Version]'1.0.4') { exit 1 }; exit 0" ^
  "} catch { exit 1 }"
 if not errorlevel 1 goto start_existing
@@ -50,3 +51,4 @@ exit /b 0
 echo [AMADEUS] Launching existing installation...
 call "%APP%\AMADEUS.bat"
 exit /b %ERRORLEVEL%
+
