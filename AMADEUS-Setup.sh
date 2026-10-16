@@ -24,7 +24,9 @@ fi
 # A missing virtual environment is repairable by the normal launcher.
 installation_complete() {
     local root="$1" file version
-    for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py; do
+    for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py \
+        gui/gui_easy_tracking.py gui/gui_segmentation.py gui/gui_advanced_tracking.py gui/gui_refinement.py gui/gui_preprocess.py gui/gui_colab.py gui/gui_multi_config_batch.py \
+        main/batch.py main/create_video.py main/create_dataset.py main/initial_tracking.py main/segmentation_core.py main/refinement.py main/obb_detection.py assets/logo_amadeus_splash.png; do
         [ -s "$root/$file" ] || return 1
     done
     [ -d "$root/main" ] || return 1
