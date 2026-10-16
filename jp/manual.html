@@ -538,14 +538,20 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
 <div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
-<p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>を導入済みなら、保存先のフォルダーで<strong>コマンドプロンプト（cmd）</strong>を開き、次のコマンドを実行します（Windows 10 / 11）。既存の <code>AMADEUS</code> フォルダーがあっても状態を確認して処理します。</p>
-<pre><code>powershell -NoProfile -Command "Invoke-WebRequest -UseBasicParsing 'https://amadeus.jpmyrmecol.com/AMADEUS-Setup.bat' -OutFile 'AMADEUS-Setup.bat'" &amp;&amp; AMADEUS-Setup.bat --git</code></pre>
-<p>初回セットアップにはインターネット接続が必要です。</p>
-<p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
-<pre><code>amadeus</code></pre>
+<p><a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a>を導入済みなら、<strong>コマンドプロンプト（cmd）</strong>を開き、次のコマンドを実行します。</p>
+<pre><code>curl.exe -fL -o AMADEUS-Setup.bat https://amadeus.jpmyrmecol.com/AMADEUS-Setup.bat &amp;&amp; AMADEUS-Setup.bat --git</code></pre>
+<p>一度インストールすれば、新しく開いたコマンドプロンプトで <code>amadeus</code> または <code>amade</code> と入力するだけで起動できます。</p>
 </div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、ターミナルで次の1行を実行します。実行ディレクトリ直下に既存のAMADEUSがあれば、その場所を使います。それ以外の場合は <code>~/Applications/AMADEUS</code>、<code>~/AMADEUS</code>、<code>/Applications/AMADEUS</code> の順に確認します。新規インストール先は <code>~/Applications/AMADEUS</code> です。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
-<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、インストール先の親ディレクトリで次の1行を実行します。既存の <code>AMADEUS</code> フォルダがあれば状態を確認し、新規インストール時は同じ場所に作成します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3>
+<p>Gitを導入済みなら、ターミナルで次のコマンドを実行します。</p>
+<pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre>
+<p>一度インストールすれば、ターミナルで <code>amadeus</code> または <code>amade</code> と入力するだけで起動できます。Apple Silicon搭載Macが必要です。</p>
+</div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
+<p>Gitを導入済みなら、ターミナルで次のコマンドを実行します。</p>
+<pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre>
+<p>一度インストールすれば、ターミナルで <code>amadeus</code> または <code>amade</code> と入力するだけで起動できます。GUI表示環境が必要です。</p>
+</div>
 </div>
 </details>
 <details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p><a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。Gitの事前インストールは必要ありません。</p><ol>
