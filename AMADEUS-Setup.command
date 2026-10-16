@@ -11,7 +11,15 @@ fail() {
 
 [ "$(uname -s)" = Darwin ] || fail "Use this installer on macOS."
 [ "$(uname -m)" = arm64 ] || fail "Native Apple Silicon is required. Do not use Rosetta."
-app="$HOME/Applications/AMADEUS"
+if [ "$#" -gt 1 ]; then fail "Usage: AMADEUS-Setup.command [--git]"; fi
+if [ "$#" -eq 1 ]; then
+    [ "$1" = "--git" ] || fail "Usage: AMADEUS-Setup.command [--git]"
+    mode=git
+    app="$PWD/AMADEUS"
+else
+    mode=release
+    app="$HOME/Applications/AMADEUS"
+fi
 export AMADEUS_VENV="${AMADEUS_VENV:-$app/.venv}"
 
 # BEGIN shared macOS Python bootstrap
@@ -119,63 +127,163 @@ amadeus_ensure_macos_python() {
     return 2
 }
 # END shared macOS Python bootstrap
-if amadeus_ensure_macos_python; then
-    :
-else
-    status=$?
-    [ "$status" -eq 2 ] && exit 0
-    fail "Python preparation stopped. See the message above."
-fi
 
-mkdir -p "$(dirname "$app")"
+# A missing virtual environment is repairable by the normal launcher.
+installation_complete() {
+    local root="$1" file version
+    for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py; do
+        [ -f "$root/$file" ] || return 1
+    done
+    [ -d "$root/main" ] || return 1
+    if [ "$(uname -s)" = Darwin ]; then
+        [ -f "$root/AMADEUS.command" ] || return 1
+    fi
+    grep -Eq '^name[[:space:]]*=[[:space:]]*"amadeus"[[:space:]]*$' "$root/pyproject.toml" || return 1
+    version="$(tr -d '[:space:]' < "$root/VERSION")" || return 1
+    [[ "$version" =~ ^[vV]?[0-9]+\.[0-9]+\.[0-9]+$ ]]
+}
 
-if [ ! -f "$app/AMADEUS.sh" ]; then
-    [ ! -e "$app" ] || fail "Installation folder exists but is incomplete: $app"
+legacy_version() {
+    local version="$1" major minor patch
+    [[ "$version" =~ ^[vV]?([0-9]+)\.([0-9]+)\.([0-9]+)$ ]] || return 1
+    major=$((10#${BASH_REMATCH[1]}))
+    minor=$((10#${BASH_REMATCH[2]}))
+    patch=$((10#${BASH_REMATCH[3]}))
+    (( major == 0 || (major == 1 && minor == 0 && patch <= 4) ))
+}
 
-    temp_dir="$(mktemp -d)"
-    trap 'rm -rf "$temp_dir"' EXIT
-    archive="$temp_dir/AMADEUS.tar.gz"
+confirm_replace() {
+    local reason="$1" message answer
+    if [ "$reason" = legacy ]; then
+        message="AMADEUS v1.0.4 or earlier was detected. Update to the current release now? The existing installation will be backed up."
+    else
+        message="The AMADEUS launcher exists, but essential application files are missing or invalid. Replace this incomplete installation? A backup will be kept."
+    fi
+    case "$(uname -s)" in
+        Darwin)
+            if [ "$reason" = legacy ]; then
+                /usr/bin/osascript -e 'display dialog "AMADEUS v1.0.4 or earlier was detected. Update it now? Your existing installation will be backed up." with title "AMADEUS Setup" buttons {"Cancel", "Update"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
+            else
+                /usr/bin/osascript -e 'display dialog "The AMADEUS launcher exists, but essential files are missing or invalid. Replace the incomplete installation? A backup will be kept." with title "AMADEUS Setup" buttons {"Cancel", "Replace"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
+            fi
+            ;;
+        Linux)
+            if command -v zenity >/dev/null 2>&1; then
+                zenity --question --title="AMADEUS Setup" --text="$message"
+            elif command -v kdialog >/dev/null 2>&1; then
+                kdialog --title "AMADEUS Setup" --yesno "$message"
+            elif command -v yad >/dev/null 2>&1; then
+                yad --question --title="AMADEUS Setup" --text="$message"
+            elif command -v xmessage >/dev/null 2>&1; then
+                xmessage -center -buttons "Cancel:1,Continue:0" "$message"
+            else
+                printf '%s\nConfirm [y/N]: ' "$message" >/dev/tty || return 1
+                read -r answer </dev/tty || return 1
+                [[ "$answer" = y || "$answer" = Y ]]
+            fi
+            ;;
+    esac
+}
 
-    echo "Checking the latest AMADEUS release..."
+download_file() {
+    local url="$1" output="$2"
     if command -v curl >/dev/null 2>&1; then
-        release_json="$(curl -fsSL --proto '=https' --proto-redir '=https' \
-            https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest)" \
-            || fail "Cannot check the latest AMADEUS release. Check the connection and repository access."
+        curl -fsSL --proto '=https' --proto-redir '=https' "$url" -o "$output"
     elif command -v wget >/dev/null 2>&1; then
-        release_json="$(wget -qO- \
-            https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest)" \
-            || fail "Cannot check the latest AMADEUS release. Check the connection and repository access."
+        wget -qO "$output" "$url"
     else
         fail "curl or wget is required to download AMADEUS."
     fi
+}
 
-    tag="$(printf '%s\n' "$release_json" | sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1)"
-    [[ "$tag" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]] \
-        || fail "The latest GitHub Release does not contain a valid AMADEUS version tag."
+# Symlinks and unrelated file targets are never overwritten.
+[ ! -L "$app" ] || fail "The installation path is a symbolic link: $app"
+[ ! -e "$app" ] || [ -d "$app" ] || fail "The installation path is not a directory: $app"
+mkdir -p "$(dirname "$app")"
 
-    echo "Downloading AMADEUS $tag..."
-    url="https://github.com/jpmyrmecol/AMADEUS/archive/refs/tags/$tag.tar.gz"
-    if command -v curl >/dev/null 2>&1; then
-        curl -fL --proto '=https' --proto-redir '=https' "$url" -o "$archive" \
-            || fail "Cannot download AMADEUS $tag. Check the connection and repository access."
+replace=false
+if [ ! -d "$app" ]; then
+    replace=true
+elif [ ! -f "$app/AMADEUS.sh" ]; then
+    echo "[AMADEUS] No launcher found. Reinstalling into $app."
+    replace=true
+elif ! installation_complete "$app"; then
+    if confirm_replace incomplete; then
+        replace=true
     else
-        wget -O "$archive" "$url" \
-            || fail "Cannot download AMADEUS $tag. Check the connection and repository access."
+        echo "[AMADEUS] Replacement cancelled. Existing files were not changed."
+        exit 0
     fi
-
-    tar -xzf "$archive" -C "$temp_dir" || fail "Cannot extract the downloaded release archive."
-
-    source_dir=""
-    for candidate in "$temp_dir"/*; do
-        if [ -d "$candidate" ] && [ -f "$candidate/AMADEUS.sh" ]; then
-            source_dir="$candidate"
-            break
-        fi
-    done
-    [ -n "$source_dir" ] || fail "The downloaded release archive does not contain the AMADEUS launcher."
-
-    mv "$source_dir" "$app"
+elif legacy_version "$(tr -d '[:space:]' < "$app/VERSION")"; then
+    if confirm_replace legacy; then
+        replace=true
+    else
+        echo "[AMADEUS] Update declined. Launching the existing version."
+    fi
 fi
 
-echo "Preparing the environment and starting AMADEUS..."
+if [ "$replace" = true ]; then
+    temp_dir="$(mktemp -d "$(dirname "$app")/.AMADEUS-install.XXXXXXXX")" || fail "Cannot create installation staging directory."
+    trap 'rm -rf -- "$temp_dir"' EXIT
+
+    if [ "$mode" = git ]; then
+        command -v git >/dev/null 2>&1 || fail "Git is required for this installation method."
+        echo "[AMADEUS] Cloning the current main branch..."
+        git clone --depth 1 --branch main https://github.com/jpmyrmecol/AMADEUS.git "$temp_dir/source" \
+            || fail "Could not clone AMADEUS."
+        source_dir="$temp_dir/source"
+    else
+        echo "[AMADEUS] Checking the latest AMADEUS release..."
+        download_file https://api.github.com/repos/jpmyrmecol/AMADEUS/releases/latest "$temp_dir/release.json" \
+            || fail "Could not query the latest GitHub Release."
+        tag="$(sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$temp_dir/release.json" | head -n 1)"
+        [[ "$tag" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "The latest GitHub Release has an invalid version tag."
+        echo "[AMADEUS] Downloading $tag..."
+        download_file "https://github.com/jpmyrmecol/AMADEUS/archive/refs/tags/$tag.tar.gz" "$temp_dir/AMADEUS.tar.gz" \
+            || fail "Could not download AMADEUS $tag."
+        mkdir "$temp_dir/extracted"
+        tar -xzf "$temp_dir/AMADEUS.tar.gz" -C "$temp_dir/extracted" \
+            || fail "Could not extract the downloaded release."
+        source_dir=""
+        for candidate in "$temp_dir/extracted"/AMADEUS-*; do
+            if [ -d "$candidate" ] && [ -f "$candidate/VERSION" ]; then
+                source_dir="$candidate"
+                break
+            fi
+        done
+        [ -n "$source_dir" ] || fail "The release archive has no AMADEUS source directory."
+        source_version="$(tr -d '[:space:]' < "$source_dir/VERSION")"
+        [ "$source_version" = "${tag#v}" ] || fail "The release archive version does not match its tag."
+    fi
+
+    installation_complete "$source_dir" || fail "The downloaded source is incomplete; existing files were not changed."
+
+    backup=""
+    if [ -d "$app" ]; then
+        backup="$app.backup-$(date +%Y%m%d-%H%M%S)-$$"
+        mv -- "$app" "$backup" || fail "Could not back up the existing AMADEUS directory."
+    fi
+    if ! mv -- "$source_dir" "$app"; then
+        if [ -n "$backup" ]; then
+            mv -- "$backup" "$app" || fail "Replacement failed and the backup could not be restored: $backup"
+        fi
+        fail "Could not install AMADEUS."
+    fi
+    if [ -n "$backup" ]; then
+        echo "[AMADEUS] Previous directory preserved at: $backup"
+    fi
+fi
+
+if [ "$(uname -s)" = Darwin ]; then
+    export AMADEUS_VENV="${AMADEUS_VENV:-$app/.venv}"
+    if amadeus_ensure_macos_python; then
+        :
+    else
+        status=$?
+        [ "$status" -eq 2 ] && exit 0
+        fail "Python preparation stopped. See the message above."
+    fi
+fi
+
+echo "[AMADEUS] Starting $app..."
 bash "$app/AMADEUS.sh" || fail "Setup or launch failed. See the message above."
