@@ -42,7 +42,7 @@ function Test-CompleteInstallation([string]$Root) {
 function Test-LegacyVersion([string]$Root) {
     $text = (Get-Content -Raw -LiteralPath (Join-Path $Root "VERSION")).Trim()
     $normal = $text -replace '^[vV]', ''
-    return [Version]::Parse($normal) -le [Version]"1.0.4"
+    return ([Version]::Parse($normal) -le [Version]::Parse("1.0.4"))
 }
 
 function Confirm-Replacement([string]$Kind) {
