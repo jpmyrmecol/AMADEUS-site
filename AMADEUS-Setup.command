@@ -32,12 +32,12 @@ is_existing_amadeus() {
         { [ -f "$root/VERSION" ] || [ -d "$root/gui" ] || [ -d "$root/main" ]; }
 }
 
-app="/Applications/AMADEUS"
+app="$HOME/Applications/AMADEUS"
 # Git setup uses the checkout beside the current directory when one exists.
 if [ "$mode" = git ] && is_existing_amadeus "$PWD/AMADEUS"; then
     app="$PWD/AMADEUS"
 else
-    for candidate in "/Applications/AMADEUS" "$HOME/AMADEUS" "$HOME/Applications/AMADEUS"; do
+    for candidate in "$HOME/Applications/AMADEUS" "$HOME/AMADEUS" "/Applications/AMADEUS"; do
         if is_existing_amadeus "$candidate"; then
             app="$candidate"
             break
