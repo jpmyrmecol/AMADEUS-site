@@ -132,11 +132,11 @@ amadeus_ensure_macos_python() {
 installation_complete() {
     local root="$1" file version
     for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py; do
-        [ -f "$root/$file" ] || return 1
+        [ -s "$root/$file" ] || return 1
     done
     [ -d "$root/main" ] || return 1
     if [ "$(uname -s)" = Darwin ]; then
-        [ -f "$root/AMADEUS.command" ] || return 1
+        [ -s "$root/AMADEUS.command" ] || return 1
     fi
     grep -Eq '^name[[:space:]]*=[[:space:]]*"amadeus"[[:space:]]*$' "$root/pyproject.toml" || return 1
     version="$(tr -d '[:space:]' < "$root/VERSION")" || return 1
