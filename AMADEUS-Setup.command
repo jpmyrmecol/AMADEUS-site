@@ -15,11 +15,10 @@ if [ "$#" -gt 1 ]; then fail "Usage: AMADEUS-Setup.command [--git]"; fi
 if [ "$#" -eq 1 ]; then
     [ "$1" = "--git" ] || fail "Usage: AMADEUS-Setup.command [--git]"
     mode=git
-    app="$PWD/AMADEUS"
 else
     mode=release
-    app="/Applications/AMADEUS"
 fi
+app="/Applications/AMADEUS"
 export AMADEUS_VENV="${AMADEUS_VENV:-$app/.venv}"
 
 # BEGIN shared macOS Python bootstrap
