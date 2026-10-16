@@ -19,6 +19,7 @@ $launcher = Join-Path $app "AMADEUS.bat"
 
 function Test-CompleteInstallation([string]$Root) {
     $required = @(
+        "tools/runtime_profiles.py", "tools/python_runtime.py", "tools/ffmpeg_runtime.py", "main/compute_telemetry.py", "main/compute_backend.py", "gui/splash_ipc.py", "gui/tk_compat.py", "tools/uv_bootstrap.ps1", "tools/windows_python.ps1",
         "AMADEUS.bat", "AMADEUS.sh", "VERSION", "pyproject.toml",
         "uv.lock", "gui/gui_home.py", "tools/setup_environment.py",
         "gui/gui_easy_tracking.py", "gui/gui_segmentation.py", "gui/gui_advanced_tracking.py", "gui/gui_refinement.py", "gui/gui_preprocess.py",
