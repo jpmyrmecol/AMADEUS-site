@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+if (location.hostname === "jpmyrmecol.github.io") {
+  location.replace("https://amadeus.jpmyrmecol.com"
+    + location.pathname.replace(/^\/AMADEUS-site\/?/i, "/") + location.search + location.hash);
+}
+</script>
+<title>Add-ons — AMADEUS</title>
+<meta name="description" content="AMADEUSのアドオン一覧、導入方法、開発者向け資料です。">
+<link rel="canonical" href="https://amadeus.jpmyrmecol.com/jp/addons.html">
+<link rel="alternate" hreflang="en" href="https://amadeus.jpmyrmecol.com/addons.html">
+<link rel="alternate" hreflang="ja" href="https://amadeus.jpmyrmecol.com/jp/addons.html">
+<link rel="alternate" hreflang="x-default" href="https://amadeus.jpmyrmecol.com/addons.html">
+<link rel="icon" href="/assets/icon.png">
+<link rel="stylesheet" href="/site.css?v=6">
+<link rel="stylesheet" href="/background-video.css?v=7">
+<script src="/background-video.js?v=9" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#content">本文へ移動</a>
+
+<header class="topbar"><a class="topbar-brand" href="/jp/"><img src="/assets/wordmark.png" alt="AMADEUS" width="116" height="42"></a><div class="navgroup"><div class="langs" role="group" aria-label="言語"><a href="/jp/addons.html" lang="ja" hreflang="ja" title="日本語" aria-label="日本語" aria-current="true"><svg viewBox="0 0 900 600" width="26" height="18" aria-hidden="true"><path fill="#fff" d="M0 0h900v600H0z"/><circle fill="#bc002d" cx="450" cy="300" r="180"/></svg></a><a href="/addons.html" lang="en" hreflang="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" width="26" height="18" aria-hidden="true"><clipPath id="uk-flag"><path d="M0 0h60v30H0z"/></clipPath><g clip-path="url(#uk-flag)"><path fill="#012169" d="M0 0h60v30H0z"/><path d="m0 0 60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="m0 0 60 30m0-30L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></g></svg></a></div><nav class="tabs" aria-label="サイト内メニュー"><a href="/jp/">Home</a><a href="/jp/manual.html">Manual</a><a href="/jp/addons.html" aria-current="page">Add-ons</a><a href="/jp/dataset.html">Dataset</a><a href="/jp/publication.html">Publication</a></nav></div></header>
+
+
+<div class="wrap">
+<main class="card" id="content">
+  <div class="hero">
+    <p class="eyebrow">拡張機能</p>
+    <h1>Add-ons</h1>
+    <p>AMADEUSで利用できる独立したアプリケーションです。</p>
+  </div>
+
+  <div class="body">
+  <section id="community">
+    <h2>サードパーティー製アドオン</h2>
+    <p>現在、掲載されているアドオンはありません。</p>
+  </section>
+  <section id="installation">
+    <h2>インストール</h2>
+    <p>AMADEUSのHome画面から<strong>Add-ons</strong>を開き、アドオンのZIPファイルをドラッグ＆ドロップするか、<strong>Browse</strong>から選択してください。</p>
+  </section>
+  <section id="developers">
+    <h2>開発者向け</h2>
+    <p><a href="https://github.com/jpmyrmecol/AMADEUS-Addon-Template" target="_blank" rel="noopener noreferrer">公式テンプレート</a>と<a href="https://github.com/jpmyrmecol/AMADEUS/blob/main/tools/ADDONS.md" target="_blank" rel="noopener noreferrer">開発ガイド</a>を公開しています。</p>
+    <p>掲載を希望する場合は、公開リポジトリ、インストール用ZIP、ライセンス、対応OS、動作確認済みのAMADEUSバージョンを記載して<a href="https://github.com/jpmyrmecol/AMADEUS-site/issues/new" target="_blank" rel="noopener noreferrer">GitHub Issue</a>を作成してください。</p>
+  </section>
+  <section id="security">
+    <h2>安全性</h2>
+    <p>アドオンはサンドボックス化されておらず、利用者のファイル・ネットワーク権限で動作します。信頼できる開発元からのみインストールしてください。サイトへの掲載は、安全性や科学的妥当性を保証するものではありません。</p>
+  </section>
+  </div>
+</main>
+</div>
+
+<footer class="site">
+  <p>AMADEUS 1.2.2 · AGPL-3.0-only · © 2026 Yusuke Notomi</p>
+  <p><a href="https://jpmyrmecol.com/" target="_blank" rel="noopener noreferrer">jpmyrmecol.com</a></p>
+</footer>
+</body>
+</html>

@@ -214,3 +214,12 @@ footer.site p { margin: 0.35rem 0; }
   .wrap { margin-top: 0; padding: 0; }
   main.card { border-radius: 0; border-inline: 0; }
 }
+
+/* Wrap the five site tabs on narrow desktop screens. */
+@media (min-width: 721px) and (max-width: 900px) {
+  .topbar { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"brand langs" "tabs tabs"; height:auto; row-gap:0.35rem; padding-block:0.5rem; }
+  .topbar-brand { grid-area:brand; }
+  .navgroup { display:contents; }
+  .langs { grid-area:langs; justify-self:end; }
+  .tabs { grid-area:tabs; justify-content:center; }
+}
