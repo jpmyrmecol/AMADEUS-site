@@ -521,7 +521,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>ダウンロードした <code>AMADEUS-Setup.command</code> を <code>Downloads</code> フォルダに置きます。セットアップファイル用の <code>AMADEUS</code> フォルダを作る必要はありません。初回起動前にターミナルを開き、次を実行します。</p>
 <pre><code>chmod +x ~/Downloads/AMADEUS-Setup.command</code></pre>
 <p>その後、<code>AMADEUS-Setup.command</code> をダブルクリックします。Pythonのインストールを求められた場合は、Pythonをインストールした後、<code>AMADEUS-Setup.command</code> をもう一度ダブルクリックしてください。</p>
-<p>macOSで新規インストールする場合の保存先は <code>/Applications/AMADEUS</code> です。既に <code>/Applications/AMADEUS</code>、<code>~/AMADEUS</code>、<code>~/Applications/AMADEUS</code> に本体がある場合は、その場所を引き続き使用します。セットアップファイルだけのフォルダはインストール済みと判定しません。次回以降はダウンロードした <code>AMADEUS-Setup.command</code> をダブルクリックするか、ターミナルで <code>amadeus</code> または <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程はまだ十分に検証できていません。</p>
+<p>macOSで新規インストールする場合の標準保存先は <code>~/Applications/AMADEUS</code> です。既に <code>~/Applications/AMADEUS</code>、<code>~/AMADEUS</code>、<code>/Applications/AMADEUS</code> にAMADEUS本体がある場合は、その場所を引き続き使用します。セットアップファイルだけのフォルダはインストール済みと判定しません。次回以降はダウンロードした <code>AMADEUS-Setup.command</code> をダブルクリックするか、ターミナルで <code>amadeus</code> または <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程はまだ十分に検証できていません。</p>
 </div>
 <div class="install-os-panel install-os-linux" aria-labelledby="launch-os-linux-heading"><h3 id="launch-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
 <p><code>AMADEUS-Setup.sh</code> は、ファイルのプロパティで「プログラムとして実行」を許可して「端末で実行」できます。名称や操作はデスクトップ環境で異なります。</p>
@@ -544,7 +544,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
 <pre><code>amadeus</code></pre>
 </div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、ターミナルで次の1行を実行します。実行ディレクトリ直下に既存のAMADEUSがあれば、その場所を使います。それ以外の場合は <code>/Applications/AMADEUS</code>、<code>~/AMADEUS</code>、<code>~/Applications/AMADEUS</code> の順に確認します。新規インストール先は <code>/Applications/AMADEUS</code> です。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、ターミナルで次の1行を実行します。実行ディレクトリ直下に既存のAMADEUSがあれば、その場所を使います。それ以外の場合は <code>~/Applications/AMADEUS</code>、<code>~/AMADEUS</code>、<code>/Applications/AMADEUS</code> の順に確認します。新規インストール先は <code>~/Applications/AMADEUS</code> です。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
 <div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、インストール先の親ディレクトリで次の1行を実行します。既存の <code>AMADEUS</code> フォルダがあれば状態を確認し、新規インストール時は同じ場所に作成します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
 </div>
 </details>
