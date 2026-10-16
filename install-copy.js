@@ -39,7 +39,9 @@
 
   function addCopyButtons() {
     // <code> in paragraphs is intentionally excluded (e.g. "amadeus").
-    document.querySelectorAll('#section-1 pre > code').forEach((code) => {
+    const section = document.getElementById('section-1')?.closest('section');
+    if (!section) return;
+    section.querySelectorAll('pre > code').forEach((code) => {
       const pre = code.parentElement;
       if (!pre || pre.parentElement.classList.contains("manual-command-block")) return;
       if (!code.textContent.trim()) return;
