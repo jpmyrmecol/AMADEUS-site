@@ -18,7 +18,7 @@ if [ "$#" -eq 1 ]; then
     app="$PWD/AMADEUS"
 else
     mode=release
-    app="$HOME/Applications/AMADEUS"
+    app="/Applications/AMADEUS"
 fi
 export AMADEUS_VENV="${AMADEUS_VENV:-$app/.venv}"
 
@@ -157,16 +157,16 @@ legacy_version() {
 confirm_replace() {
     local reason="$1" message answer
     if [ "$reason" = legacy ]; then
-        message="AMADEUS v1.0.4 or earlier was detected. Update to the current release now? The existing installation will be backed up."
+        message="AMADEUS v1.0.4 or earlier was detected. Overwrite the existing installation with the current release?"
     else
-        message="The AMADEUS launcher exists, but essential application files are missing or invalid. Replace this incomplete installation? A backup will be kept."
+        message="The AMADEUS launcher exists, but essential files are missing or invalid. Overwrite the incomplete installation?"
     fi
     case "$(uname -s)" in
         Darwin)
             if [ "$reason" = legacy ]; then
-                /usr/bin/osascript -e 'display dialog "AMADEUS v1.0.4 or earlier was detected. Update it now? Your existing installation will be backed up." with title "AMADEUS Setup" buttons {"Cancel", "Update"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
+                /usr/bin/osascript -e 'display dialog "AMADEUS v1.0.4 or earlier was detected. Overwrite the existing installation with the current release?" with title "AMADEUS Setup" buttons {"Cancel", "Update"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
             else
-                /usr/bin/osascript -e 'display dialog "The AMADEUS launcher exists, but essential files are missing or invalid. Replace the incomplete installation? A backup will be kept." with title "AMADEUS Setup" buttons {"Cancel", "Replace"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
+                /usr/bin/osascript -e 'display dialog "The AMADEUS launcher exists, but essential files are missing or invalid. Overwrite the incomplete installation?" with title "AMADEUS Setup" buttons {"Cancel", "Replace"} default button "Cancel" cancel button "Cancel" with icon caution' >/dev/null
             fi
             ;;
         Linux)
@@ -260,20 +260,12 @@ if [ "$replace" = true ]; then
 
     installation_complete "$source_dir" || fail "The downloaded source is incomplete; existing files were not changed."
 
-    backup=""
-    if [ -d "$app" ]; then
-        backup="$app.backup-$(date +%Y%m%d-%H%M%S)-$$"
-        mv -- "$app" "$backup" || fail "Could not back up the existing AMADEUS directory."
-    fi
-    if ! mv -- "$source_dir" "$app"; then
-        if [ -n "$backup" ]; then
-            mv -- "$backup" "$app" || fail "Replacement failed and the backup could not be restored: $backup"
-        fi
-        fail "Could not install AMADEUS."
-    fi
-    if [ -n "$backup" ]; then
-        echo "[AMADEUS] Previous directory preserved at: $backup"
-    fi
+    # Overlay the verified source. Existing matching files are overwritten;
+    # unrelated files and the managed virtual environment remain in place.
+    mkdir -p "$app" || fail "Could not create installation directory: $app. Check write permissions."
+    cp -R "$source_dir/." "$app/" || fail "Could not overwrite AMADEUS files in $app. Check write permissions."
+    installation_complete "$app" || fail "AMADEUS source verification failed after overwrite."
+    echo "[AMADEUS] Installed source files in $app."
 fi
 
 if [ "$(uname -s)" = Darwin ]; then
