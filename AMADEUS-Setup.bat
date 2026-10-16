@@ -7,6 +7,26 @@ if not "%~1"=="" if /I not "%~1"=="--git" (
     echo Usage: AMADEUS-Setup.bat [--git]
     exit /b 1
 )
+if /I "%MODE%"=="Git" (
+    set "APP=%CD%\AMADEUS"
+) else (
+    set "APP=%LOCALAPPDATA%\AMADEUS\app"
+)
+set "AMADEUS_SETUP_TARGET=%APP%"
+
+REM Healthy v1.0.5+ installations start directly, including without a network.
+powershell.exe -NoProfile -Command ^
+ "$r=$env:AMADEUS_SETUP_TARGET; $files=@('AMADEUS.bat','AMADEUS.sh','VERSION','pyproject.toml','uv.lock','gui/gui_home.py','tools/setup_environment.py');" ^
+ "try { if (!(Test-Path -LiteralPath $r -PathType Container)) { exit 1 };" ^
+ "if (((Get-Item -LiteralPath $r -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { exit 1 };" ^
+ "foreach ($f in $files) { $p=Join-Path $r $f; if (!(Test-Path -LiteralPath $p -PathType Leaf)) { exit 1 }; if ((Get-Item -LiteralPath $p).Length -eq 0) { exit 1 } };" ^
+ "if (!(Test-Path -LiteralPath (Join-Path $r 'main') -PathType Container)) { exit 1 };" ^
+ "$p=Get-Content -Raw -LiteralPath (Join-Path $r 'pyproject.toml'); if ($p -notmatch '(?m)^name\s*=\s*' + '\"amadeus\"' + '\s*$') { exit 1 };" ^
+ "$v=(Get-Content -Raw -LiteralPath (Join-Path $r 'VERSION')).Trim(); if ($v -notmatch '^[vV]?[0-9]+\.[0-9]+\.[0-9]+$') { exit 1 };" ^
+ "if ([Version]::Parse(($v -replace '^[vV]', '')) -le [Version]'1.0.4') { exit 1 }; exit 0" ^
+ "} catch { exit 1 }"
+if not errorlevel 1 goto start_existing
+
 set "SCRIPT=%TEMP%\AMADEUS-Setup-%RANDOM%-%RANDOM%.ps1"
 set "AMADEUS_SETUP_SCRIPT=%SCRIPT%"
 echo [AMADEUS] Preparing setup for %MODE% mode...
@@ -25,3 +45,8 @@ if not "%STATUS%"=="0" (
     exit /b %STATUS%
 )
 exit /b 0
+
+:start_existing
+echo [AMADEUS] Launching existing installation...
+call "%APP%\AMADEUS.bat"
+exit /b %ERRORLEVEL%
