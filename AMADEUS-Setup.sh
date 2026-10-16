@@ -25,7 +25,7 @@ fi
 installation_complete() {
     local root="$1" file version
     for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py; do
-        [ -f "$root/$file" ] || return 1
+        [ -s "$root/$file" ] || return 1
     done
     [ -d "$root/main" ] || return 1
     if [ "$(uname -s)" = Darwin ]; then
