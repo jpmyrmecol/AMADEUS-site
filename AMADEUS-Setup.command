@@ -156,14 +156,15 @@ amadeus_ensure_macos_python() {
 # A missing virtual environment is repairable by the normal launcher.
 installation_complete() {
     local root="$1" file version
-    for file in AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py \
+    for file in tools/runtime_profiles.py tools/python_runtime.py tools/ffmpeg_runtime.py main/compute_telemetry.py main/compute_backend.py gui/splash_ipc.py gui/tk_compat.py \
+        AMADEUS.sh VERSION pyproject.toml uv.lock gui/gui_home.py tools/setup_environment.py \
         gui/gui_easy_tracking.py gui/gui_segmentation.py gui/gui_advanced_tracking.py gui/gui_refinement.py gui/gui_preprocess.py gui/gui_colab.py gui/gui_multi_config_batch.py \
         main/batch.py main/create_video.py main/create_dataset.py main/initial_tracking.py main/segmentation_core.py main/refinement.py main/obb_detection.py assets/logo_amadeus_splash.png; do
         [ -s "$root/$file" ] || return 1
     done
     [ -d "$root/main" ] || return 1
     if [ "$(uname -s)" = Darwin ]; then
-        [ -s "$root/AMADEUS.command" ] || return 1
+        [ -s "$root/AMADEUS.command" ] && [ -s "$root/tools/macos_python.sh" ] || return 1
     fi
     grep -Eq '^name[[:space:]]*=[[:space:]]*"amadeus"[[:space:]]*$' "$root/pyproject.toml" || return 1
     version="$(tr -d '[:space:]' < "$root/VERSION")" || return 1
