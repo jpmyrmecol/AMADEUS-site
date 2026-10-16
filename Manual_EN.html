@@ -538,14 +538,20 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-macos"><label for="install-os-macos">macOS</label>
 <input class="install-os-choice" type="radio" name="install-os" id="install-os-linux"><label for="install-os-linux">Linux</label>
 <div class="install-os-panel install-os-windows" aria-labelledby="install-os-windows-heading"><h3 id="install-os-windows-heading">Windows</h3>
-<p>With <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a> installed, open <strong>Command Prompt (cmd)</strong> in your preferred installation directory and run the following commands (Windows 10 / 11). The setup handles an existing <code>AMADEUS</code> directory.</p>
-<pre><code>powershell -NoProfile -Command "Invoke-WebRequest -UseBasicParsing 'https://amadeus.jpmyrmecol.com/AMADEUS-Setup.bat' -OutFile 'AMADEUS-Setup.bat'" &amp;&amp; AMADEUS-Setup.bat --git</code></pre>
-<p>Initial setup requires an internet connection.</p>
-<p>For subsequent launches, open a new Command Prompt and run the following. Keep the created <code>AMADEUS</code> folder in place.</p>
-<pre><code>amadeus</code></pre>
+<p>If <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">Git</a> is installed, open <strong>Command Prompt (cmd)</strong> and run:</p>
+<pre><code>curl.exe -fL -o AMADEUS-Setup.bat https://amadeus.jpmyrmecol.com/AMADEUS-Setup.bat &amp;&amp; AMADEUS-Setup.bat --git</code></pre>
+<p>After installation, open a new Command Prompt and type <code>amadeus</code> or <code>amade</code> to launch AMADEUS.</p>
 </div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>With Git installed, run the following command in Terminal. The setup first reuses an existing AMADEUS checkout beside the current directory, if present. Otherwise, it checks <code>~/Applications/AMADEUS</code>, <code>~/AMADEUS</code>, and <code>/Applications/AMADEUS</code> in that order. The default location for new installations is <code>~/Applications/AMADEUS</code>.</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Native Apple Silicon is required; Intel Macs and Rosetta are not supported. The full workflow on macOS hardware has not yet been extensively tested.</p></div>
-<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>With Git installed, run the following command in a terminal in the directory where you want to install AMADEUS. The setup checks the existing <code>AMADEUS</code> folder in that directory before cloning main.</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre><p>A graphical desktop or WSLg is required.</p></div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3>
+<p>If Git is installed, open Terminal and run:</p>
+<pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre>
+<p>After installation, type <code>amadeus</code> or <code>amade</code> in Terminal to launch AMADEUS. An Apple Silicon Mac is required.</p>
+</div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
+<p>If Git is installed, open a terminal and run:</p>
+<pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre>
+<p>After installation, type <code>amadeus</code> or <code>amade</code> in a terminal to launch AMADEUS. A graphical desktop environment is required.</p>
+</div>
 </div>
 </details>
 <details><summary>Install from a downloaded ZIP</summary><div class="details-content"><p>Download the ZIP from “Code → Download ZIP” in the <a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHub repository</a>. Git does not need to be installed in advance.</p><ol>
