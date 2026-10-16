@@ -48,11 +48,10 @@ function Test-LegacyVersion([string]$Root) {
 function Confirm-Replacement([string]$Kind) {
     Add-Type -AssemblyName System.Windows.Forms
     $message = if ($Kind -eq "Legacy") {
-        "AMADEUS v1.0.4 or earlier was detected. Update it now? " +
-        "The previous installation will be preserved in a backup directory."
+        "AMADEUS v1.0.4 or earlier was detected. Overwrite it with the current release?"
     } else {
         "The AMADEUS launcher exists, but essential files are missing or invalid. " +
-        "Replace this incomplete installation? The previous directory will be backed up."
+        "Overwrite this incomplete installation?"
     }
     $choice = [System.Windows.Forms.MessageBox]::Show(
         $message, "AMADEUS Setup",
@@ -64,22 +63,17 @@ function Confirm-Replacement([string]$Kind) {
 }
 
 function Install-Source([string]$Source, [string]$Destination) {
-    $backup = $null
-    if (Test-Path -LiteralPath $Destination) {
-        $backup = "$Destination.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')-$PID"
-        Move-Item -LiteralPath $Destination -Destination $backup -ErrorAction Stop
+    # Overwrite matching distribution files without moving the old directory.
+    # Extra files and managed runtime folders are retained.
+    New-Item -ItemType Directory -Path $Destination -Force | Out-Null
+    & robocopy.exe $Source $Destination /E /R:2 /W:1 /NFL /NDL /NJH /NJS /NP
+    if ($LASTEXITCODE -ge 8) {
+        throw "Could not overwrite AMADEUS files in $Destination (robocopy exit $LASTEXITCODE)."
     }
-    try {
-        Move-Item -LiteralPath $Source -Destination $Destination -ErrorAction Stop
-    } catch {
-        if ($null -ne $backup) {
-            Move-Item -LiteralPath $backup -Destination $Destination -ErrorAction Stop
-        }
-        throw
+    if (!(Test-CompleteInstallation $Destination)) {
+        throw "AMADEUS source verification failed after overwrite."
     }
-    if ($null -ne $backup) {
-        Write-Host "[AMADEUS] Previous directory preserved at: $backup"
-    }
+    Write-Host "[AMADEUS] Installed source files in $Destination."
 }
 
 if (Test-Path -LiteralPath $app) {
