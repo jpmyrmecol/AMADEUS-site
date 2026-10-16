@@ -12,13 +12,17 @@ fail() {
 [ "$(uname -s)" = Linux ] || fail "Use this installer on Linux."
 [ -n "${DISPLAY:-}" ] || fail "A graphical desktop session or WSLg is required."
 if [ "$#" -gt 1 ]; then fail "Usage: AMADEUS-Setup.sh [--git]"; fi
+case "${XDG_DATA_HOME:-}" in
+    /*) data_home="$XDG_DATA_HOME" ;;
+    *)  data_home="$HOME/.local/share" ;;
+esac
 if [ "$#" -eq 1 ]; then
     [ "$1" = "--git" ] || fail "Usage: AMADEUS-Setup.sh [--git]"
     mode=git
     app="$PWD/AMADEUS"
 else
     mode=release
-    app="${XDG_DATA_HOME:-$HOME/.local/share}/AMADEUS"
+    app="$data_home/AMADEUS"
 fi
 
 # A missing virtual environment is repairable by the normal launcher.
