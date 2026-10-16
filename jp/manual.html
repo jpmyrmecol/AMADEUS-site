@@ -507,7 +507,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <a href="/AMADEUS-Setup.sh" download>Linux<span>Ubuntu / WSL2</span></a>
 </div>
 <p class="note">エラーが発生した場合は、納富（jpmyrmecol [at] gmail.com）まで、OS、インストール方法、表示されたエラーメッセージを添えてご連絡ください。特にAMD GPU（ROCm）は実機での検証がまだ十分ではないため、動作結果や問題についてもご報告いただけると助かります。</p>
-<p>初回セットアップにはインターネット接続が必要です。必要なソフトウェアはインストーラーが準備します。起動ファイルがない場合は自動的に再インストールします。起動ファイルがあっても主要ファイルが欠けている場合は、確認後に上書きします。旧フォルダはバックアップとして残ります。v1.0.5以降の正常なインストールは警告を出さずに起動します。</p>
+<p>初回セットアップにはインターネット接続が必要です。必要なソフトウェアはインストーラーが準備します。起動ファイルがない場合は自動的に再インストールします。起動ファイルがあっても主要ファイルが欠けている場合は、確認後に上書きします。同名のファイルは上書きします。独自に追加したファイルは残り、バックアップフォルダは作成しません。v1.0.5以降の正常なインストールは警告を出さずに起動します。</p>
 <details><summary>インストールおよびAMADEUSの起動方法</summary>
 <div class="install-os-tabs" role="group" aria-label="インストールするOSを選択">
 <input class="install-os-choice" type="radio" name="launch-os" id="launch-os-windows" checked><label for="launch-os-windows">Windows</label>
@@ -521,7 +521,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>ダウンロードした <code>AMADEUS-Setup.command</code> を <code>Downloads</code> フォルダに置きます。セットアップファイル用の <code>AMADEUS</code> フォルダを作る必要はありません。初回起動前にターミナルを開き、次を実行します。</p>
 <pre><code>chmod +x ~/Downloads/AMADEUS-Setup.command</code></pre>
 <p>その後、<code>AMADEUS-Setup.command</code> をダブルクリックします。Pythonのインストールを求められた場合は、Pythonをインストールした後、<code>AMADEUS-Setup.command</code> をもう一度ダブルクリックしてください。</p>
-<p>本体は <code>~/Applications/AMADEUS</code> にインストールされます。次回以降は、ダウンロードした <code>AMADEUS-Setup.command</code> をダブルクリックするか、<code>bash ~/Applications/AMADEUS/AMADEUS.sh</code> を実行するか、ターミナルで <code>amadeus</code> または <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程はまだ十分に検証できていません。</p>
+<p>本体は <code>/Applications/AMADEUS</code> にインストールされます。次回以降は、ダウンロードした <code>AMADEUS-Setup.command</code> をダブルクリックするか、<code>bash /Applications/AMADEUS/AMADEUS.sh</code> を実行するか、ターミナルで <code>amadeus</code> または <code>amade</code> と入力して起動できます。Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程はまだ十分に検証できていません。</p>
 </div>
 <div class="install-os-panel install-os-linux" aria-labelledby="launch-os-linux-heading"><h3 id="launch-os-linux-heading">Linux (Ubuntu / WSL2)</h3>
 <p><code>AMADEUS-Setup.sh</code> は、ファイルのプロパティで「プログラムとして実行」を許可して「端末で実行」できます。名称や操作はデスクトップ環境で異なります。</p>
@@ -544,8 +544,8 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <p>次回からは、新しいコマンドプロンプトで次を実行します。作成された <code>AMADEUS</code> フォルダーは移動・削除せずに残してください。</p>
 <pre><code>amadeus</code></pre>
 </div>
-<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。既存のAMADEUSフォルダがあれば、状態を確認してからmainを取得します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
-<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、保存先のターミナルで次の1行を実行します。既存のAMADEUSフォルダがあれば、状態を確認してからmainを取得します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
+<div class="install-os-panel install-os-macos" aria-labelledby="install-os-macos-heading"><h3 id="install-os-macos-heading">macOS (Apple Silicon)</h3><p>Gitを導入後、ターミナルで次の1行を実行します。Git経由でもインストール先は <code>/Applications/AMADEUS</code> です。既存のフォルダを確認してからmainを取得します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.command | bash -s -- --git</code></pre><p>Apple Silicon搭載Macが必要です。Intel Mac・Rosettaには対応していません。macOS実機での全工程は、まだ十分な動作検証を行えていません。</p></div>
+<div class="install-os-panel install-os-linux" aria-labelledby="install-os-linux-heading"><h3 id="install-os-linux-heading">Linux (Ubuntu / WSL2)</h3><p>Gitを導入後、ターミナルで次の1行を実行します。Git経由でもインストール先は <code>/Applications/AMADEUS</code> です。既存のフォルダを確認してからmainを取得します。</p><pre><code>curl -fsSL https://amadeus.jpmyrmecol.com/AMADEUS-Setup.sh | bash -s -- --git</code></pre><p>デスクトップ環境またはWSLgなどのGUI表示環境が必要です。</p></div>
 </div>
 </details>
 <details><summary>ZIPをダウンロードしてインストールする場合</summary><div class="details-content"><p><a href="https://github.com/jpmyrmecol/AMADEUS" target="_blank" rel="noopener noreferrer">GitHubリポジトリ</a>の「Code → Download ZIP」からダウンロードします。Gitの事前インストールは必要ありません。</p><ol>
