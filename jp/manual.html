@@ -657,7 +657,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <ol>
 <li><strong>Easy Tracking</strong> を開き、画面の案内に従って動画を入力した後、<strong>Launch Segmentation</strong> を押します。</li>
 <li><strong>Segmentation</strong> で動物が背景から適切に抽出されるように設定し、<strong>Analyze</strong> ボタンを押します。</li>
-<li>単独個体が青、接触個体・断片・その他の外れ値が橙になるように、IQRの閾値（またはAbsoluteの範囲）を調整して、<strong>Processing</strong> を実行します。終了後、自動的に <strong>Easy Tracking</strong> に戻ります。</li>
+<li>単独個体が青、接触個体・断片・その他の外れ値が橙になるように、箱ひげ図の赤い線（上下限）、またはAbsoluteの範囲を調整して、<strong>Processing</strong> を実行します。終了後、自動的に <strong>Easy Tracking</strong> に戻ります。</li>
 <li>Easy Trackingで3つの質問項目に回答し、<strong>Processing</strong> を押して、休憩します。</li>
 <li>結果動画とCSVを確認し、必要なら <strong>Refinement</strong> で修正します。</li>
 </ol>
@@ -680,7 +680,7 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <li>前景の抽出方法を選びます。背景差分を使う場合は、Median・Maximum・Minimumから選択します。</li>
 <li><strong>Threshold</strong> と <strong>Min blob area</strong> を調整し、動物が背景からきれいに抽出されるようにします。</li>
 <li>最初の前景抽出の閾値調整が終わったら、<strong>Analyze</strong> を押します。AMADEUSが複数フレームをサンプリングし、Outlier Extractionに使用する面積分布を計算します。</li>
-<li>Analyzeが完了すると、<strong>Outlier Extraction</strong> の設定が表示されます。単独個体が青、接触個体・断片・その他の外れ値が橙になるように、IQRの閾値（またはAbsoluteの範囲）を調整します。</li>
+<li>Analyzeが完了すると、<strong>Outlier Extraction</strong> の設定が表示されます。単独個体が青、接触個体・断片・その他の外れ値が橙になるように、箱ひげ図の赤い線（上下限）、またはAbsoluteの範囲を調整します。</li>
 <li><strong>Processing</strong> を押して保存します。</li>
 </ol>
 <h3>前景の抽出方法</h3>
