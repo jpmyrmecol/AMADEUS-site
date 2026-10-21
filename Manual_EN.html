@@ -922,8 +922,12 @@ If needed, prepare the video with <strong>Cropping &amp; Trimming</strong> befor
 <td>Move the animal position</td>
 </tr>
 <tr>
-<td>Right-click</td>
-<td>Reverse the head direction or swap IDs between two animals</td>
+<td>Right-click the arrow for each of two animals</td>
+<td>Open the <a href="#refinement-id-swap">ID swap popup</a></td>
+</tr>
+<tr>
+<td>Right-click one animal's arrow twice in quick succession</td>
+<td>Open the <a href="#refinement-direction-reversal">direction reversal popup</a></td>
 </tr>
 <tr>
 <td>Mouse wheel</td>
@@ -950,6 +954,25 @@ If needed, prepare the video with <strong>Cropping &amp; Trimming</strong> befor
 <td>Save</td>
 </tr>
 </tbody></table></div>
+<p>Start the following operations with no arrows selected. If an arrow is already selected, pause briefly, then right-click it once to deselect it.</p>
+<h3 id="refinement-id-swap">Correcting persistent ID swaps</h3>
+<p>If two animals exchange IDs after crossing or coming into contact, you can correct their IDs across subsequent frames in one operation.</p>
+<ol>
+<li>Pause at the first frame where the two IDs are incorrectly assigned.</li>
+<li>In the video view, right-click the arrow for each of the two animals once to select both.</li>
+<li>Click <strong>swap onward</strong> in the popup.</li>
+<li>Press <strong>Ctrl+S</strong> (<strong>Command+S</strong> also works on macOS) to save the corrections.</li>
+</ol>
+<p class="note">The swap includes the current frame and all subsequent frames through the end of the loaded tracking data. It continues through later crossings and contacts. If another ID switch occurs later, repeat the procedure from that frame.</p>
+<h3 id="refinement-direction-reversal">Reversing head direction</h3>
+<p>Reverse an animal's head direction by exchanging its front and rear keypoints.</p>
+<ol>
+<li>Pause at the frame where the correction should begin.</li>
+<li>In the video view, right-click the target animal's arrow twice in quick succession.</li>
+<li>In the <strong>reverse direction</strong> popup, select <strong>this frame</strong> to reverse only the current frame, or <strong>this frame onward</strong> to reverse the current frame and all subsequent frames through the end of the loaded tracking data.</li>
+<li>Press <strong>Ctrl+S</strong> (<strong>Command+S</strong> also works on macOS) to save the corrections.</li>
+</ol>
+<p class="note">The <strong>swap front/rear</strong> checkbox reverses all displayed arrows in the preview and exported video. Checking it alone does not change the tracking data.</p>
  </section><section><h2 id="section-10">10. Colab (beta)</h2>
 <p>Run a saved AMADEUS configuration in Google Colab to use a GPU.</p>
 <ol>

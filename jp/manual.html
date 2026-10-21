@@ -922,8 +922,12 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <td>個体位置を移動</td>
 </tr>
 <tr>
-<td>右クリック</td>
-<td>向きの反転、または2個体のID入れ替え</td>
+<td>2個体の矢印をそれぞれ右クリック</td>
+<td><a href="#refinement-id-swap">ID入れ替えのポップアップ</a>を表示</td>
+</tr>
+<tr>
+<td>1個体の矢印を右ボタンで素早く2回クリック</td>
+<td><a href="#refinement-direction-reversal">方向反転のポップアップ</a>を表示</td>
 </tr>
 <tr>
 <td>マウスホイール</td>
@@ -950,6 +954,25 @@ if (location.hostname === "jpmyrmecol.github.io") {
 <td>保存</td>
 </tr>
 </tbody></table></div>
+<p>以下の操作は、矢印の選択を解除した状態から始めます。選択中の矢印がある場合は、少し間を空けてからもう一度右クリックし、選択を解除します。</p>
+<h3 id="refinement-id-swap">継続するIDの入れ替わりを修正する</h3>
+<p>交差や接触の後に2個体のIDが入れ替わった場合は、それ以降のフレームをまとめて修正できます。</p>
+<ol>
+<li>2個体のIDが誤って割り当てられた最初のフレームで一時停止します。</li>
+<li>動画上で、対象の2個体の矢印をそれぞれ1回ずつ右クリックして、両方を選択します。</li>
+<li>表示されたポップアップの <strong>swap onward</strong> を押します。</li>
+<li><strong>Ctrl+S</strong>（macOSでは <strong>Command+S</strong> も可）で修正を保存します。</li>
+</ol>
+<p class="note">現在のフレームを含めて、読み込んだ追跡データの最後まで2個体のIDを交換します。途中の交差や接触を越えて適用されます。後で再びIDが入れ替わった場合は、そのフレームから同じ操作を行います。</p>
+<h3 id="refinement-direction-reversal">頭部方向を反転する</h3>
+<p>対象個体の前端と後端を入れ替えて、頭部方向を反転します。</p>
+<ol>
+<li>修正を開始するフレームで一時停止します。</li>
+<li>動画上で、対象個体の矢印を右ボタンで素早く2回クリックします。</li>
+<li>表示された <strong>reverse direction</strong> ポップアップで、現在のフレームだけを反転する場合は <strong>this frame</strong> を選びます。現在のフレームを含めて、読み込んだ追跡データの最後まで反転する場合は <strong>this frame onward</strong> を選びます。</li>
+<li><strong>Ctrl+S</strong>（macOSでは <strong>Command+S</strong> も可）で修正を保存します。</li>
+</ol>
+<p class="note"><strong>swap front/rear</strong> チェックボックスは、プレビューと書き出す動画で全個体の矢印表示を反転します。チェックするだけでは追跡データは変更されません。</p>
 </section><section><h2 id="section-10">10. Colab（beta）</h2>
 <p>保存済みのAMADEUS設定をGoogle Colabで実行し、GPUを使って処理できます。</p>
 <ol>
